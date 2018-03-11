@@ -1,0 +1,8 @@
+{
+  "name": "opencards",
+  "app_id": "17e06840",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
