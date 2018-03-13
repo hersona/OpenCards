@@ -7,9 +7,12 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SliderPage } from '../pages/slider/slider';
+import { ContentcardPage } from '../pages/contentcard/contentcard';
+import { RegisterPage } from '../pages/register/register';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { VideoPlayer } from '@ionic-native/video-player';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     LoginPage,
-    SliderPage
+    SliderPage,
+    ContentcardPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -29,11 +34,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     LoginPage,
-    SliderPage
+    SliderPage,
+    ContentcardPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    VideoPlayer,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

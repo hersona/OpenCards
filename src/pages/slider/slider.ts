@@ -29,7 +29,8 @@ export class SliderPage {
 
 irHome()
 {
-  this.navCtrl.push(HomePage);
+  this.navCtrl.setRoot(HomePage);
+  
 }
 
 }

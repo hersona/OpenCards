@@ -1,0 +1,105 @@
+<!--
+  Generated template for the ContentcardPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Jovenes
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <video width="100%" height="240" autoplay>
+          <source src="assets/videoplayback.mp4" type="video/mp4"> Your browser does not support the video tag.
+        </video>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <div padding>
+          <ion-segment [(ngModel)]="ContenidoTarjeta">
+            <ion-segment-button value="resumen">
+              Resumen
+            </ion-segment-button>
+            <ion-segment-button value="contenido">
+              Contenido
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+        <div [ngSwitch]="ContenidoTarjeta">
+
+          <ul *ngSwitchCase="'resumen'">
+            <li>
+              La herramienta de trabajo colaborativo preferida por consultores y líderes de equipo y organizaciones de las empresas innovadoras.
+            </li>
+            <li>
+              Potencializa el trabajo de tus OPEN CARDS usando otras herramientas de pensamiento visual que puedes aprender en la VISUAL
+              THINKING CERTIFICACTION de Open Mind y abre un nuevo panorama para el trabajo con equipos y personas.
+            </li>
+            <li>
+              Comparte tus experiencias con OPEN CARDS con #OPENCOMMUNITY la comunidad online en twitter y Linkedin de líderes que usan
+              esta herramienta con increíbles resultados.
+            </li>
+            <li>
+              Permanece atento a los nuevos productos en desarrollo y participa en nuestros pilotos y disfruta de precios especiales para
+              adquirirlos en preventa.
+            </li>
+          </ul>
+
+
+          <p *ngSwitchCase="'contenido'">
+            <ion-list>
+              <ion-item>
+                <ion-thumbnail item-start>
+                  <img src="assets/imgs/thumbnail-totoro.png">
+                </ion-thumbnail>
+                <h2>Metodo 1</h2>
+                <p>Como conocer a la gente</p>
+                <button ion-button clear item-end>Ver</button>
+              </ion-item>
+
+              <ion-item>
+                <ion-thumbnail item-start>
+                  <img src="assets/imgs/thumbnail-rotla.png">
+                </ion-thumbnail>
+                <h2>Metodo 2</h2>
+                <p>Descrubre tu mundo</p>
+                <button ion-button clear item-end>Ver</button>
+              </ion-item>
+
+              <ion-item>
+                <ion-thumbnail item-start>
+                  <img src="assets/imgs/thumbnail-ghostbusters.png">
+                </ion-thumbnail>
+                <h2>Metodo 3</h2>
+                <p>Mejora tu vida</p>
+                <button ion-button clear item-end>Ver</button>
+              </ion-item>
+
+              <ion-item>
+                <ion-thumbnail item-start>
+                  <img src="assets/img/thumbnail-batman.png">
+                </ion-thumbnail>
+                <h2>Metodo 4</h2>
+                <p>Descubre tu mundo</p>
+                <button ion-button clear item-end>Ver</button>
+              </ion-item>
+
+            </ion-list>
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+
+</ion-content>
