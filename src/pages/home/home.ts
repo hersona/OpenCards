@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ContentcardPage } from '../../pages/contentcard/contentcard';
 import { RegisterPage } from '../../pages/register/register';
 
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -17,4 +18,9 @@ export class HomePage {
     this.navCtrl.push(ContentcardPage);
   }
 
+  goToStore()
+  {
+    
+
+  }
 }
