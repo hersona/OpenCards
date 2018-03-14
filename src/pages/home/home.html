@@ -28,7 +28,7 @@
             </span><div class="button-effect"></div></button>
           </ion-col>
           <ion-col col-5 class="col" text-center="">
-            <button clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
+            <button (click)="showPrompt()" clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
               <ion-icon role="img" class="icon icon-ios ion-ios-cloud-download"></ion-icon>
               Descargar
             </span><div class="button-effect"></div></button>
@@ -56,24 +56,25 @@
           </p>
         </ion-card-content>
         <ion-row class="row" no-padding="">
-            <ion-col class="col">
-              <button clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
+            <ion-col col-3 class="col">
+              <button (click)="viewContent()" clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
                 <ion-icon  role="img" class="icon icon-ios ion-ios-eye"></ion-icon>
                 Ver
               </span><div class="button-effect"></div></button>
             </ion-col>
-            <ion-col class="col" text-center="">
-              <button clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
+            <ion-col col-5 class="col" text-center="">
+              <button (click)="showPrompt()" clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
                 <ion-icon role="img" class="icon icon-ios ion-ios-cloud-download"></ion-icon>
                 Descargar
               </span><div class="button-effect"></div></button>
             </ion-col>
-            <ion-col class="col" text-right="">
-              <button clear=""  icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios "><span class="button-inner">
+            <ion-col col-3 class="col" text-right="">
+              <button (click)="goToStore()" clear=""  icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios "><span class="button-inner">
                 <ion-icon  role="img" class="icon icon-ios ion-logo-usd"></ion-icon>
                 Comprar
               </span><div class="button-effect"></div></button>
             </ion-col>
+            
           </ion-row>
       </ion-card>
 
@@ -88,24 +89,25 @@
             </p>
           </ion-card-content>
           <ion-row class="row" no-padding="">
-              <ion-col class="col">
-                <button clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
+              <ion-col col-3 class="col">
+                <button (click)="viewContent()" clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
                   <ion-icon  role="img" class="icon icon-ios ion-ios-eye"></ion-icon>
                   Ver
                 </span><div class="button-effect"></div></button>
               </ion-col>
-              <ion-col class="col" text-center="">
-                <button clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
+              <ion-col col-5 class="col" text-center="">
+                <button (click)="showPrompt()" clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios"><span class="button-inner">
                   <ion-icon role="img" class="icon icon-ios ion-ios-cloud-download"></ion-icon>
                   Descargar
                 </span><div class="button-effect"></div></button>
               </ion-col>
-              <ion-col class="col" text-right="">
-                <button clear=""  icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios "><span class="button-inner">
+              <ion-col col-3 class="col" text-right="">
+                <button (click)="goToStore()" clear=""  icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios "><span class="button-inner">
                   <ion-icon  role="img" class="icon icon-ios ion-logo-usd"></ion-icon>
                   Comprar
                 </span><div class="button-effect"></div></button>
               </ion-col>
+              
             </ion-row>
         </ion-card>
 
