@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,MenuController } from 'ionic-angular';
 import { ContentcardPage } from '../../pages/contentcard/contentcard';
 import { RegisterPage } from '../../pages/register/register';
 import { AlertController } from 'ionic-angular';
@@ -12,7 +12,7 @@ export class HomePage {
 
   
 
-  constructor(public navCtrl: NavController,public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,public alertCtrl: AlertController, private menu: MenuController) {
 
   }
 
@@ -24,6 +24,12 @@ export class HomePage {
   {
     window.open('http://openmind-store.com', '_system');
   }
+
+ 
+
+  ionViewWillEnter() {
+    this.menu.enable(true, 'Menu1');
+  }  
 
 
   showPrompt() {

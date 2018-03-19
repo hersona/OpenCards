@@ -9,6 +9,8 @@ import { LoginPage } from '../pages/login/login';
 import { SliderPage } from '../pages/slider/slider';
 import { ContentcardPage } from '../pages/contentcard/contentcard';
 import { RegisterPage } from '../pages/register/register';
+import { ContentdetailPage } from '../pages/contentdetail/contentdetail';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,7 +24,8 @@ import { VideoPlayer } from '@ionic-native/video-player';
     LoginPage,
     SliderPage,
     ContentcardPage,
-    RegisterPage
+    RegisterPage,
+    ContentdetailPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { VideoPlayer } from '@ionic-native/video-player';
     LoginPage,
     SliderPage,
     ContentcardPage,
-    RegisterPage
+    RegisterPage,
+    ContentdetailPage
   ],
   providers: [
     StatusBar,
