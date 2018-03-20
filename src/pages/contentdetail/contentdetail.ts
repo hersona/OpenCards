@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ElementRef } from '@angular/core';
 import { MenuController,IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 
@@ -24,7 +24,7 @@ export class ContentdetailPage {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(private menu: MenuController, private nav: NavController,public navParams: NavParams){
+  constructor(private menu: MenuController, private nav: NavController,public navParams: NavParams,private elRef:ElementRef){
     // If we navigated to this page, we will have an item available as a nav param
     this.profileSettings.page = "Metodo 1";
     
@@ -35,14 +35,24 @@ export class ContentdetailPage {
     ];
   }
 
+
+  fontSize: number = 1; // default font size in `em`
+
+fontSizeChange($val: number){
+    this.fontSize +=$val;
+}
+
   ionViewWillEnter() {
     this.menu.enable(true, 'menu1');
   }  
 
+  
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    //this.nav.setRoot(page.component);
+    this.nav.setRoot(HomePage);
   }
 
   swipeEvent(e) {
@@ -56,21 +66,15 @@ export class ContentdetailPage {
     }
   }
 
-  tapEvent($event) {
-      alert('' + $event.direction);
-  }
-
   cambiarContenido(contenido)
   {
     console.log(contenido);
     this.profileSettings.page = contenido.title;
   }
 
-  itemTapped(item) {
-    // That's right, we're pushing to ourselves!
-    this.nav.push(ContentdetailPage, {
-      item: item
-    });
-  }
+  mostrarMenu()
+  {
+    this.menu.toggle();
+  }  
 
 }

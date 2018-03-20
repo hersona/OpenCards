@@ -23,9 +23,27 @@
     <ion-title>Getting Started</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content #thecontent (swipe)="swipeEvent($event)">
+<ion-content #thecontent (swipe)="swipeEvent($event)" [ngStyle]="{'font-size': fontSize+'em' }">
 
   <ion-grid>
+    <ion-row class="centrar">
+    
+        <ion-col col-12>
+            <ion-buttons>
+                <button (click)="mostrarMenu()" ion-button icon-only>
+                    <ion-icon name="menu"></ion-icon>
+                </button>
+                <button (click)="fontSizeChange(-0.2)" ion-button icon-only>
+                    <ion-icon name="remove"></ion-icon>
+                </button>
+                <button (click)="fontSizeChange(0.2)" ion-button icon-only>
+                    <ion-icon name="add"></ion-icon>
+                </button>
+            </ion-buttons>  
+        </ion-col>
+       
+       
+    </ion-row>
     <ion-row>
       <ion-col col-12>
         <h2>{{profileSettings.page}}</h2>
