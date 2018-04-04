@@ -14,12 +14,21 @@ import { SliderPage } from '../../pages/slider/slider';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
+
+
+
 export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    
+
   }
 
+
   doLogin() {
+
+
+
     this.navCtrl.push(SliderPage);
   }
 

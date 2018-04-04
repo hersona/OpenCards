@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController,MenuController } from 'ionic-angular';
 import { ContentcardPage } from '../../pages/contentcard/contentcard';
-import { RegisterPage } from '../../pages/register/register';
 import { AlertController } from 'ionic-angular';
+import { ContentProvider } from '../../providers/ContentProvider';
 
 @Component({
   selector: 'page-home',
@@ -11,13 +11,19 @@ import { AlertController } from 'ionic-angular';
 export class HomePage {
 
   
-
-  constructor(public navCtrl: NavController,public alertCtrl: AlertController, private menu: MenuController) {
-
+  listCards:any;
+  
+  constructor(public navCtrl: NavController,public alertCtrl: AlertController, private menu: MenuController,public contentprovider : ContentProvider) {
+    contentprovider.getCards().then(
+      res => this.listCards = res
+    );
   }
 
-  viewContent(){
-    this.navCtrl.push(ContentcardPage);
+  viewContent(sysIdValue){
+    console.log(sysIdValue);
+    this.navCtrl.push(ContentcardPage,{
+      sysId: sysIdValue
+    });
   }
 
   goToStore()

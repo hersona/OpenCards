@@ -7,19 +7,21 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Jovenes
+      {{ strTitulo }}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  
+  
   <ion-grid>
     <ion-row>
       
       <ion-col col-12>
-        <video width="100%" height="240" autoplay>
+       <!-- <video width="100%" height="240" autoplay>
           <source src="assets/videoplayback.mp4" type="video/mp4"> Your browser does not support the video tag.
-        </video>
+        </video> -->
       </ion-col>
     </ion-row>
     <ion-row>
@@ -37,21 +39,7 @@
         <div [ngSwitch]="ContenidoTarjeta">
 
           <ul *ngSwitchCase="'resumen'">
-            <li>
-              La herramienta de trabajo colaborativo preferida por consultores y líderes de equipo y organizaciones de las empresas innovadoras.
-            </li>
-            <li>
-              Potencializa el trabajo de tus OPEN CARDS usando otras herramientas de pensamiento visual que puedes aprender en la VISUAL
-              THINKING CERTIFICACTION de Open Mind y abre un nuevo panorama para el trabajo con equipos y personas.
-            </li>
-            <li>
-              Comparte tus experiencias con OPEN CARDS con #OPENCOMMUNITY la comunidad online en twitter y Linkedin de líderes que usan
-              esta herramienta con increíbles resultados.
-            </li>
-            <li>
-              Permanece atento a los nuevos productos en desarrollo y participa en nuestros pilotos y disfruta de precios especiales para
-              adquirirlos en preventa.
-            </li>
+              {{ strDescripcion }}
           </ul>
 
 

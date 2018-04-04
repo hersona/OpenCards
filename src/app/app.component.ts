@@ -11,6 +11,7 @@ import { ContentcardPage } from '../pages/contentcard/contentcard';
 import { RegisterPage } from '../pages/register/register';
 import { ContentdetailPage } from '../pages/contentdetail/contentdetail';
 
+
 @Component({
   templateUrl: 'app.html'
 })

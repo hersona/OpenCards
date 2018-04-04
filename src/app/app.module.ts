@@ -10,11 +10,13 @@ import { SliderPage } from '../pages/slider/slider';
 import { ContentcardPage } from '../pages/contentcard/contentcard';
 import { RegisterPage } from '../pages/register/register';
 import { ContentdetailPage } from '../pages/contentdetail/contentdetail';
+import { createClient, Entry } from 'contentful';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { VideoPlayer } from '@ionic-native/video-player';
+import { ContentProvider } from '../providers/ContentProvider';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { VideoPlayer } from '@ionic-native/video-player';
     StatusBar,
     SplashScreen,
     VideoPlayer,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ContentProvider
   ]
 })
 export class AppModule {}
