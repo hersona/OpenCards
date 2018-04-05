@@ -15,8 +15,8 @@ import { createClient, Entry } from 'contentful';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { VideoPlayer } from '@ionic-native/video-player';
 import { ContentProvider } from '../providers/ContentProvider';
+import { Facebook } from '@ionic-native/facebook';
 
 @NgModule({
   declarations: [
@@ -47,9 +47,9 @@ import { ContentProvider } from '../providers/ContentProvider';
   providers: [
     StatusBar,
     SplashScreen,
-    VideoPlayer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ContentProvider
+    ContentProvider,
+    Facebook
   ]
 })
 export class AppModule {}
