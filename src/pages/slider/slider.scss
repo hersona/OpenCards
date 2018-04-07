@@ -1,3 +1,49 @@
 page-slider {
 
+    .slider1{
+        background-image: url(../assets/imgs/slide1-background.jpg);
+        background-size:cover;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+    }
+
+    .slider2{
+        background-image: url(../assets/imgs/slide2-background.jpg);
+        background-size:cover;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+    }
+
+    .slider3{
+        background-image: url(../assets/imgs/slide3-background.jpg);
+        background-size:cover;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+    }
+
+    .slider4{
+        background-image: url(../assets/imgs/slide4-background.jpg);
+        background-size:cover;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+    }
+
+    .btnLogin{
+        background-color: #73BE40;
+    }
+    .swiper-pagination-bullet-active{
+        background:#6CAD31;
+    }
+
+    .RowSlider{
+        margin-top: 25px;
+    }
+
+    .scroll-content{
+        padding: 0px !important;
+    }
 }

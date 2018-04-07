@@ -1,20 +1,70 @@
-<!--
-  Generated template for the SliderPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Slider</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
-  SOY SLIDER
+  <ion-slides pager>
+    <ion-slide class="slider1">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <img src="assets/imgs/slide1-icon.png" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="RowSlider">
+          <ion-col offset-1 col-10>
+            Open Cards Methodology ® es una plataforma de conversaciones colaborativa para trabajar en equipo o individuales en temas
+            relevantes, soportada en varios kits de trabajo.
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
 
-  <button width="100%"  ion-button color="primary" (click)="irHome()" block>Ingresar</button>
+    <ion-slide class="slider2">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <img src="assets/imgs/slide2-icon.png" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="RowSlider">
+          <ion-col offset-1 col-10>
+              Aquí encontrarás todos los manuales y recursos de nuestros productos Open Cards Methodology ® para que tengas sesiones efectivas y lleves a los equipos a lograr sus objetivos en sus organizaciones.
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+
+    <ion-slide class="slider3">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <img src="assets/imgs/slide3-icon.png" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="RowSlider">
+          <ion-col offset-1 col-10>
+              Ingresa el código que se encuentra en la tarjeta llave de tu kit para realizar la descarga del manual o cualquier producto Open Cards Methodology ®.
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+
+    <ion-slide class="slider4">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <img src="assets/imgs/slide4-icon.png" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="RowSlider">
+          <ion-col offset-1 col-10>
+              ¡Disfruta tu sesión e inspira a otros para que actúen y cambien su mundo!
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="colWithOutPadding">
+                <button class="btnLogin" (click)="irHome()" ion-button color="primary" block>Ingresar a Open Cards</button>
+            </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+
+  </ion-slides>
 </ion-content>
