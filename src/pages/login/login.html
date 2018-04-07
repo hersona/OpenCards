@@ -11,7 +11,7 @@
 
 
 <ion-content padding class="bg-image">
-    <form class="FormLogin" (submit)="doLogin()">
+    <div class="ContentLogin">
         <ion-grid>
             <ion-row class="textTop" col-12>
                 Bienvenido
@@ -24,20 +24,22 @@
 
 
             <ion-row class="RowLogin FormSpace">
-                <ion-item>
-                    <ion-input type="text" placeholder="Nombres"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input type="text" placeholder="Apellidos"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input type="email" placeholder="Email"></ion-input>
-                </ion-item>
+                <form class="FormLogin">
+                    <ion-item>
+                        <ion-input type="text" placeholder="Nombres" [(ngModel)]="userData.name" name="name"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input type="text" placeholder="Apellidos" [(ngModel)]="userData.lastname" name="lastname"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input type="email" placeholder="Email" [(ngModel)]="userData.email" name="email"></ion-input>
+                    </ion-item>
+                </form>
             </ion-row>
 
             <ion-row>
                 <ion-col class="colWithOutPadding">
-                    <button class="btnLogin" ion-button color="primary" block>Ingresar</button>
+                    <button class="btnLogin" (click)="doLogin()" ion-button color="primary" block>Ingresar</button>
                 </ion-col>
             </ion-row>
 
@@ -64,9 +66,9 @@
             </ion-row>
 
             <ion-row class="textFooter" col-12>
-                    2018 © www.opencards.co
-                </ion-row>
+                2018 © www.opencards.co
+            </ion-row>
 
         </ion-grid>
-    </form>
+    </div>
 </ion-content>

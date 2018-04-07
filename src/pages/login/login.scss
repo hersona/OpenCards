@@ -7,7 +7,7 @@ page-login {
         
     }
 
-    .FormLogin{
+    .ContentLogin{ 
         margin-top: 40px;
         font-size: 18px;
         font-weight: normal;
@@ -30,6 +30,9 @@ page-login {
         font-size: 12px;
     }
 
+    .FormLogin{
+        width: 95%;
+    }
 
     .RowLogin {
         background-color: white;
