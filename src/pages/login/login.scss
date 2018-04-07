@@ -1,7 +1,5 @@
 page-login {
     
-
-
     .bg-image{
         background-image: url('../assets/imgs/back.jpg') !important;
         background-repeat: no-repeat;
@@ -9,17 +7,54 @@ page-login {
         
     }
 
+    .FormLogin{
+        margin-top: 40px;
+        font-size: 18px;
+        font-weight: normal;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .textTop{
+        text-align: center;
+        color:#D0CFCF;
+        display: flex;
+        justify-content: center;
+    }
+
+    .textFooter{
+        text-align: center;
+        color:#D0CFCF;
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        font-size: 12px;
+    }
+
+
     .RowLogin {
         background-color: white;
     }
 
-    ion-label {
-        font-size: 16px;
-        font-weight: bold;
+    .btnLogin{
+        background-color: #73BE40;
     }
-    
-    .CenterText{
-        text-align: center;
+
+    .btnFacebook{
+        background-color: #0A89FF;
+    }
+
+    .FormSpace {
+        margin-top: 40px;
+
+    }
+
+    .colWithOutPadding{
+        padding: 0px;
+        margin-top: 15px;
+    }
+
+    .SpaceFooter{
+        margin-top: 50px;
     }
 
 }
