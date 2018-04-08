@@ -1,3 +1,49 @@
 page-home {
 
+    .HeaderHome{
+        background-image: url('../assets/imgs/header-library-open-cards.png') !important;
+        background-repeat: no-repeat;
+        background-size: 100vw 150px;
+        width: 100vw;
+        margin-left: -15px;
+        margin-top: -15px;
+        height: 150px;
+    }
+
+
+    .HeaderHome span{
+        font-size: 18px;
+        width: 65vw;
+        display:block;
+        padding-top: 30px;
+        padding-left: 30px;
+    }
+
+    .filaHome{
+        height: 178px;
+        margin-top: 30px;
+        background-image: url('../assets/imgs/library-background-open-cards.jpg') !important;
+        background-size: cover;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+
+    /* Create three equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 10px;
+        padding-top: 48px;
+    }
+
+    /* Clear floats after the columns */
+    .filaHome:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+   
+
 }
