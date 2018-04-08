@@ -17,6 +17,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ContentProvider } from '../providers/ContentProvider';
 import { Facebook } from '@ionic-native/facebook';
+import {DomSanitizer} from "@angular/platform-browser";
+
 
 @NgModule({
   declarations: [
