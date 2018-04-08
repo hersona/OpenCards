@@ -18,7 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ContentProvider } from '../providers/ContentProvider';
 import { Facebook } from '@ionic-native/facebook';
 import {DomSanitizer} from "@angular/platform-browser";
-
+import { HTTP } from '@ionic-native/http';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,8 @@ import {DomSanitizer} from "@angular/platform-browser";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ContentProvider,
-    Facebook
+    Facebook,
+    HTTP
   ]
 })
 export class AppModule {}

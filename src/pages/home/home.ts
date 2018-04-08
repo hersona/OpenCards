@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ElementRef } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { ContentcardPage } from '../../pages/contentcard/contentcard';
 import { AlertController } from 'ionic-angular';
@@ -16,16 +16,19 @@ export class HomePage {
   numberCard: number;
   objRender:SafeHtml;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private menu: MenuController, public contentprovider: ContentProvider,private sanitizer:DomSanitizer) {
+  constructor(private el:ElementRef,public navCtrl: NavController, public alertCtrl: AlertController, private menu: MenuController, public contentprovider: ContentProvider,private sanitizer:DomSanitizer) {
     this.builderHtml = "";
     contentprovider.getCards().then(
       res => (this.listCards = res,
         this.BuildList(this.listCards)
       ));
+      
   }
 
   //Construir lista dinamica
   BuildList(listCards) {
+    
+
     console.log(listCards);
     this.numberCard = 0;
     for (let data of listCards) 
@@ -35,8 +38,8 @@ export class HomePage {
         this.builderHtml += "<div class=\"filaHome\">";
       }
 
-      this.builderHtml += "<div class=\"column\">" +
-        "<img (click)=\"viewContent('" + data.sys.id + "')\" src=\"https://" + data.fields.imgTarjeta.fields.file.url + "\" /></div>";
+      this.builderHtml += "<div id=\"" + data.sys.id + "\" onclick=\"viewContent('" + data.sys.id + "')\" class=\"column\">" +
+        "<img  src=\"https://" + data.fields.imgTarjeta.fields.file.url + "\" /></div>";
 
       this.numberCard += 1;
 

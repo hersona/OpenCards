@@ -86,6 +86,7 @@
         <variable name="APP_NAME" value="Open Cards" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
+    <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="7.0.0" />
 </widget>

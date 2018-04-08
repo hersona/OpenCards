@@ -15,41 +15,17 @@
     </span>
   </div>
 
-  <div [innerHtml]="objRender">
-      
-  </div>
-
-  <!--
-  <div class="filaHome">
-    <div class="column">
-      <img src="assets/imgs/kit-conversation-open-cards.jpg" />
-    </div>
-
-    <div class="column">
-      <img src="assets/imgs/kit-break-through-open-cards.jpg" />
-    </div>
-    <div class="column">
-      <img src="assets/imgs/kit-creativity-open-cards.jpg" />
-    </div>
-  </div>
-
-  <div class="filaHome">
-      <div class="column">
-        <img src="assets/imgs/kit-conversation-open-cards-2.jpg" />
-      </div>
   
-      <div class="column">
-        <img src="assets/imgs/kit-expansion-open-cards.jpg" />
-      </div>
-      <div class="column">
-        <img src="assets/imgs/kit-unique-open-cards.jpg" />
-      </div>
+  <!--<div [innerHtml]="objRender">
+  </div>-->
+  
+  <div class="filaHome">
+    <div *ngFor="let data of listCards; let i = index" class="column">
+      <img (click)="viewContent(data.sys.id)" src="{{ data.fields.imgTarjeta.fields.file.url }}" />
     </div>
-  -->
+  </div>
 
-
-
-
+  
   <!--
   <h3 style="text-align: center">Kits Opencards</h3>
 

@@ -20,10 +20,10 @@ page-home {
     }
 
     .filaHome{
-        height: 178px;
         margin-top: 30px;
         background-image: url('../assets/imgs/library-background-open-cards.jpg') !important;
-        background-size: cover;
+        background-repeat: repeat;
+        background-size: 100vw 195px;
         padding-left: 15px;
         padding-right: 15px;
     }
@@ -34,7 +34,7 @@ page-home {
         float: left;
         width: 33.33%;
         padding: 10px;
-        padding-top: 48px;
+        padding-top: 54px;
     }
 
     /* Clear floats after the columns */
