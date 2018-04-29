@@ -8,6 +8,7 @@ page-home {
         margin-left: -15px;
         margin-top: -15px;
         height: 150px;
+        background-color:#464646;
     }
 
 
@@ -17,12 +18,13 @@ page-home {
         display:block;
         padding-top: 30px;
         padding-left: 30px;
+        color: white;
     }
 
     .filaHome{
         margin-top: 30px;
         background-image: url('../assets/imgs/library-background-open-cards.jpg') !important;
-        background-size: 90vw 500vw;
+        background-size: 100% auto;
         padding-left: 15px;
         padding-right: 19px;
     }

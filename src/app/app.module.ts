@@ -19,6 +19,8 @@ import { ContentProvider } from '../providers/ContentProvider';
 import { Facebook } from '@ionic-native/facebook';
 import {DomSanitizer} from "@angular/platform-browser";
 import { HTTP } from '@ionic-native/http';
+import { OneSignal } from '@ionic-native/onesignal';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { HTTP } from '@ionic-native/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ContentProvider,
     Facebook,
-    HTTP
+    HTTP,
+    OneSignal
   ]
 })
 export class AppModule {}

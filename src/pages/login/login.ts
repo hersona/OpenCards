@@ -21,6 +21,7 @@ import { AlertController } from 'ionic-angular';
 
 export class LoginPage {
 
+  FB_APP_ID: number = 1039887276149982;
   user: any = {};
   userData = {
     name: '',
@@ -29,7 +30,10 @@ export class LoginPage {
   };
   showUser: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private facebook: Facebook, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
+    private facebook: Facebook) {
+
+
   }
 
   validateEmail(email) {
@@ -57,16 +61,8 @@ export class LoginPage {
   }
 
   loginWithFB() {
-    this.navCtrl.push(SliderPage);
-    /*
-    this.facebook.login(['email', 'public_profile']).then((response: FacebookLoginResponse) => {
-      this.facebook.api('me?fields=id,name,email,first_name,picture.width(720).height(720).as(picture_large)', []).then(profile => {
-        this.user = { email: profile['email'], first_name: profile['first_name'], picture: profile['picture_large']['data']['url'], username: profile['name'] }
-      });
-    });*/
-  }
+    //this.navCtrl.push(SliderPage);
 
-  loginFacebook() {
     try {
       this.facebook.login(['public_profile', 'email'])
         .then(rta => {
@@ -81,6 +77,23 @@ export class LoginPage {
     } catch (Error) {
       alert(Error.message);
     }
+  }
+
+  loginFacebook() {
+    /*try {
+      this.facebook.login(['public_profile', 'email'])
+        .then(rta => {
+          console.log(rta.status);
+          if (rta.status == 'connected') {
+            this.getInfo();
+          };
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } catch (Error) {
+      alert(Error.message);
+    }*/
   }
 
   getInfo() {

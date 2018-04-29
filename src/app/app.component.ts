@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform,AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -10,6 +10,7 @@ import { SliderPage } from '../pages/slider/slider';
 import { ContentcardPage } from '../pages/contentcard/contentcard';
 import { RegisterPage } from '../pages/register/register';
 import { ContentdetailPage } from '../pages/contentdetail/contentdetail';
+import { OneSignal } from '@ionic-native/onesignal';
 
 
 @Component({
@@ -22,9 +23,10 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,    private oneSignal: OneSignal  ,private alertCtrl: AlertController
+  ) {
     this.initializeApp();
-
+    
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
@@ -44,7 +46,24 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.show();
+      this.handlerNotifications();
     });
+  }
+
+  private handlerNotifications(){
+    this.oneSignal.startInit('ed0d9b69-1d1c-469f-a50b-f953cc47bea8', '760511075014');
+  this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+  this.oneSignal.handleNotificationOpened()
+  .subscribe(jsonData => {
+    let alert = this.alertCtrl.create({
+      title: jsonData.notification.payload.title,
+      subTitle: jsonData.notification.payload.body,
+      buttons: ['OK']
+    });
+    alert.present();
+    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+  });
+  this.oneSignal.endInit();
   }
 
   openPage(page) {
