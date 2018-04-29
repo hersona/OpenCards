@@ -63,8 +63,11 @@ export class LoginPage {
   loginWithFB() {
     //this.navCtrl.push(SliderPage);
 
+
+    
+
     try {
-      this.facebook.login(['public_profile', 'email'])
+      this.facebook.login(['public_profile'])
         .then(rta => {
           console.log(rta.status);
           if (rta.status == 'connected') {
@@ -72,9 +75,12 @@ export class LoginPage {
           };
         })
         .catch(error => {
+          console.error("ERROR 1");
           console.error(error);
+          console.error(error.message);
         });
     } catch (Error) {
+      console.error("ERROR 2");
       alert(Error.message);
     }
   }
