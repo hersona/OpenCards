@@ -57,5 +57,6 @@ import { OneSignal } from '@ionic-native/onesignal';
     HTTP,
     OneSignal
   ]
+  
 })
 export class AppModule {}
