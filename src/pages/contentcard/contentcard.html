@@ -5,33 +5,33 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <ion-title>
+  <ion-navbar class="headerContent">
+    <ion-title class="headerTitulo">
       {{ strTitulo }}
     </ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  
-  
+
+
   <ion-grid>
     <ion-row>
-      
+
       <ion-col col-12>
-       <video width="100%" height="240" autoplay>
-          <source src="assets/videoplayback.mp4" type="video/mp4"> Your browser does not support the video tag.
-        </video> 
+        <video width="100%" height="240" autoplay>
+          <source src="assets/videoplayback.mp4" type="video/mp4">
+          <source src="assets/videoplayback.webm" type="video/mp4"> Your browser does not support the video tag.
+        </video>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-12>
         <div padding>
           <ion-segment [(ngModel)]="ContenidoTarjeta">
-            <ion-segment-button value="resumen">
+            <ion-segment-button class="tabSummary" value="resumen">
               Resumen
             </ion-segment-button>
-            <ion-segment-button value="contenido">
+            <ion-segment-button class="tabContent" value="contenido">
               Contenido
             </ion-segment-button>
           </ion-segment>
@@ -39,48 +39,38 @@
         <div [ngSwitch]="ContenidoTarjeta">
 
           <ul *ngSwitchCase="'resumen'">
-              {{ strDescripcion }}
+            {{ strDescripcion }}
           </ul>
 
 
           <p *ngSwitchCase="'contenido'">
             <ion-list>
               <ion-item>
-                <ion-thumbnail item-start>
-                  <img src="assets/imgs/thumbnail-totoro.png">
-                </ion-thumbnail>
-                <h2>Metodo 1</h2>
-                <p>Como conocer a la gente</p>
-                <button (click)="goContenteDetail()" ion-button clear item-end>Ver</button>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-10>
+                      <h2 class="tittleMethod">Metodo 1</h2>
+                      <p>Como conocer a la gente</p>
+                    </ion-col>
+                    <ion-col col-2>
+                        <ion-icon name="arrow-dropright" (click)="goContenteDetail()"></ion-icon>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
               </ion-item>
-
               <ion-item>
-                <ion-thumbnail item-start>
-                  <img src="assets/imgs/thumbnail-rotla.png">
-                </ion-thumbnail>
-                <h2>Metodo 2</h2>
-                <p>Descrubre tu mundo</p>
-                <button ion-button clear item-end>Ver</button>
-              </ion-item>
-
-              <ion-item>
-                <ion-thumbnail item-start>
-                  <img src="assets/imgs/thumbnail-ghostbusters.png">
-                </ion-thumbnail>
-                <h2>Metodo 3</h2>
-                <p>Mejora tu vida</p>
-                <button ion-button clear item-end>Ver</button>
-              </ion-item>
-
-              <ion-item>
-                <ion-thumbnail item-start>
-                  <img src="assets/img/thumbnail-batman.png">
-                </ion-thumbnail>
-                <h2>Metodo 4</h2>
-                <p>Descubre tu mundo</p>
-                <button ion-button clear item-end>Ver</button>
-              </ion-item>
-
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col col-10>
+                        <h2 class="tittleMethod">Metodo 2</h2>
+                        <p>Descripción metodo 2</p>
+                      </ion-col>
+                      <ion-col col-2>
+                          <ion-icon name="arrow-dropright" (click)="goContenteDetail()"></ion-icon>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-item>
             </ion-list>
           </p>
         </div>

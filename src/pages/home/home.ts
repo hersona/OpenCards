@@ -106,4 +106,9 @@ export class HomePage {
     prompt.present();
   }
 
+  showMenu()
+  {
+    this.menu.toggle();
+  }  
+
 }

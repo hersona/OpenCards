@@ -1,23 +1,11 @@
-<ion-header no-border>
-  <ion-navbar transparent>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title></ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
 
   <div class="HeaderHome">
+    <ion-icon (click)="showMenu()" class="ion-md-menu botonMenu"></ion-icon>
     <span>
       Selecciona tu manual de la librería Open Cards Methodology ®
     </span>
   </div>
-
-  
-  <!--<div [innerHtml]="objRender">
-  </div>-->
   
   <div class="filaHome">
     <div *ngFor="let data of listCards; let i = index" class="column">
@@ -25,51 +13,4 @@
     </div>
   </div>
 
-  
-  <!--
-  <h3 style="text-align: center">Kits Opencards</h3>
-
-  <ion-card *ngFor="let data of listCards; let i = index">
-    <img src="assets/imgs/tarjeta1.jpg" />
-    <ion-card-content>
-      <ion-card-title>
-        {{ data.fields.titulo }}
-      </ion-card-title>
-      <p>
-        {{ data.fields.descripcion }}
-      </p>
-    </ion-card-content>
-    <ion-row class="row" no-padding="">
-      <ion-col col-3 class="col">
-        <button (click)="viewContent(data.sys.id)" clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios">
-          <span class="button-inner">
-            <ion-icon role="img" class="icon icon-ios ion-ios-eye"></ion-icon>
-            Ver
-          </span>
-          <div class="button-effect"></div>
-        </button>
-      </ion-col>
-      <ion-col col-5 class="col" text-center="">
-        <button (click)="showPrompt()" clear="" color="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios">
-          <span class="button-inner">
-            <ion-icon role="img" class="icon icon-ios ion-ios-cloud-download"></ion-icon>
-            Descargar
-          </span>
-          <div class="button-effect"></div>
-        </button>
-      </ion-col>
-      <ion-col col-3 class="col" text-right="">
-        <button (click)="goToStore()" clear="" icon-start="" ion-button="" small="" class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios ">
-          <span class="button-inner">
-            <ion-icon role="img" class="icon icon-ios ion-logo-usd"></ion-icon>
-            Comprar
-          </span>
-          <div class="button-effect"></div>
-        </button>
-      </ion-col>
-
-    </ion-row>
-  </ion-card>
-
--->
 </ion-content>

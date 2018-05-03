@@ -1,3 +1,43 @@
 page-contentcard {
+    
+    .toolbar-background {
+        background-color: #3D3D3D !important;
+      }
 
+      .toolbar-title{
+        color:white !important;
+      }
+
+      .bar-button{
+          color:#82C61E;
+      }
+
+      .scroll-content{
+          margin-top: 0px !important;
+      }
+
+      .grid{
+          padding: 0px !important;
+      }
+
+      .tabSummary{
+          background-color: #84C61C !important;
+          border-color:  #84C61C !important;
+          color:white !important;
+      }
+
+      .tabContent{
+          background-color: #4C7F00 !important;
+          border-color: #4C7F00 !important;
+          color: white !important;
+      }
+
+      .ion-ios-arrow-dropright{
+        color:#4C7F00 !important;
+        font-size: 30px;
+      }
+
+      .tittleMethod{
+          text-align: left !important;
+      }
 }

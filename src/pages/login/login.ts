@@ -33,7 +33,6 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
     private facebook: Facebook) {
 
-
   }
 
   validateEmail(email) {
@@ -61,12 +60,8 @@ export class LoginPage {
   }
 
   loginWithFB() {
-    //this.navCtrl.push(SliderPage);
-
-
-    
-
-    try {
+    this.navCtrl.push(SliderPage);
+    /*try {
       this.facebook.login(['public_profile'])
         .then(rta => {
           console.log(rta.status);
@@ -82,26 +77,10 @@ export class LoginPage {
     } catch (Error) {
       console.error("ERROR 2");
       alert(Error.message);
-    }
-  }
-
-  loginFacebook() {
-    /*try {
-      this.facebook.login(['public_profile', 'email'])
-        .then(rta => {
-          console.log(rta.status);
-          if (rta.status == 'connected') {
-            this.getInfo();
-          };
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    } catch (Error) {
-      alert(Error.message);
     }*/
   }
 
+  
   getInfo() {
     this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender', ['public_profile', 'email'])
       .then(data => {

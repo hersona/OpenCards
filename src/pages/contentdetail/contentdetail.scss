@@ -2,10 +2,38 @@ page-contentdetail {
 
 }
 
-.centrar {
-    text-align: center
+.HeaderMain {
+    text-align: center;
+    background-color: #282828 !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-h2 
-{    text-align: center;
-    }
+.HeaderMain img{
+    max-width: 48px;
+    padding-left: 5px;
+}
+
+
+.grid{
+    padding: 0px !important;
+}
+
+.TittleDetail h1
+{
+    font-size: 15px;
+    padding-left: 18px;
+}
+
+.TittleDetail h2
+{
+    font-size: 34px;
+    padding-left: 18px;
+}
+
+.imgMain{
+    width: 101%;
+    max-width:101%;
+}
+
+
