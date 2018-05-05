@@ -1,7 +1,6 @@
 import { Component,ElementRef } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { ContentcardPage } from '../../pages/contentcard/contentcard';
-import { AlertController } from 'ionic-angular';
 import { ContentProvider } from '../../providers/ContentProvider';
 import {DomSanitizer,SafeHtml} from "@angular/platform-browser";
 
@@ -16,48 +15,12 @@ export class HomePage {
   numberCard: number;
   objRender:SafeHtml;
 
-  constructor(private el:ElementRef,public navCtrl: NavController, public alertCtrl: AlertController, private menu: MenuController, public contentprovider: ContentProvider,private sanitizer:DomSanitizer) {
+  constructor(private el:ElementRef,public navCtrl: NavController, private menu: MenuController, public contentprovider: ContentProvider,private sanitizer:DomSanitizer) {
     this.builderHtml = "";
     contentprovider.getCards().then(
-      res => (this.listCards = res,
-        this.BuildList(this.listCards)
+      res => (this.listCards = res
       ));
       
-  }
-
-  //Construir lista dinamica
-  BuildList(listCards) {
-    
-
-    console.log(listCards);
-    this.numberCard = 0;
-    for (let data of listCards) 
-    {
-      //Validar si se debe iniciar una nueva fila
-      if (this.numberCard == 0) {
-        this.builderHtml += "<div class=\"filaHome\">";
-      }
-
-      this.builderHtml += "<div id=\"" + data.sys.id + "\" onclick=\"viewContent('" + data.sys.id + "')\" class=\"column\">" +
-        "<img  src=\"https://" + data.fields.imgTarjeta.fields.file.url + "\" /></div>";
-
-      this.numberCard += 1;
-
-      if (this.numberCard == 3) {
-        this.builderHtml += "</div>";
-      }
-
-      if (this.numberCard == 3) {
-        this.numberCard = 0;
-      }
-    }
-    if(this.numberCard != 3)
-    {
-      this.builderHtml += "</div>";
-    }
-    
-   this.objRender = this.sanitizer.bypassSecurityTrustHtml(this.builderHtml);
-    
   }
 
   viewContent(sysIdValue) {
@@ -75,35 +38,6 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.menu.enable(true, 'Menu1');
-  }
-
-
-  showPrompt() {
-    let prompt = this.alertCtrl.create({
-      title: 'Tarjeta conversación',
-      message: "Digita el código que se encuentra en el interior de la caja",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'Código de descarga'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Descargar',
-          handler: data => {
-            this.navCtrl.push(ContentcardPage);
-          }
-        }
-      ]
-    });
-    prompt.present();
   }
 
   showMenu()

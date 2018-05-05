@@ -17,22 +17,22 @@ export class ContentProvider {
 
     private client = createClient({
         // This is the space ID. A space is like a project folder in Contentful terms
-        space: 'ixdx605vg0m5',
+        space: 'lm3zkd6fnywn',
         // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
-        accessToken: '28d345b96ff85031961366574cdc5450f88da02646cf357e6e1ec5e8623a0f71'
+        accessToken: '09245226a9d6b0eeceea3494ec33ce6caa96ff802ccd7804426130421c4ff363'
     })
 
     getCards(query?: object): Promise<Entry<any>[]> {
         return this.client.getEntries(Object.assign({
-            content_type: 'tarjeta'
+            content_type: 'producto'
         }, query))
             .then(res => res.items);
     }
 
-    getCard(courseId): Promise<Entry<any>> {
+    getCard(courseId): Promise<Entry<any>[]> {
         return this.client.getEntries(Object.assign({
-            content_type: 'tarjeta'
-        }, { 'sys.id': courseId }))
-            .then(res => res.items[0]);
+            content_type: 'moduloProducto'
+        }, { 'fields.productoRelacionado.sys.id': courseId }))
+            .then(res => res.items);
     }
 }

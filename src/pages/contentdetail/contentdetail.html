@@ -2,8 +2,8 @@
   <ion-content class="MenuMain">
     <ion-list>
       <button class="MenuMain" menuClose ion-item (click)="openPage('HomePage')">Libreria</button>
-      <button class="MenuMain" menuClose ion-item *ngFor="let p of pages" (click)="cambiarContenido(p)">
-        {{p.title}}
+      <button class="MenuMain" menuClose ion-item *ngFor="let data of objCard; let i = index" (click)="goContenteDetail(data,objCard)">
+          {{ data.fields.titulo }}
       </button>
 
     </ion-list>
@@ -22,31 +22,24 @@
     </ion-row>
     <ion-row>
       <ion-col class="TittleDetail" col-12>
-        <h1>{{profileSettings.page}}:</h1>
-        <h2>Diagnostico de equipos</h2>
+        <h1>{{profileSettings.titulo}}:</h1>
+        <h2>{{profileSettings.subTitulo}}</h2>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-12>
-        <img class="imgMain" src="assets/imgs/tarjeta1.jpg" />
+        <img class="imgMain" src="{{ profileSettings.imagenProducto.fields.file.url }}" />
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-12>
-        <ul>
-          <li>
-            La herramienta de trabajo colaborativo preferida por consultores y líderes de equipo y organizaciones de las empresas innovadoras.
-          </li>
-          <li>Potencializa el trabajo de tus OPEN CARDS usando otras herramientas de pensamiento visual que puedes aprender en
-            la VISUAL THINKING CERTIFICACTION de Open Mind y abre un nuevo panorama para el trabajo con equipos y personas.
-          </li>
-          <li>Comparte tus experiencias con OPEN CARDS con #OPENCOMMUNITY la comunidad online en twitter y Linkedin de líderes
-            que usan esta herramienta con increíbles resultados.
-          </li>
-          <li>Permanece atento a los nuevos productos en desarrollo y participa en nuestros pilotos y disfruta de precios especiales
-            para adquirirlos en preventa.
-          </li>
-        </ul>
+      <ion-col>
+       
+      </ion-col>
+      <ion-col col-10>
+          {{ profileSettings.descripcion }}
+      </ion-col>
+      <ion-col>
+
       </ion-col>
     </ion-row>
   </ion-grid>
