@@ -1,25 +1,28 @@
 page-home {
+    .scroll-content{
+        padding: 0px !important;
+    }
 
     .HeaderHome{
         background-image: url('../assets/imgs/header-library-open-cards.png') !important;
         background-repeat: no-repeat;
         background-size: 100vw 185px;
         width: 100vw;
-        margin-left: -15px;
-        margin-top: -15px;
         height: 185px;
         background-color:#464646;
     }
 
 
     .HeaderHome span{
-        font-size: 18px;
+        font-size: 14px;
         width: 65vw;
         display:block;
         padding-top: 30px;
         padding-left: 30px;
         color: white;
     }
+
+
 
     .filaHome{
         margin-top: 30px;
@@ -31,9 +34,10 @@ page-home {
 
     .botonMenu{
         color:#8EBF05;
-        font-size: 40px;
+        font-size: 30px;
         margin-top: 20px;
         margin-left: 20px;
+
     }
 
     /* Create three equal columns that floats next to each other */

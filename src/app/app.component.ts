@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform,AlertController } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -12,6 +12,9 @@ import { RegisterPage } from '../pages/register/register';
 import { ContentdetailPage } from '../pages/contentdetail/contentdetail';
 import { OneSignal } from '@ionic-native/onesignal';
 
+import { SQLite } from '@ionic-native/sqlite';
+import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -20,13 +23,14 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
+  pages: Array<{ title: string, component: any }>;
 
-  pages: Array<{title: string, component: any}>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,    private oneSignal: OneSignal  ,private alertCtrl: AlertController
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+    private oneSignal: OneSignal, private alertCtrl: AlertController,
+    public tasksService: TasksServiceProvider, public sqlite: SQLite
   ) {
     this.initializeApp();
-    
+
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
@@ -48,23 +52,56 @@ export class MyApp {
       this.splashScreen.show();
       //Notificaciones Push
       //this.handlerNotifications();
+      //Base de datos
+      this.createDatabase();
     });
   }
 
-  private handlerNotifications(){
+
+  private createDatabase() {
+    this.sqlite.create({
+      name: 'opencards.db',
+      location: 'default' // the location field is required
+    })
+      .then((db) => {
+        this.tasksService.setDatabase(db);
+        this.tasksService.createTable();
+        //Revisar si ya esta creado previamente lo debe enviar al home
+        this.tasksService.getAll()
+          .then(data => {
+            if(data.length > 0)
+            {
+              this.rootPage = HomePage;
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      })
+      .then(() => {
+        this.splashScreen.hide();
+        //this.rootPage = 'HomePage';
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+  }
+
+  private handlerNotifications() {
     this.oneSignal.startInit('ed0d9b69-1d1c-469f-a50b-f953cc47bea8', '760511075014');
-  this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
-  this.oneSignal.handleNotificationOpened()
-  .subscribe(jsonData => {
-    let alert = this.alertCtrl.create({
-      title: jsonData.notification.payload.title,
-      subTitle: jsonData.notification.payload.body,
-      buttons: ['OK']
-    });
-    alert.present();
-    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-  });
-  this.oneSignal.endInit();
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+    this.oneSignal.handleNotificationOpened()
+      .subscribe(jsonData => {
+        let alert = this.alertCtrl.create({
+          title: jsonData.notification.payload.title,
+          subTitle: jsonData.notification.payload.body,
+          buttons: ['OK']
+        });
+        alert.present();
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      });
+    this.oneSignal.endInit();
   }
 
   openPage(page) {

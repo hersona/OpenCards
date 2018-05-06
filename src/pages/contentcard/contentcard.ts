@@ -3,12 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContentdetailPage } from '../../pages/contentdetail/contentdetail';
 import { ContentProvider } from '../../providers/ContentProvider';
 import { AlertController } from 'ionic-angular';
-/**
- * Generated class for the ContentcardPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser';
+
+
 
 @IonicPage()
 @Component({
@@ -22,14 +19,37 @@ export class ContentcardPage {
   objCard: any;
   strTitulo: string;
   strDescripcion: string;
+  strUrlCompra: string;
+  options : InAppBrowserOptions = {
+    location : 'yes',//Or 'no' 
+    hidden : 'no', //Or  'yes'
+    clearcache : 'yes',
+    clearsessioncache : 'yes',
+    zoom : 'yes',//Android only ,shows browser zoom controls 
+    hardwareback : 'yes',
+    mediaPlaybackRequiresUserAction : 'no',
+    shouldPauseOnSuspend : 'no', //Android only 
+    closebuttoncaption : 'Close', //iOS only
+    disallowoverscroll : 'no', //iOS only 
+    toolbar : 'yes', //iOS only 
+    enableViewportScale : 'no', //iOS only 
+    allowInlineMediaPlayback : 'no',//iOS only 
+    presentationstyle : 'pagesheet',//iOS only 
+    fullscreen : 'yes',//Windows only    
+  };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public contentprovider: ContentProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public alertCtrl: AlertController, public contentprovider: ContentProvider,
+    private theInAppBrowser: InAppBrowser
+    ) {
     this.sysId = navParams.get("sysId");
 
     contentprovider.getCard(this.sysId).then(
-      res => (console.log(res), this.strTitulo = res[0].fields.productoRelacionado.fields.titulo
-        , this.strDescripcion = res[0].fields.productoRelacionado.fields.descripcion,
-        this.objCard = res
+      res => (console.log(res), 
+        this.strTitulo = res[0].fields.productoRelacionado.fields.titulo
+        ,this.strDescripcion = res[0].fields.productoRelacionado.fields.descripcion
+        ,this.strUrlCompra = res[0].fields.productoRelacionado.fields.urlTiendaProducto
+        ,this.objCard = res
       )
     );
 
@@ -46,10 +66,7 @@ export class ContentcardPage {
   }
 
 
-  showPrompt(titulo) {
-
-    console.log(titulo);
-
+  showPrompt(titulo,urlDescarga) {
     let prompt = this.alertCtrl.create({
       title: titulo,
       message: "Digita el código que se encuentra en el interior de la caja",
@@ -70,6 +87,13 @@ export class ContentcardPage {
           text: 'Descargar',
           handler: data => {
             
+          }
+        },
+        {
+          text: 'Comprar',
+          handler: data => {
+            let target = "_system";
+            this.theInAppBrowser.create(urlDescarga,target,this.options);            
           }
         }
       ]

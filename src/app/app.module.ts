@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { HttpClientModule } from '@angular/common/http'; 
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -20,6 +21,10 @@ import { Facebook } from '@ionic-native/facebook';
 import {DomSanitizer} from "@angular/platform-browser";
 import { HTTP } from '@ionic-native/http';
 import { OneSignal } from '@ionic-native/onesignal';
+import { SQLite } from '@ionic-native/sqlite';
+import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 
 @NgModule({
@@ -36,6 +41,7 @@ import { OneSignal } from '@ionic-native/onesignal';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +61,10 @@ import { OneSignal } from '@ionic-native/onesignal';
     ContentProvider,
     Facebook,
     HTTP,
-    OneSignal
+    OneSignal,
+    SQLite,
+    TasksServiceProvider,
+    InAppBrowser
   ]
   
 })
