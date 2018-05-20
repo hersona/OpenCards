@@ -4,6 +4,7 @@ import { SliderPage } from '../../pages/slider/slider';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { AlertController } from 'ionic-angular';
 import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
+import { RestProvider } from '../../providers/rest/rest';
 
 
 /**
@@ -34,8 +35,19 @@ export class LoginPage {
   rows: any;
   data: any;
 
+  results: any = {};
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
-    private facebook: Facebook,public tasksService: TasksServiceProvider) {
+    private facebook: Facebook,public tasksService: TasksServiceProvider,public restProvider: RestProvider) {
+      //this.restProvider.saveTokenAcces();
+      /*this.restProvider.saveTokenAcces().then((result) => {
+        //this.results = result;
+        //console.log(this.results.access_token);
+        console.log(result);
+      }, (err) => {
+        console.log(err);
+        console.log(err);
+      });*/
 
   }
 
@@ -47,7 +59,8 @@ export class LoginPage {
 
   createUser(userData)
   {
-    this.tasksService.create(userData)
+    this.navCtrl.push(SliderPage);
+    /*this.tasksService.create(userData)
     .then(response => {
       console.log(response),
       this.navCtrl.push(SliderPage);
@@ -55,7 +68,7 @@ export class LoginPage {
     .catch( error => {
       console.error( error );
     });
-
+*/
   }
 
   doLogin() {

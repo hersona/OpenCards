@@ -28,10 +28,10 @@
         <div padding>
           <ion-segment [(ngModel)]="ContenidoTarjeta">
             <ion-segment-button class="tabSummary" value="resumen">
-              Resumen
+                {{ "SUMMARY" | translate}}
             </ion-segment-button>
             <ion-segment-button class="tabContent" value="contenido" (click)="showPrompt(strTitulo,strUrlCompra)">
-              Contenido
+                {{ "CONTENT" | translate}}
             </ion-segment-button>
           </ion-segment>
         </div>

@@ -2,7 +2,7 @@
     <div class="ContentLogin">
         <ion-grid>
             <ion-row class="textTop" col-12>
-                Bienvenido
+                {{ "WELCOME" | translate}}
             </ion-row>
             <ion-row>
                 <ion-col col-12>
@@ -14,10 +14,10 @@
             <ion-row class="RowLogin FormSpace">
                 <form class="FormLogin">
                     <ion-item>
-                        <ion-input type="text" placeholder="Nombres" [(ngModel)]="userData.name" name="name"></ion-input>
+                        <ion-input type="text" placeholder="{{ 'NAMES' | translate}}" [(ngModel)]="userData.name" name="name"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-input type="text" placeholder="Apellidos" [(ngModel)]="userData.lastname" name="lastname"></ion-input>
+                        <ion-input type="text" placeholder="{{ 'LASTNAME' | translate}}" [(ngModel)]="userData.lastname" name="lastname"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-input type="email" placeholder="Email" [(ngModel)]="userData.email" name="email"></ion-input>
@@ -27,13 +27,13 @@
 
             <ion-row>
                 <ion-col class="colWithOutPadding">
-                    <button class="btnLogin" (click)="doLogin()" ion-button color="primary" block>Ingresar</button>
+                    <button class="btnLogin" (click)="doLogin()" ion-button color="primary" block>{{ "LOGIN" | translate}}</button>
                 </ion-col>
             </ion-row>
 
             <ion-row (click)="loginWithFB()">
                 <ion-col class="colWithOutPadding">
-                    <button class="btnFacebook" ion-button color="primary" block>Ingresar con Facebook</button>
+                    <button class="btnFacebook" ion-button color="primary" block>{{ "FACEBOOK" | translate}}</button>
                 </ion-col>
                 <ion-item *ngIf="showUser">
                     <ion-avatar item-left>

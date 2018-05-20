@@ -14,6 +14,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 
 import { SQLite } from '@ionic-native/sqlite';
 import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -27,7 +28,9 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private oneSignal: OneSignal, private alertCtrl: AlertController,
-    public tasksService: TasksServiceProvider, public sqlite: SQLite
+    public tasksService: TasksServiceProvider, 
+    public sqlite: SQLite,
+    private translate: TranslateService
   ) {
     this.initializeApp();
 
@@ -53,7 +56,17 @@ export class MyApp {
       //Notificaciones Push
       //this.handlerNotifications();
       //Base de datos
-      this.createDatabase();
+      //this.createDatabase();
+
+       //Language
+       this.translate.addLangs(["", "es"]);
+       let browserLang = this.translate.getBrowserLang();
+       this.translate.setDefaultLang(browserLang);
+       //this.translate.setDefaultLang('en');
+       console.log(this.translate.getDefaultLang());
+       //this.translate.use(browserLang.match(/en|es/) ? browserLang : 'es');
+
+
     });
   }
 
