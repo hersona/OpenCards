@@ -24,6 +24,8 @@ export class ContentProvider {
             */
     }
 
+
+    
     private client = createClient({
         // This is the space ID. A space is like a project folder in Contentful terms
         space: 'lm3zkd6fnywn',
@@ -33,7 +35,8 @@ export class ContentProvider {
 
     getLanguageContentFul(lang)
     {
-        var objLang = this.objLanguages.filter(function(item) {
+        return "es-CO";
+        /*var objLang = this.objLanguages.filter(function(item) {
         return item.web === lang;
         })[0];
         if(objLang != undefined)
@@ -42,8 +45,8 @@ export class ContentProvider {
         }
         else
         {
-            return "es";
-        }
+            return "es-CO";
+        }*/
     }
 
     getCards(langDefault,query?: object): Promise<Entry<any>[]> {
