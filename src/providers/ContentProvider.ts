@@ -4,6 +4,15 @@ import { createClient, Entry } from 'contentful';
 
 export class ContentProvider {
 
+    //Lenguajes disponibles
+    objLanguages = [
+        {'Language': 'Spanish', 'web': 'es','contentful': 'es-CO'}, 
+        {'Language': 'English', 'web': 'en','contentful': 'en'},
+        {'Language': 'French', 'web': 'fr','contentful': 'fr'},
+        {'Language': 'Portuguese', 'pt': 'en','contentful': 'pt'},
+        {'Language': 'German', 'web': 'de','contentful': 'de'}
+    ]
+
     constructor() {
       /*  this.client.getEntries()
             .then((response) => console.log(response));
@@ -22,16 +31,33 @@ export class ContentProvider {
         accessToken: '09245226a9d6b0eeceea3494ec33ce6caa96ff802ccd7804426130421c4ff363'
     })
 
-    getCards(query?: object): Promise<Entry<any>[]> {
+    getLanguageContentFul(lang)
+    {
+        var objLang = this.objLanguages.filter(function(item) {
+        return item.web === lang;
+        })[0];
+        if(objLang != undefined)
+        {
+            return objLang.contentful;
+        }
+        else
+        {
+            return "es";
+        }
+    }
+
+    getCards(langDefault,query?: object): Promise<Entry<any>[]> {
         return this.client.getEntries(Object.assign({
-            content_type: 'producto'
+            content_type: 'producto',
+            locale : this.getLanguageContentFul(langDefault)
         }, query))
             .then(res => res.items);
     }
 
-    getCard(courseId): Promise<Entry<any>[]> {
+    getCard(langDefault,courseId): Promise<Entry<any>[]> {
         return this.client.getEntries(Object.assign({
-            content_type: 'moduloProducto'
+            content_type: 'moduloProducto',
+            locale : this.getLanguageContentFul(langDefault)
         }, { 'fields.productoRelacionado.sys.id': courseId }))
             .then(res => res.items);
     }

@@ -4,7 +4,7 @@ import { ContentdetailPage } from '../../pages/contentdetail/contentdetail';
 import { ContentProvider } from '../../providers/ContentProvider';
 import { AlertController } from 'ionic-angular';
 import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser';
-
+import { TranslateService } from '@ngx-translate/core';
 
 
 @IonicPage()
@@ -40,11 +40,12 @@ export class ContentcardPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public alertCtrl: AlertController, public contentprovider: ContentProvider,
-    private theInAppBrowser: InAppBrowser
+    private theInAppBrowser: InAppBrowser,
+    translate: TranslateService
     ) {
     this.sysId = navParams.get("sysId");
 
-    contentprovider.getCard(this.sysId).then(
+    contentprovider.getCard(translate.getDefaultLang(),this.sysId).then(
       res => (console.log(res), 
         this.strTitulo = res[0].fields.productoRelacionado.fields.titulo
         ,this.strDescripcion = res[0].fields.productoRelacionado.fields.descripcion

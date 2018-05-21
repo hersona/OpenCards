@@ -3,6 +3,7 @@ import { NavController, MenuController } from 'ionic-angular';
 import { ContentcardPage } from '../../pages/contentcard/contentcard';
 import { ContentProvider } from '../../providers/ContentProvider';
 import {DomSanitizer,SafeHtml} from "@angular/platform-browser";
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -15,10 +16,14 @@ export class HomePage {
   numberCard: number;
   objRender:SafeHtml;
 
-  constructor(private el:ElementRef,public navCtrl: NavController, private menu: MenuController, public contentprovider: ContentProvider,private sanitizer:DomSanitizer) {
+  constructor(private el:ElementRef,public navCtrl: NavController, 
+    private menu: MenuController, 
+    public contentprovider: ContentProvider,private sanitizer:DomSanitizer,
+    translate: TranslateService
+    ) {
     this.builderHtml = "";
-    contentprovider.getCards().then(
-      res => (this.listCards = res
+    contentprovider.getCards(translate.getDefaultLang()).then(
+      res => (this.listCards = res,console.log(res)
       ));
       
   }

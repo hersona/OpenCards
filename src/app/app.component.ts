@@ -61,8 +61,8 @@ export class MyApp {
        //Language
        this.translate.addLangs(["", "es"]);
        let browserLang = this.translate.getBrowserLang();
-       this.translate.setDefaultLang(browserLang);
-       //this.translate.setDefaultLang('en');
+       //this.translate.setDefaultLang(browserLang);
+       this.translate.setDefaultLang('en');
        console.log(this.translate.getDefaultLang());
        //this.translate.use(browserLang.match(/en|es/) ? browserLang : 'es');
 
