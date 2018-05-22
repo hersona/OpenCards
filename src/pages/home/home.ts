@@ -5,7 +5,6 @@ import { ContentProvider } from '../../providers/ContentProvider';
 import {DomSanitizer,SafeHtml} from "@angular/platform-browser";
 import { TranslateService } from '@ngx-translate/core';
 
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

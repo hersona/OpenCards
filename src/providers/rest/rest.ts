@@ -42,8 +42,10 @@ export class RestProvider {
     this.AppCode.UserName = "Prueba";
     this.AppCode.CodeKit = "12345";
 
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    var header = new Headers();
+    header.append("Accept", "application/json");
+    header.append("Content-Type", "application/json" );
+    let options = new RequestOptions({ headers: header });
 
     console.log(JSON.stringify(this.AppCode));
 
