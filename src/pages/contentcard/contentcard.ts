@@ -94,7 +94,7 @@ export class ContentcardPage {
           text: 'Comprar',
           handler: data => {
             let target = "_system";
-            this.theInAppBrowser.create(urlDescarga,target,this.options);            
+            this.theInAppBrowser.create(urlDescarga,target,this.options);    
           }
         }
       ]

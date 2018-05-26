@@ -17,7 +17,6 @@ export class RestProvider {
   tokenApi = 'http://52.11.130.203:8089/api';
 
   constructor(public http: HttpClient, public httpClasic: Http) {
-    console.log('Hello RestProvider Provider');
 
   }
 
@@ -30,6 +29,30 @@ export class RestProvider {
           reject(err);
         });
     });
+  }
+
+
+  testPost()
+  {
+    this.AppCode.name = "Herson Alvarado";
+    this.AppCode.movies = ["I Love You Man", "Role Models"];
+   
+    var header = new Headers();
+    header.append("Accept", "application/json");
+    header.append("Content-Type", "application/json" );
+    let options = new RequestOptions({ headers: header });
+    
+    return new Promise((resolve, reject) => {
+      this.httpClasic.post('https://reqres.in/api/users',JSON.stringify(this.AppCode), 
+      options
+      )
+        .subscribe(res => {
+          resolve(res), console.log(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    
   }
 
 
@@ -48,7 +71,7 @@ export class RestProvider {
     let options = new RequestOptions({ headers: header });
 
     console.log(JSON.stringify(this.AppCode));
-
+    
     return new Promise((resolve, reject) => {
       this.httpClasic.post(this.tokenApi + '/AppCode/ValidateAppCodeAnonimo',JSON.stringify(this.AppCode), 
       options

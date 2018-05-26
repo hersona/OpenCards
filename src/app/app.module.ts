@@ -12,7 +12,6 @@ import { ContentdetailPage } from '../pages/contentdetail/contentdetail';
 import { createClient, Entry } from 'contentful';
 import { HttpModule } from '@angular/http';
 
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ContentProvider } from '../providers/ContentProvider';

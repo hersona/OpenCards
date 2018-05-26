@@ -15,7 +15,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { SQLite } from '@ionic-native/sqlite';
 import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
 import { TranslateService } from '@ngx-translate/core';
-
+import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,31 +24,52 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, component: any, typeComponent: any }>;
+  options : InAppBrowserOptions = {
+    location : 'yes',//Or 'no' 
+    hidden : 'no', //Or  'yes'
+    clearcache : 'yes',
+    clearsessioncache : 'yes',
+    zoom : 'yes',//Android only ,shows browser zoom controls 
+    hardwareback : 'yes',
+    mediaPlaybackRequiresUserAction : 'no',
+    shouldPauseOnSuspend : 'no', //Android only 
+    closebuttoncaption : 'Close', //iOS only
+    disallowoverscroll : 'no', //iOS only 
+    toolbar : 'yes', //iOS only 
+    enableViewportScale : 'no', //iOS only 
+    allowInlineMediaPlayback : 'no',//iOS only 
+    presentationstyle : 'pagesheet',//iOS only 
+    fullscreen : 'yes',//Windows only    
+  };
+
+
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-    private oneSignal: OneSignal, private alertCtrl: AlertController,
-    public tasksService: TasksServiceProvider, 
+    private oneSignal: OneSignal, 
+    private alertCtrl: AlertController,
+    public tasksService: TasksServiceProvider,
     public sqlite: SQLite,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private theInAppBrowser: InAppBrowser
   ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Login', component: LoginPage },
-      { title: 'Slider', component: SliderPage },
-      { title: 'Contentcard', component: ContentcardPage },
-      { title: 'Register', component: RegisterPage },
-      { title: 'Contentdetail', component: ContentdetailPage }
+      { title: 'Libreria', component: HomePage, typeComponent: 'PAGE' },
+      { title: 'Buscar', component: ListPage, typeComponent: 'PAGE' },
+      { title: 'Comprar', component: 'http://openmind-store.com/', typeComponent: 'URL' },
+      { title: 'Acerca de Openmind', component: 'https://www.openmind-global.com/nosotros', typeComponent: 'URL' },
+      { title: 'Acerca de Open Cards', component: 'http://www.opencards.co/', typeComponent: 'URL' },
+      { title: 'Ayuda', component: 'https://www.openmind-global.com/Contactenos', typeComponent: 'URL' },
     ];
 
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
@@ -58,15 +79,13 @@ export class MyApp {
       //Base de datos
       //this.createDatabase();
 
-       //Language
-       this.translate.addLangs(["", "es"]);
-       let browserLang = this.translate.getBrowserLang();
-       //this.translate.setDefaultLang(browserLang);
-       this.translate.setDefaultLang('en');
-       console.log(this.translate.getDefaultLang());
-       //this.translate.use(browserLang.match(/en|es/) ? browserLang : 'es');
-
-
+      //Language
+      this.translate.addLangs(["", "es"]);
+      let browserLang = this.translate.getBrowserLang();
+      this.translate.setDefaultLang(browserLang);
+      //this.translate.setDefaultLang('en');
+      console.log(this.translate.getDefaultLang());
+      //this.translate.use(browserLang.match(/en|es/) ? browserLang : 'es');
     });
   }
 
@@ -82,8 +101,7 @@ export class MyApp {
         //Revisar si ya esta creado previamente lo debe enviar al home
         this.tasksService.getAll()
           .then(data => {
-            if(data.length > 0)
-            {
+            if (data.length > 0) {
               this.rootPage = HomePage;
             }
           })
@@ -118,8 +136,19 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    console.log(page);
+    switch (page.typeComponent) {
+      case 'PAGE': {
+
+        this.nav.setRoot(page.component);
+        break;
+      }
+      case 'URL': {
+        let target = "_system";
+        this.theInAppBrowser.create(page.component,target,this.options);
+        break;
+      }
+
+    }
   }
 }

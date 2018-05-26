@@ -39,7 +39,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
     private facebook: Facebook,public tasksService: TasksServiceProvider,public restProvider: RestProvider) {
-    //this.restProvider.saveTokenAcces();
+    this.restProvider.testPost();
       /*this.restProvider.saveTokenAcces().then((result) => {
         //this.results = result;
         //console.log(this.results.access_token);
