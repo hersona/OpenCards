@@ -3,9 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContentdetailPage } from '../../pages/contentdetail/contentdetail';
 import { ContentProvider } from '../../providers/ContentProvider';
 import { AlertController } from 'ionic-angular';
-import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 import { TranslateService } from '@ngx-translate/core';
-
+import { RestProvider } from '../../providers/rest/rest';
 
 @IonicPage()
 @Component({
@@ -20,54 +20,56 @@ export class ContentcardPage {
   strTitulo: string;
   strDescripcion: string;
   strUrlCompra: string;
-  options : InAppBrowserOptions = {
-    location : 'yes',//Or 'no' 
-    hidden : 'no', //Or  'yes'
-    clearcache : 'yes',
-    clearsessioncache : 'yes',
-    zoom : 'yes',//Android only ,shows browser zoom controls 
-    hardwareback : 'yes',
-    mediaPlaybackRequiresUserAction : 'no',
-    shouldPauseOnSuspend : 'no', //Android only 
-    closebuttoncaption : 'Close', //iOS only
-    disallowoverscroll : 'no', //iOS only 
-    toolbar : 'yes', //iOS only 
-    enableViewportScale : 'no', //iOS only 
-    allowInlineMediaPlayback : 'no',//iOS only 
-    presentationstyle : 'pagesheet',//iOS only 
-    fullscreen : 'yes',//Windows only    
+  options: InAppBrowserOptions = {
+    location: 'yes',//Or 'no' 
+    hidden: 'no', //Or  'yes'
+    clearcache: 'yes',
+    clearsessioncache: 'yes',
+    zoom: 'yes',//Android only ,shows browser zoom controls 
+    hardwareback: 'yes',
+    mediaPlaybackRequiresUserAction: 'no',
+    shouldPauseOnSuspend: 'no', //Android only 
+    closebuttoncaption: 'Close', //iOS only
+    disallowoverscroll: 'no', //iOS only 
+    toolbar: 'yes', //iOS only 
+    enableViewportScale: 'no', //iOS only 
+    allowInlineMediaPlayback: 'no',//iOS only 
+    presentationstyle: 'pagesheet',//iOS only 
+    fullscreen: 'yes',//Windows only    
   };
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  AppCode:any = {};
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController, public contentprovider: ContentProvider,
     private theInAppBrowser: InAppBrowser,
-    translate: TranslateService
-    ) {
+    translate: TranslateService,
+    public restProvider: RestProvider
+  ) {
     this.sysId = navParams.get("sysId");
 
-    contentprovider.getCard(translate.getDefaultLang(),this.sysId).then(
-      res => (console.log(res), 
+    contentprovider.getCard(translate.getDefaultLang(), this.sysId).then(
+      res => (console.log(res),
         this.strTitulo = res[0].fields.productoRelacionado.fields.titulo
-        ,this.strDescripcion = res[0].fields.productoRelacionado.fields.descripcion
-        ,this.strUrlCompra = res[0].fields.productoRelacionado.fields.urlTiendaProducto
-        ,this.objCard = res
+        , this.strDescripcion = res[0].fields.productoRelacionado.fields.descripcion
+        , this.strUrlCompra = res[0].fields.productoRelacionado.fields.urlTiendaProducto
+        , this.objCard = res
       )
     );
 
   }
 
-  goContenteDetail(data,card) {
+  goContenteDetail(data, card) {
     this.navCtrl.setRoot(ContentdetailPage, {
-      objData: data,objCard: card
+      objData: data, objCard: card
     });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ContentcardPage');
+    
   }
 
 
-  showPrompt(titulo,urlDescarga) {
+  showPrompt(titulo, urlDescarga) {
     let prompt = this.alertCtrl.create({
       title: titulo,
       message: "Digita el código que se encuentra en el interior de la caja",
@@ -87,14 +89,25 @@ export class ContentcardPage {
         {
           text: 'Descargar',
           handler: data => {
-            
+            this.AppCode.CodeApp = data.title;
+            this.AppCode.UserEmail = "herson@isolucion.com.co";
+            this.AppCode.UserName = "Prueba";
+            this.AppCode.CodeKit = this.strTitulo;
+
+            //Crea en el servicio y guarda en base de datos
+            this.restProvider.saveTokenAcces(this.AppCode).then((result) => {
+              console.log(result);  
+              console.log(JSON.parse(result._body).Error);
+            }, (err) => {
+              console.log(err);
+            });
           }
         },
         {
           text: 'Comprar',
           handler: data => {
             let target = "_system";
-            this.theInAppBrowser.create(urlDescarga,target,this.options);    
+            this.theInAppBrowser.create(urlDescarga, target, this.options);
           }
         }
       ]

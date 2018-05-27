@@ -4,15 +4,7 @@ import { SliderPage } from '../../pages/slider/slider';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { AlertController } from 'ionic-angular';
 import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
-import { RestProvider } from '../../providers/rest/rest';
-
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { TranslateService } from '@ngx-translate/core';
 
 @IonicPage()
 @Component({
@@ -34,41 +26,39 @@ export class LoginPage {
   showUser: boolean = false;
   rows: any;
   data: any;
-
   results: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
-    private facebook: Facebook,public tasksService: TasksServiceProvider,public restProvider: RestProvider) {
-    this.restProvider.testPost();
-      /*this.restProvider.saveTokenAcces().then((result) => {
-        //this.results = result;
-        //console.log(this.results.access_token);
-        console.log(result);
-      }, (err) => {
-        console.log(err);
-        console.log(err);
-      });*/
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    private facebook: Facebook,
+    public tasksService: TasksServiceProvider,
+    public translate: TranslateService
+  ) {    
 
   }
 
-  
+  getInstant(key) {
+    return this.translate.get(key).subscribe(data => { return data });
+  }
+
   validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 
-  createUser(userData)
-  {
+  createUser(userData) {
     this.navCtrl.push(SliderPage);
+    //Crea en la base de datos local 
     /*this.tasksService.create(userData)
-    .then(response => {
-      console.log(response),
-      this.navCtrl.push(SliderPage);
-    })
-    .catch( error => {
-      console.error( error );
-    });
-*/
+      .then(response => {
+        console.log(response),
+          this.navCtrl.push(SliderPage);
+      })
+      .catch(error => {
+        console.error(error);
+      });*/
   }
 
   doLogin() {
@@ -87,11 +77,10 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+
   }
 
   loginWithFB() {
-//    this.navCtrl.push(SliderPage);
     try {
       this.facebook.login(['public_profile'])
         .then(rta => {
@@ -111,12 +100,12 @@ export class LoginPage {
     }
   }
 
-  
+
   getInfo() {
     this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender', ['public_profile', 'email'])
       .then(data => {
         this.userData.name = data.name;
-        this.userData.lastname = data.last_name; 
+        this.userData.lastname = data.last_name;
         this.userData.email = data.email;
         this.createUser(this.userData);
         console.log(data);

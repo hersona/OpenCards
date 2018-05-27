@@ -74,18 +74,18 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.show();
-      //Notificaciones Push
-      //this.handlerNotifications();
+      
+      
+      /*//Notificaciones Push
+      this.handlerNotifications();
       //Base de datos
-      //this.createDatabase();
-
+      this.createDatabase();
       //Language
       this.translate.addLangs(["", "es"]);
       let browserLang = this.translate.getBrowserLang();
       this.translate.setDefaultLang(browserLang);
       //this.translate.setDefaultLang('en');
-      console.log(this.translate.getDefaultLang());
-      //this.translate.use(browserLang.match(/en|es/) ? browserLang : 'es');
+      */
     });
   }
 
