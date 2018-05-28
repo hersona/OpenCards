@@ -103,15 +103,8 @@ export class ContentcardPage {
       ],
       buttons: [
         {
-          text: 'Cancelar',
-          handler: data => {
-            this.ContenidoTarjeta = 'resumen';
-          }
-        },
-        {
           text: 'Descargar',
           handler: data => {
-
             //Obtener el usuario creado
             this.tasksService.getUser()
               .then(dataUser => {
@@ -123,6 +116,7 @@ export class ContentcardPage {
                 //Crea en el servicio y guarda en base de datos
                 this.restProvider.saveTokenAcces(this.AppCode).then((result) => {
                   console.log(result);
+
                   switch (JSON.parse(result._body).Error) {
                     //Respuesta del servicio OK
                     case '0': {
@@ -173,6 +167,12 @@ export class ContentcardPage {
             this.theInAppBrowser.create(urlDescarga, target, this.options);
           }
         }
+        ,{
+          text: 'Cancelar',
+          handler: data => {
+            this.ContenidoTarjeta = 'resumen';
+          }
+        },
       ]
     });
     prompt.present();
