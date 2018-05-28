@@ -35,7 +35,7 @@ export class LoginPage {
     private facebook: Facebook,
     public tasksService: TasksServiceProvider,
     public translate: TranslateService
-  ) {    
+  ) {
 
   }
 
@@ -49,16 +49,16 @@ export class LoginPage {
   }
 
   createUser(userData) {
-    this.navCtrl.push(SliderPage);
+    //this.navCtrl.push(SliderPage);
     //Crea en la base de datos local 
-    /*this.tasksService.create(userData)
+    this.tasksService.create(userData)
       .then(response => {
         console.log(response),
           this.navCtrl.push(SliderPage);
       })
       .catch(error => {
         console.error(error);
-      });*/
+      });
   }
 
   doLogin() {

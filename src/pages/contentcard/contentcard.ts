@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { RestProvider } from '../../providers/rest/rest';
+import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
 
 @IonicPage()
 @Component({
@@ -37,27 +38,47 @@ export class ContentcardPage {
     presentationstyle: 'pagesheet',//iOS only 
     fullscreen: 'yes',//Windows only    
   };
-  AppCode:any = {};
-  
+
+  AppCode: any = {};
+  AppValidate: any = {};
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController, public contentprovider: ContentProvider,
     private theInAppBrowser: InAppBrowser,
     translate: TranslateService,
-    public restProvider: RestProvider
+    public restProvider: RestProvider,
+    public tasksService: TasksServiceProvider
   ) {
     this.sysId = navParams.get("sysId");
 
     contentprovider.getCard(translate.getDefaultLang(), this.sysId).then(
-      res => (console.log(res),
+      res => (
+        //console.log(res),
         this.strTitulo = res[0].fields.productoRelacionado.fields.titulo
         , this.strDescripcion = res[0].fields.productoRelacionado.fields.descripcion
         , this.strUrlCompra = res[0].fields.productoRelacionado.fields.urlTiendaProducto
         , this.objCard = res
+        , this.validateCode(res[0].fields.productoRelacionado.fields.titulo)
       )
     );
 
   }
 
+  //Validar si la persona ya digito previamente el codigo
+  validateCode(strTitulo) {
+    this.AppValidate.name = strTitulo;
+    this.tasksService.getParam(this.AppValidate)
+      .then(data => {
+        if (data.length > 0) {
+          this.goContenteDetail(this.objCard[0],this.objCard);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+  }
+
+  //Ir al contenido del detalle
   goContenteDetail(data, card) {
     this.navCtrl.setRoot(ContentdetailPage, {
       objData: data, objCard: card
@@ -65,11 +86,12 @@ export class ContentcardPage {
   }
 
   ionViewDidLoad() {
-    
+
   }
 
-
+  cardValidate: any;
   showPrompt(titulo, urlDescarga) {
+    
     let prompt = this.alertCtrl.create({
       title: titulo,
       message: "Digita el código que se encuentra en el interior de la caja",
@@ -89,18 +111,59 @@ export class ContentcardPage {
         {
           text: 'Descargar',
           handler: data => {
-            this.AppCode.CodeApp = data.title;
-            this.AppCode.UserEmail = "herson@isolucion.com.co";
-            this.AppCode.UserName = "Prueba";
-            this.AppCode.CodeKit = this.strTitulo;
 
-            //Crea en el servicio y guarda en base de datos
-            this.restProvider.saveTokenAcces(this.AppCode).then((result) => {
-              console.log(result);  
-              console.log(JSON.parse(result._body).Error);
-            }, (err) => {
-              console.log(err);
-            });
+            //Obtener el usuario creado
+            this.tasksService.getUser()
+              .then(dataUser => {
+                this.AppCode.CodeApp = data.title;
+                this.AppCode.UserEmail = dataUser[0].name;
+                this.AppCode.UserName = dataUser[0].lastname;
+                this.AppCode.CodeKit = this.strTitulo;
+
+                //Crea en el servicio y guarda en base de datos
+                this.restProvider.saveTokenAcces(this.AppCode).then((result) => {
+                  console.log(result);
+                  switch (JSON.parse(result._body).Error) {
+                    //Respuesta del servicio OK
+                    case '0': {
+                      this.ContenidoTarjeta = 'contenido';
+                      //Marcar como cargado el curso
+                      this.cardValidate.name = this.strTitulo;
+                      this.cardValidate.valueParam = '1';
+                      this.tasksService.insertParamsOpen(this.cardValidate);
+                      break;
+                    }
+                    //Codigo no valido
+                    case '1': {
+                      this.ContenidoTarjeta = 'resumen';
+                      let alert = this.alertCtrl.create({
+                        title: 'Código no valido',
+                        subTitle: 'Por favor verifica el código ingresado',
+                        buttons: ['Aceptar']
+                      });
+                      alert.present();
+                      break;
+                    }
+                    //Codigo ya utilizado
+                    case '2': {
+                      this.ContenidoTarjeta = 'resumen';
+                      let alert = this.alertCtrl.create({
+                        title: 'Código en uso',
+                        subTitle: 'El código digitado ya se encuentra en uso por favor verifique nuevamente',
+                        buttons: ['Aceptar']
+                      });
+                      alert.present();
+                      break;
+                    }
+                  }
+
+                }, (err) => {
+                  console.log(err);
+                });
+              })
+              .catch(error => {
+                console.error(error);
+              });
           }
         },
         {
@@ -113,6 +176,7 @@ export class ContentcardPage {
       ]
     });
     prompt.present();
+    //this.ContenidoTarjeta = 'resumen';
   }
 
 }

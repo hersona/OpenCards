@@ -76,7 +76,7 @@ export class MyApp {
       this.splashScreen.show();
       
       
-      /*//Notificaciones Push
+      //Notificaciones Push
       this.handlerNotifications();
       //Base de datos
       this.createDatabase();
@@ -85,7 +85,7 @@ export class MyApp {
       let browserLang = this.translate.getBrowserLang();
       this.translate.setDefaultLang(browserLang);
       //this.translate.setDefaultLang('en');
-      */
+      
     });
   }
 
@@ -97,9 +97,10 @@ export class MyApp {
     })
       .then((db) => {
         this.tasksService.setDatabase(db);
+        //this.tasksService.truncate();
         this.tasksService.createTable();
         //Revisar si ya esta creado previamente lo debe enviar al home
-        this.tasksService.getAll()
+        this.tasksService.getUser()
           .then(data => {
             if (data.length > 0) {
               this.rootPage = HomePage;
@@ -139,7 +140,6 @@ export class MyApp {
     console.log(page);
     switch (page.typeComponent) {
       case 'PAGE': {
-
         this.nav.setRoot(page.component);
         break;
       }
@@ -148,7 +148,6 @@ export class MyApp {
         this.theInAppBrowser.create(page.component,target,this.options);
         break;
       }
-
     }
   }
 }
