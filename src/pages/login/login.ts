@@ -4,7 +4,15 @@ import { SliderPage } from '../../pages/slider/slider';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { AlertController } from 'ionic-angular';
 import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
+import { RestProvider } from '../../providers/rest/rest';
 import { TranslateService } from '@ngx-translate/core';
+
+/**
+ * Generated class for the LoginPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
@@ -26,16 +34,19 @@ export class LoginPage {
   showUser: boolean = false;
   rows: any;
   data: any;
-  results: any = {};
 
+  results: any = {};
+  AppCode:any = {};
+  objTest : any = {};
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     private facebook: Facebook,
     public tasksService: TasksServiceProvider,
+    public restProvider: RestProvider,
     public translate: TranslateService
-  ) {
+  ) {    
 
   }
 
@@ -49,7 +60,6 @@ export class LoginPage {
   }
 
   createUser(userData) {
-    //this.navCtrl.push(SliderPage);
     //Crea en la base de datos local 
     this.tasksService.create(userData)
       .then(response => {

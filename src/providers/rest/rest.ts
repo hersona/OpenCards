@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 
@@ -7,17 +7,31 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 export class RestProvider {
 
   urlBase = 'http://52.11.130.203:8089';
-  tokenAutorization = 'grant_type=password&username=hersonEder@gmail.com&password=12345$$';
+  tokenAutorization = 'grant_type=password&username=' + encodeURIComponent('hersonEder@gmail.com') + '&password=' + encodeURIComponent('12345%24%24');
+
   constructor(public http: HttpClient, public httpClasic: Http) {
   }
 
+  objToken: any = {};
   getToken() {
+    var headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.set('grant_type', 'password');
+    urlSearchParams.set('username', 'hersonEder@gmail.com');
+    urlSearchParams.set('password', '12345$$');
+
+    let body = urlSearchParams.toString();
+
     return new Promise((resolve, reject) => {
-      this.http.post(this.urlBase + "/token", this.tokenAutorization)
-        .subscribe(res => {
-          resolve(res)
+      this.http.post(this.urlBase + '/token', body, {
+        headers: headers
+      })
+        .subscribe((data: any) => {
+          resolve(data.access_token)
         }, (err) => {
-          reject(err);
+          reject(err)
         });
     });
   }
@@ -27,25 +41,27 @@ export class RestProvider {
     return new Promise((resolveToken, rejectsErrorToken) => {
       //Obtener codigo del token
       this.getToken().then((resultToken) => {
-        //Almacenar peticion
-        var header = new Headers();
-        header.append("Accept", "application/json");
-        header.append("Content-Type", "application/json");
-        header.append("authorization", "bearer " + resultToken.access_token);
-        let options = new RequestOptions({ headers: header });
+
+
+        let headers = new Headers({ 'Authorization': 'Bearer ' + resultToken });
+        headers.append("Accept", "application/json");
+        headers.append("Content-Type", "application/json");
+        let options = new RequestOptions({ headers: headers });
+
         return new Promise((resolve, reject) => {
           this.httpClasic.post(this.urlBase + '/api/AppCode/ValidateAppCode', JSON.stringify(AppCode),
-            options
+          options
           )
             .subscribe(res => {
-              resolve(res),resolveToken(res)
+              resolve(res), resolveToken(res)
             }, (err) => {
-              reject(err),rejectsErrorToken(err);
+              reject(err), rejectsErrorToken(err);
             });
         });
       }, (err) => {
         console.log(err);
       });
+      
     });
   }
 

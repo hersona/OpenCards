@@ -69,7 +69,7 @@ export class ContentcardPage {
     this.tasksService.getParam(this.AppValidate)
       .then(data => {
         if (data.length > 0) {
-          this.goContenteDetail(this.objCard[0],this.objCard);
+          this.goContenteDetail(this.objCard[0], this.objCard);
         }
       })
       .catch(error => {
@@ -89,9 +89,9 @@ export class ContentcardPage {
 
   }
 
-  cardValidate: any;
+  cardValidate: any = {};
   showPrompt(titulo, urlDescarga) {
-    
+
     let prompt = this.alertCtrl.create({
       title: titulo,
       message: "Digita el código que se encuentra en el interior de la caja",
@@ -109,8 +109,8 @@ export class ContentcardPage {
             this.tasksService.getUser()
               .then(dataUser => {
                 this.AppCode.CodeApp = data.title;
-                this.AppCode.UserEmail = dataUser[0].name;
-                this.AppCode.UserName = dataUser[0].lastname;
+                this.AppCode.UserEmail = dataUser[0].email;
+                this.AppCode.UserName = dataUser[0].name + ' ' + dataUser[0].lastname;
                 this.AppCode.CodeKit = this.strTitulo;
 
                 //Crea en el servicio y guarda en base de datos
@@ -160,14 +160,15 @@ export class ContentcardPage {
               });
           }
         },
-        {
+        /*{
           text: 'Comprar',
           handler: data => {
             let target = "_system";
             this.theInAppBrowser.create(urlDescarga, target, this.options);
           }
         }
-        ,{
+        ,*/
+        {
           text: 'Cancelar',
           handler: data => {
             this.ContenidoTarjeta = 'resumen';
@@ -176,7 +177,6 @@ export class ContentcardPage {
       ]
     });
     prompt.present();
-    //this.ContenidoTarjeta = 'resumen';
   }
 
 }

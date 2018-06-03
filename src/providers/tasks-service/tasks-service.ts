@@ -28,7 +28,7 @@ export class TasksServiceProvider {
     /*let sqlTemp = 'DROP TABLE IF EXISTS UserOpen';
     this.db.executeSql(sqlTemp, []);*/
 
-    let sql = 'CREATE TABLE IF NOT EXISTS UserOpen(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, lastname TEXT, email TEXT,)';
+    let sql = 'CREATE TABLE IF NOT EXISTS UserOpen(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, lastname TEXT, email TEXT)';
     this.db.executeSql(sql, []);
 
     let sqlParam = 'CREATE TABLE IF NOT EXISTS ParamsOpen(name TEXT, valueParam TEXT, created_date date default CURRENT_DATE)';

@@ -64,7 +64,6 @@ export class MyApp {
       { title: 'Acerca de Open Cards', component: 'http://www.opencards.co/', typeComponent: 'URL' },
       { title: 'Ayuda', component: 'https://www.openmind-global.com/Contactenos', typeComponent: 'URL' },
     ];
-
   }
 
   initializeApp() {
