@@ -97,6 +97,7 @@ export class MyApp {
       .then((db) => {
         this.tasksService.setDatabase(db);
         //this.tasksService.truncate();
+        
         this.tasksService.createTable();
         //Revisar si ya esta creado previamente lo debe enviar al home
         this.tasksService.getUser()

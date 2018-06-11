@@ -114,7 +114,7 @@ export class ContentcardPage {
                 this.AppCode.CodeKit = this.strTitulo;
 
                 //Crea en el servicio y guarda en base de datos
-                this.restProvider.saveTokenAcces(this.AppCode).then((result) => {
+                this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
                   console.log(result);
 
                   switch (JSON.parse(result._body).Error) {

@@ -29,15 +29,20 @@ export class LoginPage {
   userData = {
     name: '',
     lastname: '',
-    email: ''
+    UserEmail: '',
+    Image: '',
+    Creationchannel: '1',
+    Password: 'AppOpen',
+    Gender: '',
+    UserName: ''
   };
   showUser: boolean = false;
   rows: any;
   data: any;
 
   results: any = {};
-  AppCode:any = {};
-  objTest : any = {};
+  AppCode: any = {};
+  objTest: any = {};
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -46,7 +51,7 @@ export class LoginPage {
     public tasksService: TasksServiceProvider,
     public restProvider: RestProvider,
     public translate: TranslateService
-  ) {    
+  ) {
 
   }
 
@@ -63,8 +68,14 @@ export class LoginPage {
     //Crea en la base de datos local 
     this.tasksService.create(userData)
       .then(response => {
-        console.log(response),
+        //Guardar token
+        this.restProvider.saveLead(userData).then((result) => {
+          console.log(result);
           this.navCtrl.push(SliderPage);
+        }, (err) => {
+          console.log(err);
+        });
+
       })
       .catch(error => {
         console.error(error);
@@ -72,8 +83,9 @@ export class LoginPage {
   }
 
   doLogin() {
-    if (this.userData.name != "" && this.userData.lastname != "" && this.userData.email != ""
-      && this.validateEmail(this.userData.email)) {
+    if (this.userData.name != "" && this.userData.lastname != "" && this.userData.UserEmail != ""
+      && this.validateEmail(this.userData.UserEmail)) {
+      this.userData.UserName = this.userData.name + ' ' + this.userData.lastname;
       this.createUser(this.userData);
     }
     else {
@@ -116,7 +128,10 @@ export class LoginPage {
       .then(data => {
         this.userData.name = data.name;
         this.userData.lastname = data.last_name;
-        this.userData.email = data.email;
+        this.userData.UserName = data.name + ' ' + data.last_name;
+        this.userData.UserEmail = data.email;
+        this.userData.Gender = data.gender;
+        this.userData.Image = data.picture.data.url;
         this.createUser(this.userData);
         console.log(data);
         this.showUser = true;

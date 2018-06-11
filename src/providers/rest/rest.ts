@@ -42,7 +42,6 @@ export class RestProvider {
       //Obtener codigo del token
       this.getToken().then((resultToken) => {
 
-
         let headers = new Headers({ 'Authorization': 'Bearer ' + resultToken });
         headers.append("Accept", "application/json");
         headers.append("Content-Type", "application/json");
@@ -50,6 +49,34 @@ export class RestProvider {
 
         return new Promise((resolve, reject) => {
           this.httpClasic.post(this.urlBase + '/api/AppCode/ValidateAppCode', JSON.stringify(AppCode),
+          options
+          )
+            .subscribe(res => {
+              resolve(res), resolveToken(res)
+            }, (err) => {
+              reject(err), rejectsErrorToken(err);
+            });
+        });
+      }, (err) => {
+        console.log(err);
+      });
+      
+    });
+  }
+
+  //Almacenar LEAD del registro
+  saveLead(objLead) {
+    return new Promise((resolveToken, rejectsErrorToken) => {
+      //Obtener codigo del token
+      this.getToken().then((resultToken) => {
+
+        let headers = new Headers({ 'Authorization': 'Bearer ' + resultToken });
+        headers.append("Accept", "application/json");
+        headers.append("Content-Type", "application/json");
+        let options = new RequestOptions({ headers: headers });
+
+        return new Promise((resolve, reject) => {
+          this.httpClasic.post(this.urlBase + '/api/AppCode/RegisterApp', JSON.stringify(objLead),
           options
           )
             .subscribe(res => {
