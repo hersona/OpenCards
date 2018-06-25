@@ -69,7 +69,9 @@ export class ContentcardPage {
     this.tasksService.getParam(this.AppValidate)
       .then(data => {
         if (data.length > 0) {
-          this.goContenteDetail(this.objCard[0], this.objCard);
+          //this.goContenteDetail(this.objCard[0], this.objCard);
+          this.ContenidoTarjeta = 'contenido';
+          this.AppValidate.downloaded = true;
         }
       })
       .catch(error => {
@@ -91,92 +93,95 @@ export class ContentcardPage {
 
   cardValidate: any = {};
   showPrompt(titulo, urlDescarga) {
+    if (this.AppValidate.downloaded) {
+      //Significa que ya descargo el kit
+    }
+    else {
+      let prompt = this.alertCtrl.create({
+        title: titulo,
+        message: "Digita el código que se encuentra en el interior de la caja",
+        inputs: [
+          {
+            name: 'title',
+            placeholder: 'Código de descarga'
+          },
+        ],
+        buttons: [
+          {
+            text: 'Descargar',
+            handler: data => {
+              //Obtener el usuario creado
+              this.tasksService.getUser()
+                .then(dataUser => {
+                  this.AppCode.CodeApp = data.title;
+                  this.AppCode.UserEmail = dataUser[0].email;
+                  this.AppCode.UserName = dataUser[0].name + ' ' + dataUser[0].lastname;
+                  this.AppCode.CodeKit = this.strTitulo;
 
-    let prompt = this.alertCtrl.create({
-      title: titulo,
-      message: "Digita el código que se encuentra en el interior de la caja",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'Código de descarga'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Descargar',
-          handler: data => {
-            //Obtener el usuario creado
-            this.tasksService.getUser()
-              .then(dataUser => {
-                this.AppCode.CodeApp = data.title;
-                this.AppCode.UserEmail = dataUser[0].email;
-                this.AppCode.UserName = dataUser[0].name + ' ' + dataUser[0].lastname;
-                this.AppCode.CodeKit = this.strTitulo;
+                  //Crea en el servicio y guarda en base de datos
+                  this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
+                    console.log(result);
 
-                //Crea en el servicio y guarda en base de datos
-                this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
-                  console.log(result);
-
-                  switch (JSON.parse(result._body).Error) {
-                    //Respuesta del servicio OK
-                    case '0': {
-                      this.ContenidoTarjeta = 'contenido';
-                      //Marcar como cargado el curso
-                      this.cardValidate.name = this.strTitulo;
-                      this.cardValidate.valueParam = '1';
-                      this.tasksService.insertParamsOpen(this.cardValidate);
-                      break;
+                    switch (JSON.parse(result._body).Error) {
+                      //Respuesta del servicio OK
+                      case '0': {
+                        this.ContenidoTarjeta = 'contenido';
+                        //Marcar como cargado el curso
+                        this.cardValidate.name = this.strTitulo;
+                        this.cardValidate.valueParam = '1';
+                        this.tasksService.insertParamsOpen(this.cardValidate);
+                        break;
+                      }
+                      //Codigo no valido
+                      case '1': {
+                        this.ContenidoTarjeta = 'resumen';
+                        let alert = this.alertCtrl.create({
+                          title: 'Código no valido',
+                          subTitle: 'Por favor verifica el código ingresado',
+                          buttons: ['Aceptar']
+                        });
+                        alert.present();
+                        break;
+                      }
+                      //Codigo ya utilizado
+                      case '2': {
+                        this.ContenidoTarjeta = 'resumen';
+                        let alert = this.alertCtrl.create({
+                          title: 'Código en uso',
+                          subTitle: 'El código digitado ya se encuentra en uso por favor verifique nuevamente',
+                          buttons: ['Aceptar']
+                        });
+                        alert.present();
+                        break;
+                      }
                     }
-                    //Codigo no valido
-                    case '1': {
-                      this.ContenidoTarjeta = 'resumen';
-                      let alert = this.alertCtrl.create({
-                        title: 'Código no valido',
-                        subTitle: 'Por favor verifica el código ingresado',
-                        buttons: ['Aceptar']
-                      });
-                      alert.present();
-                      break;
-                    }
-                    //Codigo ya utilizado
-                    case '2': {
-                      this.ContenidoTarjeta = 'resumen';
-                      let alert = this.alertCtrl.create({
-                        title: 'Código en uso',
-                        subTitle: 'El código digitado ya se encuentra en uso por favor verifique nuevamente',
-                        buttons: ['Aceptar']
-                      });
-                      alert.present();
-                      break;
-                    }
-                  }
 
-                }, (err) => {
-                  console.log(err);
+                  }, (err) => {
+                    console.log(err);
+                  });
+                })
+                .catch(error => {
+                  console.error(error);
                 });
-              })
-              .catch(error => {
-                console.error(error);
-              });
+            }
+          },
+          /*{
+            text: 'Comprar',
+            handler: data => {
+              let target = "_system";
+              this.theInAppBrowser.create(urlDescarga, target, this.options);
+            }
           }
-        },
-        /*{
-          text: 'Comprar',
-          handler: data => {
-            let target = "_system";
-            this.theInAppBrowser.create(urlDescarga, target, this.options);
-          }
-        }
-        ,*/
-        {
-          text: 'Cancelar',
-          handler: data => {
-            this.ContenidoTarjeta = 'resumen';
-          }
-        },
-      ]
-    });
-    prompt.present();
+          ,*/
+          {
+            text: 'Cancelar',
+            handler: data => {
+              this.ContenidoTarjeta = 'resumen';
+            }
+          },
+        ]
+      });
+      prompt.present();
+    }
   }
-
 }
