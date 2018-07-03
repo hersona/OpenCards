@@ -16,11 +16,8 @@
 
   <ion-grid>
     <ion-row>
-
-      <ion-col col-12>
-        <video width="100%" height="240" controls>
-          <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
-        </video>
+      <ion-col class="ColImagenPrincipal" col-12>
+          <img class="imgMain" src="{{ ImagenPrincipal }}" />
       </ion-col>
     </ion-row>
     <ion-row>
@@ -28,22 +25,22 @@
         <div padding>
           <ion-segment [(ngModel)]="ContenidoTarjeta">
             <ion-segment-button class="tabSummary" value="resumen">
-                {{ "SUMMARY" | translate}}
+              {{ "SUMMARY" | translate}}
             </ion-segment-button>
             <ion-segment-button class="tabContent" value="contenido" (click)="showPrompt(strTitulo,strUrlCompra)">
-                {{ "CONTENT" | translate}}
+              {{ "CONTENT" | translate}}
             </ion-segment-button>
           </ion-segment>
         </div>
         <div [ngSwitch]="ContenidoTarjeta">
 
-          <ul *ngSwitchCase="'resumen'">
+          <div class="divContent" Markdown *ngSwitchCase="'resumen'">
             {{ strDescripcion }}
-          </ul>
+          </div>
 
-          <p *ngSwitchCase="'contenido'" >
+          <div *ngSwitchCase="'contenido'">
             <ion-list>
-              <ion-item *ngFor="let data of objCard; let i = index">
+              <ion-item *ngFor="let data of objCard; let i = index ">
                 <ion-grid>
                   <ion-row>
                     <ion-col col-10>
@@ -52,13 +49,13 @@
 
                     </ion-col>
                     <ion-col col-2>
-                        <ion-icon name="arrow-dropright" (click)="goContenteDetail(data,objCard)"></ion-icon>
+                      <ion-icon name="arrow-dropright" (click)="goContenteDetail(data,objCard)"></ion-icon>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </ion-item>
             </ion-list>
-          </p>
+          </div>
         </div>
       </ion-col>
     </ion-row>

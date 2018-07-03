@@ -3,7 +3,7 @@
     <ion-list>
       <button class="MenuMain" menuClose ion-item (click)="openPage('HomePage')">Libreria</button>
       <button class="MenuMain" menuClose ion-item *ngFor="let data of objCard; let i = index" (click)="goContenteDetail(data,objCard)">
-          {{ data.fields.titulo }}
+        {{ data.fields.titulo }}
       </button>
     </ion-list>
   </ion-content>
@@ -13,11 +13,11 @@
 
   <ion-grid>
     <ion-row class="HeaderMain">
-        <ion-col col-12>
-            <img (click)="mostrarMenu()" src="assets/imgs/menu.png" />
-            <img (click)="fontSizeChange(-0.2)"  src="assets/imgs/letter-small.png" />
-            <img (click)="fontSizeChange(0.2)" src="assets/imgs/letter-big.png" />
-        </ion-col>
+      <ion-col col-12>
+        <img (click)="mostrarMenu()" src="assets/imgs/menu.png" />
+        <img (click)="fontSizeChange(-0.2)" src="assets/imgs/letter-small.png" />
+        <img (click)="fontSizeChange(0.2)" src="assets/imgs/letter-big.png" />
+      </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="TittleDetail" col-12>
@@ -31,14 +31,10 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
-       
-      </ion-col>
       <ion-col col-10>
+        <div Markdown>
           {{ profileSettings.descripcion }}
-      </ion-col>
-      <ion-col>
-
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

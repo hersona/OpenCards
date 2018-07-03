@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Pipe, PipeTransform } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContentdetailPage } from '../../pages/contentdetail/contentdetail';
 import { ContentProvider } from '../../providers/ContentProvider';
@@ -7,6 +7,8 @@ import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser'
 import { TranslateService } from '@ngx-translate/core';
 import { RestProvider } from '../../providers/rest/rest';
 import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
+
+
 
 @IonicPage()
 @Component({
@@ -19,6 +21,7 @@ export class ContentcardPage {
   sysId: number;
   objCard: any;
   strTitulo: string;
+  ImagenPrincipal : string;
   strDescripcion: string;
   strUrlCompra: string;
   options: InAppBrowserOptions = {
@@ -41,6 +44,11 @@ export class ContentcardPage {
 
   AppCode: any = {};
   AppValidate: any = {};
+
+  descending: boolean = false;
+  order: number;
+  column: string = 'name';
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController, public contentprovider: ContentProvider,
     private theInAppBrowser: InAppBrowser,
@@ -49,19 +57,25 @@ export class ContentcardPage {
     public tasksService: TasksServiceProvider
   ) {
     this.sysId = navParams.get("sysId");
-
-    contentprovider.getCard(translate.getDefaultLang(), this.sysId).then(
-      res => (
-        //console.log(res),
-        this.strTitulo = res[0].fields.productoRelacionado.fields.titulo
-        , this.strDescripcion = res[0].fields.productoRelacionado.fields.descripcion
-        , this.strUrlCompra = res[0].fields.productoRelacionado.fields.urlTiendaProducto
-        , this.objCard = res
-        , this.validateCode(res[0].fields.productoRelacionado.fields.titulo)
-      )
-    );
-
+    this.objCard = navParams.get("objCard");
+    
+    //Ordenar arreglo por el orden
+    this.objCard.sort(function (orden1, orden2) {
+      if (orden1.fields.orden < orden2.fields.orden) {
+        return -1;
+      } else if (orden1.fields.orden > orden2.fields.orden) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    this.strTitulo = this.objCard[0].fields.productoRelacionado.fields.titulo;
+    this.ImagenPrincipal = this.objCard[0].fields.productoRelacionado.fields.imagenSuperior.fields.file.url;
+    this.strDescripcion = this.objCard[0].fields.productoRelacionado.fields.descripcion;
+    this.strUrlCompra = this.objCard[0].fields.productoRelacionado.fields.urlTiendaProducto;
+    this.validateCode(this.objCard[0].fields.productoRelacionado.fields.titulo);
   }
+
 
   //Validar si la persona ya digito previamente el codigo
   validateCode(strTitulo) {
@@ -77,7 +91,6 @@ export class ContentcardPage {
       .catch(error => {
         console.error(error);
       });
-
   }
 
   //Ir al contenido del detalle
@@ -95,6 +108,7 @@ export class ContentcardPage {
   showPrompt(titulo, urlDescarga) {
     if (this.AppValidate.downloaded) {
       //Significa que ya descargo el kit
+      
     }
     else {
       let prompt = this.alertCtrl.create({
@@ -116,7 +130,7 @@ export class ContentcardPage {
                   this.AppCode.CodeApp = data.title;
                   this.AppCode.UserEmail = dataUser[0].email;
                   this.AppCode.UserName = dataUser[0].name + ' ' + dataUser[0].lastname;
-                  this.AppCode.CodeKit = this.strTitulo;
+                  this.AppCode.CodeKit = this.objCard[0].fields.productoRelacionado.fields.tituloInterno;
 
                   //Crea en el servicio y guarda en base de datos
                   this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
@@ -165,14 +179,14 @@ export class ContentcardPage {
                 });
             }
           },
-          /*{
+          {
             text: 'Comprar',
             handler: data => {
               let target = "_system";
               this.theInAppBrowser.create(urlDescarga, target, this.options);
             }
           }
-          ,*/
+          ,
           {
             text: 'Cancelar',
             handler: data => {

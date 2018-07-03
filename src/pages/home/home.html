@@ -9,7 +9,7 @@
   
   <div class="filaHome">
     <div *ngFor="let data of listCards; let i = index" class="column">
-      <img  (click)="viewContent(data.sys.id)" src="{{ data.fields.imagenProducto  }}" />
+      <img  (click)="viewContent(data.sys.id)" src="https:{{ data.fields.imagenProducto.fields.file.url }}" />
     </div>
   </div>
 
