@@ -18,7 +18,7 @@ import { TasksServiceProvider } from '../../providers/tasks-service/tasks-servic
 export class ContentcardPage {
 
   ContenidoTarjeta: string = "resumen";
-  sysId: number;
+  
   objCard: any;
   strTitulo: string;
   ImagenPrincipal : string;
@@ -56,7 +56,7 @@ export class ContentcardPage {
     public restProvider: RestProvider,
     public tasksService: TasksServiceProvider
   ) {
-    this.sysId = navParams.get("sysId");
+    
     this.objCard = navParams.get("objCard");
     
     //Ordenar arreglo por el orden
@@ -95,7 +95,7 @@ export class ContentcardPage {
 
   //Ir al contenido del detalle
   goContenteDetail(data, card) {
-    this.navCtrl.setRoot(ContentdetailPage, {
+    this.navCtrl.push(ContentdetailPage, {
       objData: data, objCard: card
     });
   }

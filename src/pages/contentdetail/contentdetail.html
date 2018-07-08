@@ -1,7 +1,7 @@
-<ion-menu [content]="thecontent" id='menu1'>
+<ion-menu  [content]="thecontent" id='menu1'>
   <ion-content class="MenuMain">
     <ion-list>
-      <button class="MenuMain" menuClose ion-item (click)="openPage('HomePage')">Libreria</button>
+     <!-- <button class="MenuMain" menuClose ion-item (click)="openPage('HomePage')">Libreria</button> -->
       <button class="MenuMain" menuClose ion-item *ngFor="let data of objCard; let i = index" (click)="goContenteDetail(data,objCard)">
         {{ data.fields.titulo }}
       </button>
@@ -32,8 +32,8 @@
     </ion-row>
     <ion-row>
       <ion-col col-10>
-        <div Markdown>
-          {{ profileSettings.descripcion }}
+        <div [innerHTML]="profileSettings.descripcion">
+          
         </div>
       </ion-col>
     </ion-row>

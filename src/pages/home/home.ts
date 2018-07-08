@@ -38,7 +38,7 @@ export class HomePage {
       res => (
         this.objCard = res,
         this.navCtrl.push(ContentcardPage, {
-          sysId: sysIdValue, objCard: this.objCard
+          objCard: this.objCard
         })
       )
     );

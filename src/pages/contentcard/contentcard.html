@@ -17,7 +17,7 @@
   <ion-grid>
     <ion-row>
       <ion-col class="ColImagenPrincipal" col-12>
-          <img class="imgMain" src="https:{{ ImagenPrincipal }}" />
+        <img class="imgMain" src="https:{{ ImagenPrincipal }}" />
       </ion-col>
     </ion-row>
     <ion-row>
@@ -34,26 +34,25 @@
         </div>
         <div [ngSwitch]="ContenidoTarjeta">
 
-          <div class="divContent" Markdown *ngSwitchCase="'resumen'">
-            {{ strDescripcion }}
+          <div class="divContent" [innerHTML]="strDescripcion" *ngSwitchCase="'resumen'">
+
           </div>
 
           <div *ngSwitchCase="'contenido'">
-            <ion-list>
-              <ion-item *ngFor="let data of objCard; let i = index ">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col col-10>
-                      <h2 class="tittleMethod">{{ data.fields.titulo }}</h2>
-                      <p>{{ data.fields.descripcionCorta }}</p>
+            <ion-list class="ListContent" *ngFor="let data of objCard; let i = index ">
+              <ion-grid>
+                <ion-row class="RowContenido">
+                  <ion-col col-10>
+                    <h2 class="tittleMethod">{{ data.fields.titulo }}</h2>
+                    <p>{{ data.fields.descripcionCorta }}</p>
 
-                    </ion-col>
-                    <ion-col col-2>
-                      <ion-icon name="arrow-dropright" (click)="goContenteDetail(data,objCard)"></ion-icon>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </ion-item>
+                  </ion-col>
+                  <ion-col col-2>
+                    <ion-icon class="IconContenido" name="add-circle" (click)="goContenteDetail(data,objCard)"></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
             </ion-list>
           </div>
         </div>

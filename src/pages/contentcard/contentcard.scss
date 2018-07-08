@@ -39,6 +39,8 @@ page-contentcard {
 
       .tittleMethod{
           text-align: left !important;
+          font-size: 14px !important;
+          margin-top: 0px;
       }
 
       .divContent{
@@ -55,4 +57,22 @@ page-contentcard {
     .ColImagenPrincipal{
         padding: 0px !important;
     }
+
+    .ListContent{
+        margin: 0 auto;
+        width: 96% !important;
+        font-size: 12px;
+    }
+
+    .RowContenido{
+        border-bottom-color:#F6F6F6;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        margin-top: 10px;
+    }
+    
+    .IconContenido{
+        color:#4C7F00;
+    }
 }
+
