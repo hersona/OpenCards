@@ -106,9 +106,10 @@ export class ContentcardPage {
 
   cardValidate: any = {};
   showPrompt(titulo, urlDescarga) {
+    this.ContenidoTarjeta = 'resumen';
     if (this.AppValidate.downloaded) {
       //Significa que ya descargo el kit
-      
+      this.ContenidoTarjeta = 'contenido';
     }
     else {
       let prompt = this.alertCtrl.create({

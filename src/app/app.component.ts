@@ -2,16 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
-import { SliderPage } from '../pages/slider/slider';
+import { ContentProvider } from '../providers/ContentProvider';
 import { ContentcardPage } from '../pages/contentcard/contentcard';
-import { RegisterPage } from '../pages/register/register';
-import { ContentdetailPage } from '../pages/contentdetail/contentdetail';
 import { OneSignal } from '@ionic-native/onesignal';
-
 import { SQLite } from '@ionic-native/sqlite';
 import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,6 +19,8 @@ import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  ContentLocal: ContentProvider;
+  objCard: any;
   rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any, typeComponent: any }>;
   options : InAppBrowserOptions = {
@@ -51,9 +49,11 @@ export class MyApp {
     public tasksService: TasksServiceProvider,
     public sqlite: SQLite,
     private translate: TranslateService,
-    private theInAppBrowser: InAppBrowser
+    private theInAppBrowser: InAppBrowser,
+    public contentprovider: ContentProvider
   ) {
     this.initializeApp();
+    this.ContentLocal = contentprovider;
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -125,13 +125,42 @@ export class MyApp {
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
     this.oneSignal.handleNotificationOpened()
       .subscribe(jsonData => {
-        let alert = this.alertCtrl.create({
-          title: jsonData.notification.payload.title,
-          subTitle: jsonData.notification.payload.body,
-          buttons: ['OK']
-        });
-        alert.present();
+        
         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+        //Validar si la notificación tiene comportamiento
+        if(jsonData.notification.payload.additionalData != null)
+        {
+          //Notificaciones para redireccionar a una pagina
+          if(jsonData.notification.payload.additionalData.page != null)
+          {
+            let target = "_system";
+            this.theInAppBrowser.create(jsonData.notification.payload.additionalData.page, target, this.options);
+          }
+
+          //Contenido en especifico
+          if(jsonData.notification.payload.additionalData.product != null)
+          {
+            console.log(jsonData.notification.payload.additionalData.product);
+            this.ContentLocal.getCard(this.translate.getDefaultLang(), jsonData.notification.payload.additionalData.product).then(
+              res => (
+                this.objCard = res,
+                this.nav.push(ContentcardPage, {
+                  objCard: this.objCard
+                })
+              )
+            );
+          }
+        }
+        else
+        {
+          //Mensaje informativo
+          let alert = this.alertCtrl.create({
+            title: jsonData.notification.payload.title,
+            subTitle: jsonData.notification.payload.body,
+            buttons: ['OK']
+          });
+          alert.present();
+        }
       });
     this.oneSignal.endInit();
   }
