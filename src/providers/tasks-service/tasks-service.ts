@@ -55,6 +55,7 @@ export class TasksServiceProvider {
     return this.db.executeSql(sql, [data.name])
     .then(response => {
       let tasks = [];
+      
       for (let index = 0; index < response.rows.length; index++) {
         tasks.push( response.rows.item(index) );
       }
@@ -70,14 +71,23 @@ export class TasksServiceProvider {
 
   insertParamsOpen(data: any){
     let sql = 'INSERT INTO ParamsOpen(name, valueParam) VALUES(?,?)';
-    return this.db.executeSql(sql, [data.name, data.valueParam]);
+    return this.db.executeSql(sql, []);
+  }
+
+  insertParamsOpenValue(name,valueParam){
+    //Eliminar valor anterior
+    let sqlDelete = 'DELETE FROM ParamsOpen where name = ?';
+    this.db.executeSql(sqlDelete, [name]);
+
+    let sql = 'INSERT INTO ParamsOpen(name, valueParam) VALUES(?,?)';
+    return this.db.executeSql(sql, [name,valueParam]);
   }
 
   truncate(){
-    let sql = 'TRUNCATE TABLE UserOpen';
-    this.db.executeSql(sql, []);
+    //let sql = 'TRUNCATE TABLE UserOpen';
+    //this.db.executeSql(sql, []);
 
-    sql = 'TRUNCATE TABLE ParamsOpen';
+    let sql = 'DROP TABLE ParamsOpen';
     return this.db.executeSql(sql, []);
   }
 
@@ -89,6 +99,11 @@ export class TasksServiceProvider {
   delete(data){
     let sql = 'DELETE FROM UserOpen';
     return this.db.executeSql(sql, [data.id]);
+  }
+
+  deleteParamsOpen(valueParam){
+    let sql = 'DELETE FROM ParamsOpen where name = ?';
+    return this.db.executeSql(sql, [valueParam]);
   }
 
 }

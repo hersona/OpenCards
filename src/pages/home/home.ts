@@ -4,6 +4,7 @@ import { ContentcardPage } from '../../pages/contentcard/contentcard';
 import { ContentProvider } from '../../providers/ContentProvider';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { TranslateService } from '@ngx-translate/core';
+import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
 
 @Component({
   selector: 'page-home',
@@ -11,26 +12,37 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomePage {
   listCards: any;
-  builderHtml: string;
   numberCard: number;
   objRender: SafeHtml;
   objCard: any;
   ContentLocal: ContentProvider;
   TranslateLocal: TranslateService;
+  objParam: any;
+  AppValidate: any = {};
 
   constructor(private el: ElementRef, public navCtrl: NavController,
     private menu: MenuController,
     public contentprovider: ContentProvider, private sanitizer: DomSanitizer,
-    translate: TranslateService
+    translate: TranslateService,
+    public tasksService: TasksServiceProvider
   ) {
     this.ContentLocal = contentprovider;
     this.TranslateLocal = translate;
 
-    this.builderHtml = "";
-    contentprovider.getCards(translate.getDefaultLang()).then(
-      res => (this.listCards = res, console.log(res)
-      ));
-
+    this.AppValidate.name = 'HomeDataSet';
+    this.tasksService.getParam(this.AppValidate)
+      .then(data => {
+        if (data.length > 0) {
+          this.listCards = JSON.parse(data[0].valueParam);
+        }
+        else
+        {
+          console.log('Información no Cache');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   viewContent(sysIdValue) {

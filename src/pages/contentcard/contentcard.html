@@ -41,7 +41,7 @@
           <div *ngSwitchCase="'contenido'">
             <ion-list class="ListContent" *ngFor="let data of objCard; let i = index ">
               <ion-grid>
-                <ion-row class="RowContenido">
+                <ion-row (click)="goContenteDetail(data,objCard)" class="RowContenido">
                   <ion-col col-10>
                     <h2 class="tittleMethod">{{ data.fields.titulo }}</h2>
                     <p>{{ data.fields.descripcionCorta }}</p>

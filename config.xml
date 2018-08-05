@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.openmind_global.opencards" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.openmind_global.opencards" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>opencards</name>
     <description>App opencards</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.0.2:8100" />
+    <content src="index.html" />
     <access origin="*" subdomains="true" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -101,6 +101,17 @@
     <allow-navigation href="http://192.168.0.3:8100" />
     <allow-navigation href="http://192.168.43.166:8100" />
     <allow-navigation href="http://169.254.168.64:8100" />
-    <engine name="android" spec="7.0.0" />
+    <allow-navigation href="http://192.168.0.6:8100" />
+    <allow-navigation href="http://192.168.0.6:8101" />
+    <allow-navigation href="http://192.168.0.6:8102" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <allow-navigation href="http://192.168.0.6:8103" />
+    <allow-navigation href="http://192.168.0.6:8104" />
+    <allow-navigation href="http://192.168.0.6:8105" />
+    <allow-navigation href="http://192.168.0.6:8106" />
+    <allow-navigation href="http://192.168.0.6:8107" />
+    <allow-navigation href="http://192.168.0.6:8108" />
+    <allow-navigation href="http://192.168.0.6:8109" />
     <engine name="browser" spec="5.0.3" />
+    <engine name="android" spec="7.0.0" />
 </widget>

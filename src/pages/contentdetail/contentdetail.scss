@@ -37,6 +37,20 @@ page-contentdetail {
 }
 
 .ContentDescription{
-    margin: 0 auto;
+    width: 100% !important;
+}
+
+.ContentDescription p{
     width: 90% !important;
+    margin: 0 auto;
+}
+
+.ContentDescription ol{
+    margin: 0 auto;
+    -webkit-padding-start: 10px !important;
+    width: 90% !important;
+}
+
+.ContentDescription ol > li{
+    margin-top: 10px;
 }

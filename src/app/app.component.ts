@@ -12,6 +12,8 @@ import { SQLite } from '@ionic-native/sqlite';
 import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
 import { TranslateService } from '@ngx-translate/core';
 import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser';
+import { Network } from '@ionic-native/network';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -41,7 +43,7 @@ export class MyApp {
     fullscreen : 'yes',//Windows only    
   };
 
-
+  networkLocal: Network;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private oneSignal: OneSignal, 
@@ -50,11 +52,23 @@ export class MyApp {
     public sqlite: SQLite,
     private translate: TranslateService,
     private theInAppBrowser: InAppBrowser,
-    public contentprovider: ContentProvider
+    public contentprovider: ContentProvider,
+    private network: Network
   ) {
+    
     this.initializeApp();
+    
     this.ContentLocal = contentprovider;
+    
+    //Mensaje informativo
+    let alert1 = this.alertCtrl.create({
+      title: "Tipo",
+      subTitle: this.network.type,
+      buttons: ['OK']
+    });
+    alert1.present();
 
+    
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Libreria', component: HomePage, typeComponent: 'PAGE' },
@@ -64,21 +78,20 @@ export class MyApp {
       { title: 'Acerca de Open Cards', component: 'http://www.opencards.co/', typeComponent: 'URL' },
       { title: 'Ayuda', component: 'https://www.openmind-global.com/Contactenos', typeComponent: 'URL' },
     ];
+    console.log("Dato5" + Date.now());
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.show();
       
-      
       //Notificaciones Push
       this.handlerNotifications();
       //Base de datos
-      this.createDatabase();
+      this.setDataBaseConfig();
       //Language
       this.translate.addLangs(["", "es"]);
       let browserLang = this.translate.getBrowserLang();
@@ -89,24 +102,31 @@ export class MyApp {
   }
 
 
-  private createDatabase() {
+  private setDataBaseConfig() {
     this.sqlite.create({
       name: 'opencards.db',
       location: 'default' // the location field is required
     })
       .then((db) => {
         this.tasksService.setDatabase(db);
-        //this.tasksService.truncate();
+        this.tasksService.truncate();
         
         this.tasksService.createTable();
+
         //Revisar si ya esta creado previamente lo debe enviar al home
         this.tasksService.getUser()
           .then(data => {
             if (data.length > 0) {
-              this.rootPage = HomePage;
+              //Almacenar contenido modo desconectado
+               this.ContentLocal.getCards(this.translate.getDefaultLang()).then(
+                res => (
+                  this.tasksService.insertParamsOpenValue('HomeDataSet',JSON.stringify(res)),
+                  this.rootPage = HomePage
+                ));
             }
           })
           .catch(error => {
+            this.rootPage = HomePage
             console.error(error);
           });
       })

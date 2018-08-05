@@ -28,7 +28,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClient, HttpClientModule } from "@angular/common/http"; 
 
 import { MarkdownModule } from 'angular2-markdown';
-
+import { Network } from '@ionic-native/network';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -82,7 +82,8 @@ export function createTranslateLoader(http: HttpClient) {
     SQLite,
     TasksServiceProvider,
     InAppBrowser,
-    RestProvider
+    RestProvider,
+    Network
   ]
   
 })
