@@ -20,8 +20,6 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'login.html',
 })
 
-
-
 export class LoginPage {
 
   FB_APP_ID: number = 1039887276149982;

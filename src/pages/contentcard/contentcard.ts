@@ -58,7 +58,6 @@ export class ContentcardPage {
   ) {
     
     this.objCard = navParams.get("objCard");
-    
     //Ordenar arreglo por el orden
     this.objCard.sort(function (orden1, orden2) {
       if (orden1.fields.orden < orden2.fields.orden) {
@@ -73,17 +72,16 @@ export class ContentcardPage {
     this.ImagenPrincipal = this.objCard[0].fields.productoRelacionado.fields.imagenSuperior.fields.file.url;
     this.strDescripcion = this.objCard[0].fields.productoRelacionado.fields.descripcion;
     this.strUrlCompra = this.objCard[0].fields.productoRelacionado.fields.urlTiendaProducto;
-    this.validateCode(this.objCard[0].fields.productoRelacionado.fields.titulo);
+    this.validateCode(this.objCard[0].fields.productoRelacionado.fields.tituloInterno);
   }
 
 
   //Validar si la persona ya digito previamente el codigo
-  validateCode(strTitulo) {
-    this.AppValidate.name = strTitulo;
+  validateCode(tituloInterno) {
+    this.AppValidate.name = tituloInterno;
     this.tasksService.getParam(this.AppValidate)
       .then(data => {
         if (data.length > 0) {
-          //this.goContenteDetail(this.objCard[0], this.objCard);
           this.ContenidoTarjeta = 'contenido';
           this.AppValidate.downloaded = true;
         }
@@ -135,16 +133,14 @@ export class ContentcardPage {
 
                   //Crea en el servicio y guarda en base de datos
                   this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
-                    console.log(result);
-
                     switch (JSON.parse(result._body).Error) {
                       //Respuesta del servicio OK
                       case '0': {
                         this.ContenidoTarjeta = 'contenido';
                         //Marcar como cargado el curso
-                        this.cardValidate.name = this.strTitulo;
+                        this.cardValidate.name = this.AppCode.CodeKit;
                         this.cardValidate.valueParam = '1';
-                        this.tasksService.insertParamsOpen(this.cardValidate);
+                        this.tasksService.insertParamsOpenValue(this.cardValidate.name,this.cardValidate.valueParam);
                         break;
                       }
                       //Codigo no valido

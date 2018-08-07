@@ -11,8 +11,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { SQLite } from '@ionic-native/sqlite';
 import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
 import { TranslateService } from '@ngx-translate/core';
-import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser';
-import { Network } from '@ionic-native/network';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
 
 @Component({
@@ -25,54 +24,43 @@ export class MyApp {
   objCard: any;
   rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any, typeComponent: any }>;
-  options : InAppBrowserOptions = {
-    location : 'yes',//Or 'no' 
-    hidden : 'no', //Or  'yes'
-    clearcache : 'yes',
-    clearsessioncache : 'yes',
-    zoom : 'yes',//Android only ,shows browser zoom controls 
-    hardwareback : 'yes',
-    mediaPlaybackRequiresUserAction : 'no',
-    shouldPauseOnSuspend : 'no', //Android only 
-    closebuttoncaption : 'Close', //iOS only
-    disallowoverscroll : 'no', //iOS only 
-    toolbar : 'yes', //iOS only 
-    enableViewportScale : 'no', //iOS only 
-    allowInlineMediaPlayback : 'no',//iOS only 
-    presentationstyle : 'pagesheet',//iOS only 
-    fullscreen : 'yes',//Windows only    
+  options: InAppBrowserOptions = {
+    location: 'yes',//Or 'no' 
+    hidden: 'no', //Or  'yes'
+    clearcache: 'yes',
+    clearsessioncache: 'yes',
+    zoom: 'yes',//Android only ,shows browser zoom controls 
+    hardwareback: 'yes',
+    mediaPlaybackRequiresUserAction: 'no',
+    shouldPauseOnSuspend: 'no', //Android only 
+    closebuttoncaption: 'Close', //iOS only
+    disallowoverscroll: 'no', //iOS only 
+    toolbar: 'yes', //iOS only 
+    enableViewportScale: 'no', //iOS only 
+    allowInlineMediaPlayback: 'no',//iOS only 
+    presentationstyle: 'pagesheet',//iOS only 
+    fullscreen: 'yes',//Windows only    
   };
 
-  networkLocal: Network;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-    private oneSignal: OneSignal, 
+    private oneSignal: OneSignal,
     private alertCtrl: AlertController,
     public tasksService: TasksServiceProvider,
     public sqlite: SQLite,
     private translate: TranslateService,
     private theInAppBrowser: InAppBrowser,
-    public contentprovider: ContentProvider,
-    private network: Network
+    public contentprovider: ContentProvider
   ) {
-    
-    this.initializeApp();
-    
-    this.ContentLocal = contentprovider;
-    
-    //Mensaje informativo
-    let alert1 = this.alertCtrl.create({
-      title: "Tipo",
-      subTitle: this.network.type,
-      buttons: ['OK']
-    });
-    alert1.present();
 
-    
+    this.initializeApp();
+
+    this.ContentLocal = contentprovider;
+
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Libreria', component: HomePage, typeComponent: 'PAGE' },
-      { title: 'Buscar', component: ListPage, typeComponent: 'PAGE' },
+      //{ title: 'Buscar', component: ListPage, typeComponent: 'PAGE' },
       { title: 'Comprar', component: 'http://openmind-store.com/', typeComponent: 'URL' },
       { title: 'Acerca de Openmind', component: 'https://www.openmind-global.com/nosotros', typeComponent: 'URL' },
       { title: 'Acerca de Open Cards', component: 'http://www.opencards.co/', typeComponent: 'URL' },
@@ -87,7 +75,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.show();
-      
+
       //Notificaciones Push
       this.handlerNotifications();
       //Base de datos
@@ -97,7 +85,7 @@ export class MyApp {
       let browserLang = this.translate.getBrowserLang();
       this.translate.setDefaultLang(browserLang);
       //this.translate.setDefaultLang('en');
-      
+
     });
   }
 
@@ -109,35 +97,27 @@ export class MyApp {
     })
       .then((db) => {
         this.tasksService.setDatabase(db);
-        this.tasksService.truncate();
-        
+        //this.tasksService.truncate();
         this.tasksService.createTable();
 
         //Revisar si ya esta creado previamente lo debe enviar al home
         this.tasksService.getUser()
           .then(data => {
             if (data.length > 0) {
-              //Almacenar contenido modo desconectado
-               this.ContentLocal.getCards(this.translate.getDefaultLang()).then(
-                res => (
-                  this.tasksService.insertParamsOpenValue('HomeDataSet',JSON.stringify(res)),
-                  this.rootPage = HomePage
-                ));
+              this.rootPage = HomePage;
             }
           })
           .catch(error => {
-            this.rootPage = HomePage
             console.error(error);
           });
+
       })
       .then(() => {
         this.splashScreen.hide();
-        //this.rootPage = 'HomePage';
       })
       .catch(error => {
         console.error(error);
-      });
-
+      });    
   }
 
   private handlerNotifications() {
@@ -145,21 +125,18 @@ export class MyApp {
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
     this.oneSignal.handleNotificationOpened()
       .subscribe(jsonData => {
-        
+
         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
         //Validar si la notificación tiene comportamiento
-        if(jsonData.notification.payload.additionalData != null)
-        {
+        if (jsonData.notification.payload.additionalData != null) {
           //Notificaciones para redireccionar a una pagina
-          if(jsonData.notification.payload.additionalData.page != null)
-          {
+          if (jsonData.notification.payload.additionalData.page != null) {
             let target = "_system";
             this.theInAppBrowser.create(jsonData.notification.payload.additionalData.page, target, this.options);
           }
 
           //Contenido en especifico
-          if(jsonData.notification.payload.additionalData.product != null)
-          {
+          if (jsonData.notification.payload.additionalData.product != null) {
             console.log(jsonData.notification.payload.additionalData.product);
             this.ContentLocal.getCard(this.translate.getDefaultLang(), jsonData.notification.payload.additionalData.product).then(
               res => (
@@ -171,8 +148,7 @@ export class MyApp {
             );
           }
         }
-        else
-        {
+        else {
           //Mensaje informativo
           let alert = this.alertCtrl.create({
             title: jsonData.notification.payload.title,
@@ -194,7 +170,7 @@ export class MyApp {
       }
       case 'URL': {
         let target = "_system";
-        this.theInAppBrowser.create(page.component,target,this.options);
+        this.theInAppBrowser.create(page.component, target, this.options);
         break;
       }
     }

@@ -39,7 +39,6 @@ export class TasksServiceProvider {
     let sql = 'SELECT * FROM UserOpen';
     return this.db.executeSql(sql, [])
     .then(response => {
-      console.log(response.rows.length)
       let tasks = [];
       for (let index = 0; index < response.rows.length; index++) {
         
@@ -87,8 +86,8 @@ export class TasksServiceProvider {
     //let sql = 'TRUNCATE TABLE UserOpen';
     //this.db.executeSql(sql, []);
 
-    let sql = 'DROP TABLE ParamsOpen';
-    return this.db.executeSql(sql, []);
+    //let sql = 'DROP TABLE ParamsOpen';
+    //return this.db.executeSql(sql, []);
   }
 
   update(task: any){
