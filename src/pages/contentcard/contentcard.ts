@@ -56,7 +56,7 @@ export class ContentcardPage {
     public restProvider: RestProvider,
     public tasksService: TasksServiceProvider
   ) {
-    
+    console.log("ENTRO!!!");
     this.objCard = navParams.get("objCard");
     //Ordenar arreglo por el orden
     this.objCard.sort(function (orden1, orden2) {

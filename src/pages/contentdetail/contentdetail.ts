@@ -2,14 +2,8 @@ import { Component, ElementRef } from '@angular/core';
 import { MenuController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 import { Platform } from 'ionic-angular';
+import { ContentcardPage } from '../../pages/contentcard/contentcard';
 
-
-/**
- * Generated class for the ContentdetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -36,24 +30,8 @@ export class ContentdetailPage {
     this.objData = navParams.get("objData");
     this.objCard = navParams.get("objCard");
     this.menu.enable(true, 'menu1');
-
     this.profileSettings = this.objData.fields;
     this.profileSettingsOld = this.profileSettings;
-
-    //Metodo para controlar el boton atras
-    /*platform.registerBackButtonAction(() => {
-      if(this.profileSettings == this.profileSettingsOld)
-      {
-        this.navCtrl.push(ContentcardPage, {
-          objCard: this.objCard
-        })
-      }
-      else
-      { 
-        this.profileSettings = this.profileSettingsOld;
-      }
-    },1);*/
-    
   }
 
 
@@ -68,11 +46,13 @@ export class ContentdetailPage {
   }
 
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    //this.nav.setRoot(page.component);
-    this.navCtrl.push(HomePage);
+  goToHome() {
+    this.navCtrl.setRoot(HomePage);
+  }
+
+  goToSummary()
+  {
+    this.navCtrl.pop();
   }
 
   //Ir al contenido del detalle
