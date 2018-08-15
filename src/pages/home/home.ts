@@ -21,6 +21,7 @@ export class HomePage {
   TranslateLocal: TranslateService;
   objParam: any;
   AppValidate: any = {};
+  buttonEnable: any = true;
 
   constructor(private el: ElementRef, public navCtrl: NavController,
     private menu: MenuController,
@@ -46,6 +47,11 @@ export class HomePage {
     else {
       this.getContentDataBase();
     }
+  }
+
+  ionViewWillLeave()
+  {
+    this.buttonEnable = true;
   }
 
   getContentDataBase() {
@@ -75,18 +81,22 @@ export class HomePage {
 
   //Ver contenido del manual
   viewContent(sysIdValue) {
-    //Validar si tiene una coleccion valida para guardar contenido
-    if (this.network.type != 'none') {
-      //Almacenar contenido modo desconectado
-      this.ContentLocal.getCard(this.TranslateLocal.getDefaultLang(), sysIdValue).then(
-        res => (
-          this.tasksService.insertParamsOpenValue(sysIdValue, JSON.stringify(res)),
-          this.getContentDetailDataBase(sysIdValue)
-        )
-      );
-    }
-    else {
-      this.getContentDetailDataBase(sysIdValue);
+    if (this.buttonEnable) 
+    {
+      this.buttonEnable = false;
+      //Validar si tiene una coleccion valida para guardar contenido
+      if (this.network.type != 'none') {
+        //Almacenar contenido modo desconectado
+        this.ContentLocal.getCard(this.TranslateLocal.getDefaultLang(), sysIdValue).then(
+          res => (
+            this.tasksService.insertParamsOpenValue(sysIdValue, JSON.stringify(res)),
+            this.getContentDetailDataBase(sysIdValue)
+          )
+        );
+      }
+      else {
+        this.getContentDetailDataBase(sysIdValue);
+      }
     }
   }
 

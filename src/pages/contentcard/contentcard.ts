@@ -18,10 +18,10 @@ import { TasksServiceProvider } from '../../providers/tasks-service/tasks-servic
 export class ContentcardPage {
 
   ContenidoTarjeta: string = "resumen";
-  
+
   objCard: any;
   strTitulo: string;
-  ImagenPrincipal : string;
+  ImagenPrincipal: string;
   strDescripcion: string;
   strUrlCompra: string;
   options: InAppBrowserOptions = {
@@ -48,6 +48,11 @@ export class ContentcardPage {
   descending: boolean = false;
   order: number;
   column: string = 'name';
+  buttonEnable: any = true;
+
+  ionViewWillLeave() {
+    this.buttonEnable = true;
+  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController, public contentprovider: ContentProvider,
@@ -56,7 +61,6 @@ export class ContentcardPage {
     public restProvider: RestProvider,
     public tasksService: TasksServiceProvider
   ) {
-    console.log("ENTRO!!!");
     this.objCard = navParams.get("objCard");
     //Ordenar arreglo por el orden
     this.objCard.sort(function (orden1, orden2) {
@@ -93,13 +97,12 @@ export class ContentcardPage {
 
   //Ir al contenido del detalle
   goContenteDetail(data, card) {
-    this.navCtrl.push(ContentdetailPage, {
-      objData: data, objCard: card
-    });
-  }
-
-  ionViewDidLoad() {
-
+    if (this.buttonEnable) {
+      this.buttonEnable = false;
+      this.navCtrl.push(ContentdetailPage, {
+        objData: data, objCard: card
+      });
+    }
   }
 
   cardValidate: any = {};
@@ -140,7 +143,7 @@ export class ContentcardPage {
                         //Marcar como cargado el curso
                         this.cardValidate.name = this.AppCode.CodeKit;
                         this.cardValidate.valueParam = '1';
-                        this.tasksService.insertParamsOpenValue(this.cardValidate.name,this.cardValidate.valueParam);
+                        this.tasksService.insertParamsOpenValue(this.cardValidate.name, this.cardValidate.valueParam);
                         break;
                       }
                       //Codigo no valido
