@@ -3,7 +3,7 @@
     <name>Open Cards</name>
     <description>App Open Cards</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.0.6:8101" />
+    <content src="index.html" />
     <access origin="*" subdomains="true" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
