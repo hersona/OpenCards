@@ -1,12 +1,7 @@
-page-contentdetail {
-
-}
-
 .HeaderMain {
     text-align: center;
     background-color: #282828 !important;
     padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 .HeaderMain img{
@@ -35,6 +30,11 @@ page-contentdetail {
     width: 101%;
     max-width:101%;
 }
+
+.MenuRight{
+    padding-right: 0px !important;
+}
+
 
 .ContentDescription{
     width: 100% !important;

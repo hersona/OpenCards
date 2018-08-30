@@ -15,15 +15,14 @@
   <ion-grid>
     <ion-row class="HeaderMain">
       <ion-col col-2>
-        <img (click)="mostrarMenu()" src="assets/imgs/menu.png" />
+        <img (click)="goToHome()" src="assets/imgs/menu.png" />
       </ion-col>
       <ion-col col-3>
       </ion-col>
-      <ion-col col-7>
-        <img (click)="goToSummary()" src="assets/imgs/listado.png" />
+      <ion-col col-7 class="MenuRight">
         <img (click)="fontSizeChange(-0.2)" src="assets/imgs/letter-small.png" />
         <img (click)="fontSizeChange(0.2)" src="assets/imgs/letter-big.png" />
-
+        <img (click)="mostrarMenu()" src="assets/imgs/listado.png" />
       </ion-col>
     </ion-row>
     <ion-row>
