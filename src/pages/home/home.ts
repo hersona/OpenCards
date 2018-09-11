@@ -49,8 +49,7 @@ export class HomePage {
     }
   }
 
-  ionViewWillLeave()
-  {
+  ionViewWillLeave() {
     this.buttonEnable = true;
   }
 
@@ -60,6 +59,16 @@ export class HomePage {
       .then(data => {
         if (data.length > 0) {
           this.listCards = JSON.parse(data[0].valueParam);
+          //Ordenar arreglo por el orden
+          this.listCards.sort(function (orden1, orden2) {
+            if (orden1.fields.orden < orden2.fields.orden) {
+              return -1;
+            } else if (orden1.fields.orden > orden2.fields.orden) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
         }
         else {
           this.messageInternetNoValid();
@@ -79,10 +88,19 @@ export class HomePage {
     alert.present();
   }
 
+  contentNotAvalaible() {
+    this.buttonEnable = true;
+    let alert = this.alertCtrl.create({
+      title: 'Próximamente',
+      subTitle: 'Estamos trabajando en tener todos nuestros contenidos digitales, te informaremos tan pronto estén disponibles',
+      buttons: ['Continuar']
+    });
+    alert.present();
+  }
+
   //Ver contenido del manual
   viewContent(sysIdValue) {
-    if (this.buttonEnable) 
-    {
+    if (this.buttonEnable) {
       this.buttonEnable = false;
       //Validar si tiene una coleccion valida para guardar contenido
       if (this.network.type != 'none') {
@@ -106,10 +124,15 @@ export class HomePage {
     this.tasksService.getParam(this.AppValidate)
       .then(data => {
         if (data.length > 0) {
-          this.objCard = JSON.parse(data[0].valueParam),
+          this.objCard = JSON.parse(data[0].valueParam);
+          if (this.objCard.length > 0) {
             this.navCtrl.push(ContentcardPage, {
               objCard: this.objCard
-            })
+            });
+          }
+          else {
+            this.contentNotAvalaible();
+          }
         }
         else {
           this.messageInternetNoValid();
