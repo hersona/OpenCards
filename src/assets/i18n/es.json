@@ -13,5 +13,9 @@
   "CONTENT":"Contenido",
   "URLBUY":"http://openmind-store.com/",
   "URLABOUTOPEN":"https://www.openmind-global.com/nosotros",
-  "URLABOUTOPENCARDS":"http://www.opencards.co/"
+  "URLABOUTOPENCARDS":"http://www.opencards.co/",
+  "SAVE":"Guardar",
+  "CANCEL":"Cancelar",
+  "SETTINGSTITTLE":"Configuración Open Cards",
+  "LANGUAGEPREFERENCE":"Lenguaje de preferencia"
 }

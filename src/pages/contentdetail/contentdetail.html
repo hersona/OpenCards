@@ -38,7 +38,7 @@
     </ion-row>
     <ion-row>
       <ion-col col-12>
-        <div class="ContentDescription" [innerHTML]="profileSettings.descripcion">
+        <div class="ContentDescription" [innerHTML]="profileSettings.descripcion | safeHtml">
 
         </div>
       </ion-col>

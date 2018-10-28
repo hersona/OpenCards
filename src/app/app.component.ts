@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
+import { SettingopenPage } from '../pages/settingopen/settingopen';
 import { ContentProvider } from '../providers/ContentProvider';
 import { ContentcardPage } from '../pages/contentcard/contentcard';
 import { OneSignal } from '@ionic-native/onesignal';
@@ -60,13 +61,12 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Libreria', component: HomePage, typeComponent: 'PAGE' },
-      //{ title: 'Buscar', component: ListPage, typeComponent: 'PAGE' },
+      { title: 'Idiomas', component: SettingopenPage, typeComponent: 'PAGE' },
       { title: 'Comprar', component: 'http://openmind-store.com/', typeComponent: 'URL' },
       { title: 'Acerca de Openmind', component: 'https://www.openmind-global.com/nosotros', typeComponent: 'URL' },
       { title: 'Acerca de Open Cards', component: 'http://www.opencards.co/', typeComponent: 'URL' },
       { title: 'Ayuda', component: 'https://www.openmind-global.com/Contactenos', typeComponent: 'URL' },
     ];
-    console.log("Dato5" + Date.now());
   }
 
   initializeApp() {
@@ -84,8 +84,8 @@ export class MyApp {
       this.translate.addLangs(["", "es"]);
       let browserLang = this.translate.getBrowserLang();
       this.translate.setDefaultLang(browserLang);
-      //this.translate.setDefaultLang('en');
-
+      //Inicializar con lenguaje por defecto
+      this.ContentLocal.getLanguageContentFul(this.translate.getDefaultLang());
     });
   }
 
@@ -165,7 +165,8 @@ export class MyApp {
     console.log(page);
     switch (page.typeComponent) {
       case 'PAGE': {
-        this.nav.setRoot(page.component);
+        //this.nav.setRoot(page.component);
+        this.nav.push(page.component);
         break;
       }
       case 'URL': {

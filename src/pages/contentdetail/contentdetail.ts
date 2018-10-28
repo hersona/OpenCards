@@ -3,7 +3,7 @@ import { MenuController, IonicPage, NavController, NavParams } from 'ionic-angul
 import { HomePage } from '../../pages/home/home';
 import { Platform } from 'ionic-angular';
 import { ContentcardPage } from '../../pages/contentcard/contentcard';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -26,7 +26,7 @@ export class ContentdetailPage {
   strDescripcion: string;
 
   constructor(public navCtrl: NavController, private menu: MenuController, 
-    public navParams: NavParams,platform: Platform) {
+    public navParams: NavParams,platform: Platform,private domSanitizer: DomSanitizer) {
     this.objData = navParams.get("objData");
     this.objCard = navParams.get("objCard");
     this.menu.enable(true, 'menu1');

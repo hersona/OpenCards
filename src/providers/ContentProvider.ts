@@ -2,18 +2,20 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { createClient, Entry } from 'contentful';
 
-
 export class ContentProvider {
+
+    languageDefault: string = '';
 
     //Lenguajes disponibles
     objLanguages = [
-        {'Language': 'Spanish', 'web': 'es','contentful': 'es-CO'}, 
-        {'Language': 'English', 'web': 'en','contentful': 'en'},
-        {'Language': 'French', 'web': 'fr','contentful': 'fr'},
-        {'Language': 'Portuguese', 'pt': 'en','contentful': 'pt'},
-        {'Language': 'German', 'web': 'de','contentful': 'de'}
+        {Language: 'Spanish', web: 'es',contentful: 'es-CO'}, 
+        {Language: 'English', web: 'en',contentful: 'en'},
+        {Language: 'French', web: 'fr',contentful: 'fr'},
+        {Language: 'Portuguese',web: 'pt',contentful: 'pt'},
+        {Language: 'German', web: 'de',contentful: 'de'}
     ]
 
+   
     constructor() {
       
     }
@@ -30,24 +32,24 @@ export class ContentProvider {
 
     getLanguageContentFul(lang)
     {
-        return "es-CO";
-        /*var objLang = this.objLanguages.filter(function(item) {
-        return item.web === lang;
-        })[0];
+        var objLang = this.objLanguages.filter(
+            book => book.web === lang)[0];
+        
         if(objLang != undefined)
         {
-            return objLang.contentful;
+            this.languageDefault =  objLang.contentful;
         }
         else
         {
-            return "es-CO";
-        }*/
+            this.languageDefault =  "es-CO";
+        }
+        
     }
 
     getCards(langDefault,query?: object): Promise<Entry<any>[]> {
         return this.client.getEntries(Object.assign({
             content_type: 'producto',
-            locale : this.getLanguageContentFul(langDefault)
+            locale : this.languageDefault
         }, query))
             .then(res => res.items);
     }
@@ -55,7 +57,7 @@ export class ContentProvider {
     getCard(langDefault,courseId): Promise<Entry<any>[]> {
         return this.client.getEntries(Object.assign({
             content_type: 'moduloProducto',
-            locale : this.getLanguageContentFul(langDefault)
+            locale : this.languageDefault
         }, { 'fields.productoRelacionado.sys.id': courseId }))
             .then(res => res.items);
     }

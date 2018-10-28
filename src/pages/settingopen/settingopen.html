@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ "SETTINGSTITTLE" | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <ion-col col-12>
+      <ion-item>
+        <ion-label>{{ "LANGUAGEPREFERENCE" | translate}}</ion-label>
+        <ion-select [(ngModel)]="languageDefaultLocal">
+          <ion-option *ngFor="let p of objLanguages" [value]="p.contentful">{{p.Language}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="colWithOutPadding">
+      <button class="btnLogin" (click)="saveForm()" ion-button color="primary" block>{{ "SAVE" | translate}}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

@@ -9,6 +9,7 @@ import { SliderPage } from '../pages/slider/slider';
 import { ContentcardPage } from '../pages/contentcard/contentcard';
 import { RegisterPage } from '../pages/register/register';
 import { ContentdetailPage } from '../pages/contentdetail/contentdetail';
+import { SettingopenPage } from '../pages/settingopen/settingopen';
 import { createClient, Entry } from 'contentful';
 import { HttpModule } from '@angular/http';
 
@@ -29,7 +30,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 import { MarkdownModule } from 'angular2-markdown';
 import { Network } from '@ionic-native/network';
-
+import {SafeHtmlPipe} from "../pipes/safehtml";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,8 +44,10 @@ export function createTranslateLoader(http: HttpClient) {
     LoginPage,
     SliderPage,
     ContentcardPage,
+    SettingopenPage,
     RegisterPage,
-    ContentdetailPage
+    ContentdetailPage,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ export function createTranslateLoader(http: HttpClient) {
     LoginPage,
     SliderPage,
     ContentcardPage,
+    SettingopenPage,
     RegisterPage,
     ContentdetailPage
   ],
