@@ -42,7 +42,7 @@ export class MyApp {
     presentationstyle: 'pagesheet',//iOS only 
     fullscreen: 'yes',//Windows only    
   };
-
+  languagueParam: any = {};
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private oneSignal: OneSignal,
@@ -58,15 +58,6 @@ export class MyApp {
 
     this.ContentLocal = contentprovider;
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Libreria', component: HomePage, typeComponent: 'PAGE' },
-      { title: 'Idiomas', component: SettingopenPage, typeComponent: 'PAGE' },
-      { title: 'Comprar', component: 'http://openmind-store.com/', typeComponent: 'URL' },
-      { title: 'Acerca de Openmind', component: 'https://www.openmind-global.com/nosotros', typeComponent: 'URL' },
-      { title: 'Acerca de Open Cards', component: 'http://www.opencards.co/', typeComponent: 'URL' },
-      { title: 'Ayuda', component: 'https://www.openmind-global.com/Contactenos', typeComponent: 'URL' },
-    ];
   }
 
   initializeApp() {
@@ -76,21 +67,18 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.show();
 
+      //Configuraciones generales
+      this.setConfigurations();
+
       //Notificaciones Push
       this.handlerNotifications();
-      //Base de datos
-      this.setDataBaseConfig();
-      //Language
-      this.translate.addLangs(["", "es"]);
-      let browserLang = this.translate.getBrowserLang();
-      this.translate.setDefaultLang(browserLang);
-      //Inicializar con lenguaje por defecto
-      this.ContentLocal.getLanguageContentFul(this.translate.getDefaultLang());
+
+
     });
   }
 
 
-  private setDataBaseConfig() {
+  private setConfigurations() {
     this.sqlite.create({
       name: 'opencards.db',
       location: 'default' // the location field is required
@@ -111,13 +99,61 @@ export class MyApp {
             console.error(error);
           });
 
+
+        //Asignar lenguaje
+        let browserLang = this.translate.getBrowserLang();
+
+        this.languagueParam.name = 'languageApp';
+        this.tasksService.getParam(this.languagueParam.name)
+          .then(data => {
+            if (data.length > 0) {
+              console.log("NAVEGADOR" + data[0].valueParam);
+              //Asignar el valor del navegador
+              this.translate.setDefaultLang(data[0].valueParam);
+              this.translate.use(data[0].valueParam);
+
+              console.log("VALOR DEFECTO" + this.translate.getDefaultLang());
+
+              //Inicializar con lenguaje por defecto
+              this.ContentLocal.getLanguageContentFul(this.translate.getDefaultLang());
+            }
+            else {
+              this.languagueParam.valueParam = browserLang;
+              this.tasksService.insertParamsOpenValue(this.languagueParam.name, this.languagueParam.valueParam);
+              this.translate.setDefaultLang(browserLang);
+              this.translate.use(browserLang);
+              //Inicializar con lenguaje por defecto
+              this.ContentLocal.getLanguageContentFul(this.translate.getDefaultLang());
+            }
+
+            //Inicializar objeto del menu 
+            this.translate.get(['BOOKSTORE', 'LANGUAGE', 'BUY', 'ABOUTOPEN', 'ABOUTOPENCARDS', 'HELPOPEN']).subscribe(
+              value => {
+                // used for an example of ngFor and navigation
+                this.pages = [
+                  { title: value.BOOKSTORE, component: HomePage, typeComponent: 'PAGE' },
+                  { title: value.LANGUAGE, component: SettingopenPage, typeComponent: 'PAGE' },
+                  { title: value.BUY, component: 'http://openmind-store.com/', typeComponent: 'URL' },
+                  { title: value.ABOUTOPEN, component: 'https://www.openmind-global.com/nosotros', typeComponent: 'URL' },
+                  { title: value.ABOUTOPENCARDS, component: 'http://www.opencards.co/', typeComponent: 'URL' },
+                  { title: value.HELPOPEN, component: 'https://www.openmind-global.com/Contactenos', typeComponent: 'URL' },
+                ];
+
+              }
+            )
+
+          })
+          .catch(error => {
+            console.error(error);
+          });
+
       })
       .then(() => {
         this.splashScreen.hide();
       })
       .catch(error => {
         console.error(error);
-      });    
+      });
   }
 
   private handlerNotifications() {

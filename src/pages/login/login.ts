@@ -87,13 +87,17 @@ export class LoginPage {
       this.createUser(this.userData);
     }
     else {
-      let alert = this.alertCtrl.create({
-        title: 'Datos de contacto',
-        subTitle: 'Por favor digita los datos completos para garantizar nuestra comunicación',
-        buttons: ['Continuar']
-      });
-      alert.present();
-    }
+
+      this.translate.get('loginIncomplete').subscribe(
+        valueTranslate => {
+          let alert = this.alertCtrl.create({
+            title: valueTranslate.tittle,
+            subTitle: valueTranslate.message,
+            buttons: [valueTranslate.button]
+          });
+          alert.present();
+        }
+      );    }
   }
 
   ionViewDidLoad() {

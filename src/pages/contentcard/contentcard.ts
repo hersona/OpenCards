@@ -49,6 +49,7 @@ export class ContentcardPage {
   order: number;
   column: string = 'name';
   buttonEnable: any = true;
+  translateLocal: TranslateService;
 
   ionViewWillLeave() {
     this.buttonEnable = true;
@@ -61,6 +62,7 @@ export class ContentcardPage {
     public restProvider: RestProvider,
     public tasksService: TasksServiceProvider
   ) {
+    this.translateLocal = translate;
     this.objCard = navParams.get("objCard");
     //Ordenar arreglo por el orden
     this.objCard.sort(function (orden1, orden2) {
@@ -83,7 +85,7 @@ export class ContentcardPage {
   //Validar si la persona ya digito previamente el codigo
   validateCode(tituloInterno) {
     this.AppValidate.name = tituloInterno;
-    this.tasksService.getParam(this.AppValidate)
+    this.tasksService.getParam(this.AppValidate.name)
       .then(data => {
         if (data.length > 0) {
           this.ContenidoTarjeta = 'contenido';
@@ -113,89 +115,98 @@ export class ContentcardPage {
       this.ContenidoTarjeta = 'contenido';
     }
     else {
-      let prompt = this.alertCtrl.create({
-        title: titulo,
-        message: "Digita el código que se encuentra en el interior de la caja",
-        inputs: [
-          {
-            name: 'title',
-            placeholder: 'Código de descarga'
-          },
-        ],
-        buttons: [
-          {
-            text: 'Descargar',
-            handler: data => {
-              //Obtener el usuario creado
-              this.tasksService.getUser()
-                .then(dataUser => {
-                  this.AppCode.CodeApp = data.title;
-                  this.AppCode.UserEmail = dataUser[0].email;
-                  this.AppCode.UserName = dataUser[0].name + ' ' + dataUser[0].lastname;
-                  this.AppCode.CodeKit = this.objCard[0].fields.productoRelacionado.fields.tituloInterno;
 
-                  //Crea en el servicio y guarda en base de datos
-                  this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
-                    switch (JSON.parse(result._body).Error) {
-                      //Respuesta del servicio OK
-                      case '0': {
-                        this.ContenidoTarjeta = 'contenido';
-                        //Marcar como cargado el curso
-                        this.cardValidate.name = this.AppCode.CodeKit;
-                        this.cardValidate.valueParam = '1';
-                        this.tasksService.insertParamsOpenValue(this.cardValidate.name, this.cardValidate.valueParam);
-                        break;
-                      }
-                      //Codigo no valido
-                      case '1': {
-                        this.ContenidoTarjeta = 'resumen';
-                        let alert = this.alertCtrl.create({
-                          title: 'Código no valido',
-                          subTitle: 'Por favor verifica el código ingresado',
-                          buttons: ['Aceptar']
-                        });
-                        alert.present();
-                        break;
-                      }
-                      //Codigo ya utilizado
-                      case '2': {
-                        this.ContenidoTarjeta = 'resumen';
-                        let alert = this.alertCtrl.create({
-                          title: 'Código en uso',
-                          subTitle: 'El código digitado ya se encuentra en uso por favor verifique nuevamente',
-                          buttons: ['Aceptar']
-                        });
-                        alert.present();
-                        break;
-                      }
-                    }
+      this.translateLocal.get('CONTENCARDMESSAGEVALIDATE').subscribe(
+        valueTranslate => {
+          let prompt = this.alertCtrl.create({
+            title: titulo,
+            message: valueTranslate.message,
+            inputs: [
+              {
+                name: 'title',
+                placeholder: valueTranslate.tittle
+              },
+            ],
+            buttons: [
+              {
+                text: valueTranslate.download,
+                handler: data => {
+                  //Obtener el usuario creado
+                  this.tasksService.getUser()
+                    .then(dataUser => {
+                      this.AppCode.CodeApp = data.title;
+                      this.AppCode.UserEmail = dataUser[0].email;
+                      this.AppCode.UserName = dataUser[0].name + ' ' + dataUser[0].lastname;
+                      this.AppCode.CodeKit = this.objCard[0].fields.productoRelacionado.fields.tituloInterno;
 
-                  }, (err) => {
-                    console.log(err);
-                  });
-                })
-                .catch(error => {
-                  console.error(error);
-                });
-            }
-          },
-          {
-            text: 'Comprar',
-            handler: data => {
-              let target = "_system";
-              this.theInAppBrowser.create(urlDescarga, target, this.options);
-            }
-          }
-          ,
-          {
-            text: 'Cancelar',
-            handler: data => {
-              this.ContenidoTarjeta = 'resumen';
-            }
-          },
-        ]
-      });
-      prompt.present();
+                      //Crea en el servicio y guarda en base de datos
+                      this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
+                        switch (JSON.parse(result._body).Error) {
+                          //Respuesta del servicio OK
+                          case '0': {
+                            this.ContenidoTarjeta = 'contenido';
+                            //Marcar como cargado el curso
+                            this.cardValidate.name = this.AppCode.CodeKit;
+                            this.cardValidate.valueParam = '1';
+                            this.tasksService.insertParamsOpenValue(this.cardValidate.name, this.cardValidate.valueParam);
+                            break;
+                          }
+                          //Codigo no valido
+                          case '1': {
+                            this.ContenidoTarjeta = 'resumen';
+                            let alert = this.alertCtrl.create({
+                              title: valueTranslate.notValid,
+                              subTitle: valueTranslate.codeVerify,
+                              buttons: [valueTranslate.acceptButton]
+                            });
+                            alert.present();
+                            break;
+                          }
+                          //Codigo ya utilizado
+                          case '2': {
+                            this.ContenidoTarjeta = 'resumen';
+                            let alert = this.alertCtrl.create({
+                              title: valueTranslate.codeUseTittle,
+                              subTitle: valueTranslate.codeUseDescription,
+                              buttons: [valueTranslate.acceptButton]
+                            });
+                            alert.present();
+                            break;
+                          }
+                        }
+
+                      }, (err) => {
+                        console.log(err);
+                      });
+                    })
+                    .catch(error => {
+                      console.error(error);
+                    });
+                }
+              },
+              {
+                text: valueTranslate.buy,
+                handler: data => {
+                  let target = "_system";
+                  this.theInAppBrowser.create(urlDescarga, target, this.options);
+                }
+              }
+              ,
+              {
+                text: valueTranslate.cancel,
+                handler: data => {
+                  this.ContenidoTarjeta = 'resumen';
+                }
+              },
+            ]
+          });
+          prompt.present();
+
+        }
+      )
+
+
+
     }
   }
 }

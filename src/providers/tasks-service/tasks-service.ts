@@ -49,16 +49,15 @@ export class TasksServiceProvider {
     .catch(error => Promise.reject(error));
   }
 
-  getParam(data: any){
+  getParam(data: string){
     let sql = 'SELECT * FROM ParamsOpen where name = ?';
-    return this.db.executeSql(sql, [data.name])
+    return this.db.executeSql(sql, [data])
     .then(response => {
       let tasks = [];
-      
       for (let index = 0; index < response.rows.length; index++) {
         tasks.push( response.rows.item(index) );
       }
-      return Promise.resolve( tasks );
+       return Promise.resolve( tasks );
     })
     .catch(error => Promise.reject(error));
   }

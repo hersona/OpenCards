@@ -47,6 +47,8 @@ export class ContentProvider {
     }
 
     getCards(langDefault,query?: object): Promise<Entry<any>[]> {
+        console.log("LENG DEFECTO" + this.languageDefault);
+       
         return this.client.getEntries(Object.assign({
             content_type: 'producto',
             locale : this.languageDefault

@@ -55,7 +55,7 @@ export class HomePage {
 
   getContentDataBase() {
     this.AppValidate.name = 'HomeDataSet';
-    this.tasksService.getParam(this.AppValidate)
+    this.tasksService.getParam(this.AppValidate.name)
       .then(data => {
         if (data.length > 0) {
           this.listCards = JSON.parse(data[0].valueParam);
@@ -80,12 +80,16 @@ export class HomePage {
   }
 
   messageInternetNoValid() {
-    let alert = this.alertCtrl.create({
-      title: 'Conexión internet',
-      subTitle: 'Valida tu conexión a internet para cargar información',
-      buttons: ['Continuar']
-    });
-    alert.present();
+    this.TranslateLocal.get('internetConnection').subscribe(
+      valueTranslate => {
+        let alert = this.alertCtrl.create({
+          title: valueTranslate.tittle,
+          subTitle: valueTranslate.message,
+          buttons: [valueTranslate.button]
+        });
+        alert.present();
+      }
+    );
   }
 
   contentNotAvalaible() {
@@ -121,7 +125,7 @@ export class HomePage {
   //Obtener contenido de la base de datos
   getContentDetailDataBase(idContent) {
     this.AppValidate.name = idContent;
-    this.tasksService.getParam(this.AppValidate)
+    this.tasksService.getParam(this.AppValidate.name)
       .then(data => {
         if (data.length > 0) {
           this.objCard = JSON.parse(data[0].valueParam);

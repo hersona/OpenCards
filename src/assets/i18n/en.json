@@ -17,5 +17,34 @@
   "SAVE":"SAVE",
   "CANCEL":"CANCEL",
   "SETTINGSTITTLE":"Settings Open Cards",
-  "LANGUAGEPREFERENCE":"Language of preference"
+  "LANGUAGEPREFERENCE":"Language of preference",
+  "BOOKSTORE":"Library",
+  "LANGUAGE":"Language",
+  "BUY":"Buy",
+  "ABOUTOPEN":"About Openmind",
+  "ABOUTOPENCARDS":"About Open Cards",
+  "HELPOPEN":"Help",
+  "CONTENCARDMESSAGEVALIDATE": {
+    "message": "Enter the code that is inside the box",
+    "tittle": "Download code",
+    "download": "Download",
+    "cancel": "Cancel",
+    "buy": "Buy",
+    "notValid":"Invalid code",
+    "acceptButton" : "Accept",
+    "codeVerify":"Please verify the entered code",
+    "codeUseTittle":"Code in use",
+    "codeUseDescription":"The digitized code is already in use, please check again"
+  },
+  "internetConnection": {
+    "message": "Validate your internet connection to load information",
+    "tittle": "Internet connection",
+    "button": "Continue"
+  },
+  "loginIncomplete": {
+    "message": "Please enter the complete information to guarantee our communication",
+    "tittle": "Contact information",
+    "button": "Continue"
+  }
+  
 }
