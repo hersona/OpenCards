@@ -1,0 +1,49 @@
+{
+	"WELCOME": "Bem-Vindo",
+	"NAMES": "Nomes",
+	"LASTNAME": "Sobrenome",
+	"LOGIN": "Entrar",
+	"FACEBOOK": "Entrar com Facebook",
+	"SLIDER1": "Open Cards Methodology ® é uma plataforma de conversas colaborativas para trabalhar em equipe ou individualmente, em temas relevantes, com suporte de vários kits de trabalho.",
+	"SLIDER2": "Aqui você encontrará todos os manuais e recursos de nossos produtos Open Cards Methodology ®, para que você realize sessões eficazes e faça com que as equipes a atinjam seus objetivos em suas organizações.",
+	"SLIDER3": ", Digite o código que está no cartão chave do seu kit para baixar o manual ou qualquer produto Open Cards Methodology ®.",
+	"SLIDER4": "Aproveite sua sessão e inspire outros a agir e mudar o seu mundo!",
+	"HOMEHEADER": "Selecione o seu manual da biblioteca Open Cards Methodology ®",
+	"SUMMARY": "Resumo",
+	"CONTENT": "Conteúdo",
+	"URLBUY": "http://openmind-store.com/",
+	"URLABOUTOPEN": "https://www.openmind-global.com/nosotros",
+	"URLABOUTOPENCARDS": "http://www.opencards.co/",
+	"SAVE": "Salvar",
+	"CANCEL": "Cancelar",
+	"SETTINGSTITTLE": "Configuração Open Cards",
+	"LANGUAGEPREFERENCE": "Idioma de preferência",
+	"BOOKSTORE": "Livraria",
+	"LANGUAGE": "Idioma",
+	"BUY": "Comprar",
+	"ABOUTOPEN": "Sobre Openmind",
+	"ABOUTOPENCARDS": "About Open Cards",
+	"HELPOPEN": "Ajuda",
+	"CONTENCARDMESSAGEVALIDATE": {
+		"message": ", Digite o código que está folheto dentro do kit",
+		"tittle": "Código de download",
+		"download": "Baixar",
+		"cancel": "Cancelar",
+		"buy": "Comprar",
+		"notValid": "Código inválido",
+		"acceptButton": "Ok",
+		"codeVerify": "Verificar o código digitado",
+		"codeUseTittle": "Código em uso",
+		"codeUseDescription": "O código digitado já está em uso por favor, verifique novamente"
+	},
+	"internetConnection": {
+		"message": "Valida a sua conexão com a internet para carregar informações",
+		"tittle": "Acesso à internet",
+		"button": "Continuar"
+	},
+	"loginIncomplete": {
+		"message": "Por favor, digite os dados completos para garantir nossa comunicação",
+		"tittle": "Informações de contato",
+		"button": "Continuar"
+	}
+}

@@ -1,0 +1,49 @@
+{
+	"WELCOME": "Willkommen",
+	"NAMES": "Vorname(n)",
+	"LASTNAME": "Nachname",
+	"LOGIN": "Anmelden",
+	"FACEBOOK": "Mit Facebook anmelden",
+	"SLIDER1": " Open Cards Methodology ® ist eine Plattform, die verschiedene Sets für Gespräche zur Zusammenarbeit bei individuell oder im Team auszuführenden relevanten Themen unterstützt.",
+	"SLIDER2": " Hier finden Sie alle Handbücher und Ressourcen zu unseren Open Cards Methodology ®-Produkten, damit Sie effiziente Sitzungen durchführen und Teams die jeweiligen Ziele in ihren Organisationen erreichen können.",
+	"SLIDER3": " Geben Sie den Code auf der Schlüsselkarte Ihres Sets ein, um das Handbuch oder sonstige Produkte der Open Cards Methodology ® herunterzuladen.",
+	"SLIDER4": "Viel Spaß bei Ihren Sitzungen und inspirieren Sie andere zu handeln und ihre Welt zu verändern!",
+	"HOMEHEADER": "Wählen Sie Ihr Handbuch aus dem Open Cards Methodology®-Buchshop",
+	"SUMMARY": "Zusammenfassung",
+	"CONTENT": "Inhalt",
+	"URLBUY": "http://openmind-store.com/",
+	"URLABOUTOPEN": "https://www.openmind-global.com/nosotros",
+	"URLABOUTOPENCARDS": "http://www.opencards.co/",
+	"SAVE": "Speichern",
+	"CANCEL": "Abbrechen",
+	"SETTINGSTITTLE": " Open Cards-Konfiguration ",
+	"LANGUAGEPREFERENCE": "Bevorzugte Sprache",
+	"BOOKSTORE": " Buchshop ",
+	"LANGUAGE": " Sprache",
+	"BUY": "Kaufen ",
+	"ABOUTOPEN": "Über Openmind",
+	"ABOUTOPENCARDS": " Über Open Cards ",
+	"HELPOPEN": "Hilfe",
+	"CONTENCARDMESSAGEVALIDATE": {
+		"message": "Den Code aus der mit dem Set mitgelieferten Brochüre eingeben ",
+		"tittle": "Code herunterladen",
+		"download": "Herunterladen",
+		"cancel": "Abbrechen",
+		"buy": "Kaufen",
+		"notValid": "Code ungültig",
+		"acceptButton": "Zustimmen",
+		"codeVerify": "Bitte prüfen Sie den eingegebenen Code",
+		"codeUseTittle": "Code in Verwendung",
+		"codeUseDescription": "Der eingegebene Code ist bereits in Verwendung. Bitte versuchen Sie es erneut. "
+	},
+	"internetConnection": {
+		"message": "Internetverbindung zum Hochladen der Daten geeignet",
+		"tittle": "Internetverbindung",
+		"button": " Fortsetzen "
+	},
+	"loginIncomplete": {
+		"message": "Bitte geben Sie alle Daten ein, um eine Kommunikation mit uns sicherzustellen ",
+		"tittle": "Kontaktdaten",
+		"button": "Fortfahren"
+	}
+}
