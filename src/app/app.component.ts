@@ -13,6 +13,7 @@ import { SQLite } from '@ionic-native/sqlite';
 import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
 import { TranslateService } from '@ngx-translate/core';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
+import { Http } from '@angular/http';
 
 
 @Component({
@@ -51,7 +52,8 @@ export class MyApp {
     public sqlite: SQLite,
     private translate: TranslateService,
     private theInAppBrowser: InAppBrowser,
-    public contentprovider: ContentProvider
+    public contentprovider: ContentProvider,
+    public http: Http
   ) {
 
     this.initializeApp();
@@ -62,6 +64,9 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+      this.http.get('assets/data/AppSettings.json').map(res => console.log(res.json()));
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
@@ -92,7 +97,7 @@ export class MyApp {
         this.tasksService.getUser()
           .then(data => {
             if (data.length > 0) {
-              this.rootPage = HomePage;
+              //this.rootPage = HomePage;
             }
           })
           .catch(error => {

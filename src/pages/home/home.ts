@@ -7,6 +7,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
 import { Network } from '@ionic-native/network';
 import { AlertController } from 'ionic-angular';
+import { Observable } from "rxjs";
+import { LogicProvider } from '../../providers/logic/logic';
+
 
 @Component({
   selector: 'page-home',
@@ -22,6 +25,10 @@ export class HomePage {
   objParam: any;
   AppValidate: any = {};
   buttonEnable: any = true;
+  homeHeaderText:string;
+  paramValues: Observable<string>;
+  objApp : any;
+  
 
   constructor(private el: ElementRef, public navCtrl: NavController,
     private menu: MenuController,
@@ -29,7 +36,8 @@ export class HomePage {
     translate: TranslateService,
     public tasksService: TasksServiceProvider,
     private network: Network,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public _logic: LogicProvider
   ) {
     this.ContentLocal = contentprovider;
     this.TranslateLocal = translate;
@@ -47,6 +55,26 @@ export class HomePage {
     else {
       this.getContentDataBase();
     }
+  }
+
+
+  ionViewWillEnter() {
+    this.menu.enable(true, 'Menu1');
+    this.paramValues = this._logic.getData()
+    this.paramValues.subscribe((res) => {
+      this.objApp = res,
+      this.setTextSlider()
+    })
+  }
+
+  //Asignar valores de texto de los slider dinamicamente dependiendo del idioma
+  setTextSlider()
+  {
+    this.TranslateLocal.get(this.objApp.infoApp[this.objApp.appDefecto].homeHeaderText).subscribe(
+      value => {
+        this.homeHeaderText = value;
+      }
+    )
   }
 
   ionViewWillLeave() {
@@ -151,9 +179,7 @@ export class HomePage {
     window.open('http://openmind-store.com', '_system');
   }
 
-  ionViewWillEnter() {
-    this.menu.enable(true, 'Menu1');
-  }
+  
 
   showMenu() {
     this.menu.toggle();

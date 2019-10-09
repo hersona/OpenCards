@@ -6,13 +6,12 @@ import { AlertController } from 'ionic-angular';
 import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
 import { RestProvider } from '../../providers/rest/rest';
 import { TranslateService } from '@ngx-translate/core';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database';
+import { LogicProvider } from '../../providers/logic/logic';
+import { Observable } from "rxjs";
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -41,6 +40,13 @@ export class LoginPage {
   results: any = {};
   AppCode: any = {};
   objTest: any = {};
+
+  shoppingItems: FirebaseListObservable<any[]>;
+  paramValues: Observable<string>;
+  logo: string;
+  footerCopyright:string;
+  objApp : any;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -48,9 +54,22 @@ export class LoginPage {
     private facebook: Facebook,
     public tasksService: TasksServiceProvider,
     public restProvider: RestProvider,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public database: AngularFireDatabase,
+    public _logic: LogicProvider
   ) {
+    this.shoppingItems = this.database.list('/ParametersApp');
+  }
 
+
+  ionViewWillEnter() {
+    this.footerCopyright = "Loading...";
+    this.paramValues = this._logic.getData()
+    this.paramValues.subscribe((res) => {
+      this.objApp = res,
+      this.logo = this.objApp.infoApp[this.objApp.appDefecto].logo,
+      this.footerCopyright = this.objApp.infoApp[this.objApp.appDefecto].footerCopyright
+    })
   }
 
   getInstant(key) {
@@ -114,7 +133,7 @@ export class LoginPage {
           };
         })
         .catch(error => {
-          console.error("ERROR 1");
+          console.error("Error obteniendo perfil");
           console.error(error);
           console.error(error.message);
         });

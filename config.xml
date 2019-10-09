@@ -93,7 +93,7 @@
     <allow-navigation href="http://192.168.0.8:8100" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <allow-navigation href="http://192.168.43.238:8100" />
-    <allow-navigation href="http://52.11.130.203:8089" />
+    <allow-navigation href="http://:8089" />
     <plugin name="cordova-sqlite-storage" spec="^2.3.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
     <allow-navigation href="http://192.168.0.5:8100" />

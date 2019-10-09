@@ -32,6 +32,20 @@ import { MarkdownModule } from 'angular2-markdown';
 import { Network } from '@ionic-native/network';
 import {SafeHtmlPipe} from "../pipes/safehtml";
 
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { LogicProvider } from '../providers/logic/logic';
+
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyB9NLOCgv0Wv430ZXmHHHtu05bKGxAdQdY",
+  authDomain: "opencards-2d793.firebaseapp.com",
+  databaseURL: "https://opencards-2d793.firebaseio.com",
+  projectId: "opencards-2d793",
+  storageBucket: "opencards-2d793.appspot.com",
+  messagingSenderId: "760511075014"
+};
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -61,7 +75,9 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -87,7 +103,8 @@ export function createTranslateLoader(http: HttpClient) {
     TasksServiceProvider,
     InAppBrowser,
     RestProvider,
-    Network
+    Network,
+    LogicProvider
   ]
   
 })

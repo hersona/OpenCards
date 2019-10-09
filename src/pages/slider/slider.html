@@ -1,60 +1,60 @@
 <ion-content padding>
   <ion-slides pager>
-    <ion-slide class="slider1">
+    <ion-slide class="slider1" [ngStyle]="{ 'background-image' : slider1Image }">
       <ion-grid>
         <ion-row>
           <ion-col col-12>
-            <img src="assets/imgs/slide1-icon.png" />
+            <img src="assets/imgs/{{slider1ImageIco}}" />
           </ion-col>
         </ion-row>
         <ion-row class="RowSlider">
           <ion-col offset-1 col-10>
-              {{ "SLIDER1" | translate}}
+              {{ slider1Text | translate}}
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-slide>
 
-    <ion-slide class="slider2">
+    <ion-slide class="slider2" [ngStyle]="{ 'background-image' : slider2Image }">
       <ion-grid>
         <ion-row>
           <ion-col col-12>
-            <img src="assets/imgs/slide2-icon.png" />
+            <img src="assets/imgs/{{slider2ImageIco}}" />
           </ion-col>
         </ion-row>
         <ion-row class="RowSlider">
           <ion-col offset-1 col-10>
-              {{ "SLIDER2" | translate}}
+              {{ slider2Text | translate}}
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-slide>
 
-    <ion-slide class="slider3">
+    <ion-slide class="slider3" [ngStyle]="{ 'background-image' : slider3Image }">
       <ion-grid>
         <ion-row>
           <ion-col col-12>
-            <img src="assets/imgs/slide3-icon.png" />
+            <img src="assets/imgs/{{slider3ImageIco}}" />
           </ion-col>
         </ion-row>
         <ion-row class="RowSlider">
           <ion-col offset-1 col-10>
-              {{ "SLIDER3" | translate}}
+              {{ slider3Text | translate}}
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-slide>
 
-    <ion-slide class="slider4">
+    <ion-slide class="slider4" [ngStyle]="{ 'background-image' : slider4Image }">
       <ion-grid>
         <ion-row>
           <ion-col col-12>
-            <img src="assets/imgs/slide4-icon.png" />
+            <img src="assets/imgs/{{slider4ImageIco}}" />
           </ion-col>
         </ion-row>
         <ion-row class="RowSlider">
           <ion-col offset-1 col-10>
-              {{ "SLIDER4" | translate}}              
+              {{ slider4Text | translate}}              
           </ion-col>
         </ion-row>
         <ion-row>
