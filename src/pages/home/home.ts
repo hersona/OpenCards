@@ -28,7 +28,8 @@ export class HomePage {
   homeHeaderText:string;
   paramValues: Observable<string>;
   objApp : any;
-  
+  contentfulProducto:string;
+  contentfulModuloProducto:string;
 
   constructor(private el: ElementRef, public navCtrl: NavController,
     private menu: MenuController,
@@ -45,7 +46,7 @@ export class HomePage {
     //Validar si tiene una coleccion valida para guardar contenido
     if (this.network.type != 'none') {
       //Almacenar contenido modo desconectado
-      this.ContentLocal.getCards(translate.getDefaultLang())
+      this.ContentLocal.getCards(translate.getDefaultLang(),this.contentfulProducto)
         .then(
           res => (
             this.tasksService.insertParamsOpenValue('HomeDataSet', JSON.stringify(res)),
@@ -63,18 +64,32 @@ export class HomePage {
     this.paramValues = this._logic.getData()
     this.paramValues.subscribe((res) => {
       this.objApp = res,
-      this.setTextSlider()
+      this.setText()
     })
   }
 
-  //Asignar valores de texto de los slider dinamicamente dependiendo del idioma
-  setTextSlider()
+  //Asignar valores de texto y valores defecto de busqueda
+  setText()
   {
     this.TranslateLocal.get(this.objApp.infoApp[this.objApp.appDefecto].homeHeaderText).subscribe(
       value => {
         this.homeHeaderText = value;
       }
     )
+
+    this.TranslateLocal.get(this.objApp.infoApp[this.objApp.appDefecto].contentfulProducto).subscribe(
+      value => {
+        this.contentfulModuloProducto = value;
+      }
+    )
+
+    this.TranslateLocal.get(this.objApp.infoApp[this.objApp.appDefecto].contentfulModuloProducto).subscribe(
+      value => {
+        this.contentfulModuloProducto = value;
+      }
+    )
+
+
   }
 
   ionViewWillLeave() {
@@ -137,7 +152,7 @@ export class HomePage {
       //Validar si tiene una coleccion valida para guardar contenido
       if (this.network.type != 'none') {
         //Almacenar contenido modo desconectado
-        this.ContentLocal.getCard(this.TranslateLocal.getDefaultLang(), sysIdValue).then(
+        this.ContentLocal.getCard(this.TranslateLocal.getDefaultLang(),this.contentfulModuloProducto, sysIdValue).then(
           res => (
             this.tasksService.insertParamsOpenValue(sysIdValue, JSON.stringify(res)),
             this.getContentDetailDataBase(sysIdValue)

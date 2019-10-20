@@ -43,10 +43,10 @@ export class SliderPage {
     this.paramValues = this._logic.getData()
     this.paramValues.subscribe((res) => {
       this.objApp = res,
-      this.slider1Image = "url(../assets/imgs/" + this.objApp.infoApp[this.objApp.appDefecto].slider1Img + ")",
-      this.slider2Image = "url(../assets/imgs/" + this.objApp.infoApp[this.objApp.appDefecto].slider2Img + ")",
-      this.slider3Image = "url(../assets/imgs/" + this.objApp.infoApp[this.objApp.appDefecto].slider3Img + ")",
-      this.slider4Image = "url(../assets/imgs/" + this.objApp.infoApp[this.objApp.appDefecto].slider4Img + ")",
+      this.slider1Image = "url(./assets/imgs/" + this.objApp.infoApp[this.objApp.appDefecto].slider1Img + ")",
+      this.slider2Image = "url(./assets/imgs/" + this.objApp.infoApp[this.objApp.appDefecto].slider2Img + ")",
+      this.slider3Image = "url(./assets/imgs/" + this.objApp.infoApp[this.objApp.appDefecto].slider3Img + ")",
+      this.slider4Image = "url(./assets/imgs/" + this.objApp.infoApp[this.objApp.appDefecto].slider4Img + ")",
       this.slider1ImageIco = this.objApp.infoApp[this.objApp.appDefecto].slider1ImgIco,
       this.slider2ImageIco = this.objApp.infoApp[this.objApp.appDefecto].slider2ImgIco,
       this.slider3ImageIco = this.objApp.infoApp[this.objApp.appDefecto].slider3ImgIco,

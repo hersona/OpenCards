@@ -97,7 +97,7 @@ export class MyApp {
         this.tasksService.getUser()
           .then(data => {
             if (data.length > 0) {
-              //this.rootPage = HomePage;
+              this.rootPage = HomePage;
             }
           })
           .catch(error => {
@@ -176,8 +176,9 @@ export class MyApp {
             this.theInAppBrowser.create(jsonData.notification.payload.additionalData.page, target, this.options);
           }
 
+          //DYLAN
           //Contenido en especifico
-          if (jsonData.notification.payload.additionalData.product != null) {
+          /*if (jsonData.notification.payload.additionalData.product != null) {
             console.log(jsonData.notification.payload.additionalData.product);
             this.ContentLocal.getCard(this.translate.getDefaultLang(), jsonData.notification.payload.additionalData.product).then(
               res => (
@@ -187,7 +188,7 @@ export class MyApp {
                 })
               )
             );
-          }
+          }*/
         }
         else {
           //Mensaje informativo
@@ -206,7 +207,7 @@ export class MyApp {
     console.log(page);
     switch (page.typeComponent) {
       case 'PAGE': {
-        //this.nav.setRoot(page.component);
+        this.nav.setRoot(page.component);
         this.nav.push(page.component);
         break;
       }

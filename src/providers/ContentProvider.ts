@@ -46,19 +46,19 @@ export class ContentProvider {
         
     }
 
-    getCards(langDefault,query?: object): Promise<Entry<any>[]> {
+    getCards(langDefault,contentfulProducto,query?: object): Promise<Entry<any>[]> {
         console.log("LENG DEFECTO" + this.languageDefault);
        
         return this.client.getEntries(Object.assign({
-            content_type: 'producto',
+            content_type: "productoOpemindTools",
             locale : this.languageDefault
         }, query))
             .then(res => res.items);
     }
 
-    getCard(langDefault,courseId): Promise<Entry<any>[]> {
+    getCard(langDefault,contentfulModuloProducto,courseId): Promise<Entry<any>[]> {
         return this.client.getEntries(Object.assign({
-            content_type: 'moduloProducto',
+            content_type: 'modulosProductoOpenmindTools',
             locale : this.languageDefault
         }, { 'fields.productoRelacionado.sys.id': courseId }))
             .then(res => res.items);
