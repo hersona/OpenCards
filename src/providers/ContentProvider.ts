@@ -1,5 +1,3 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { createClient, Entry } from 'contentful';
 
 export class ContentProvider {
@@ -8,16 +6,16 @@ export class ContentProvider {
 
     //Lenguajes disponibles
     objLanguages = [
-        {Language: 'Spanish', web: 'es',contentful: 'es-CO'}, 
+        {Language: 'Spanish', web: 'es',contentful: 'es-CO'},
         {Language: 'English', web: 'en',contentful: 'en'},
         {Language: 'French', web: 'fr',contentful: 'fr'},
         {Language: 'Portuguese',web: 'pt',contentful: 'pt'},
         {Language: 'German', web: 'de',contentful: 'de'}
     ]
 
-   
+
     constructor() {
-      
+
     }
 
     private client = createClient({
@@ -28,13 +26,13 @@ export class ContentProvider {
     })
 
     objItemFind: any = {};
-    
+
 
     getLanguageContentFul(lang)
     {
         var objLang = this.objLanguages.filter(
             book => book.web === lang)[0];
-        
+
         if(objLang != undefined)
         {
             this.languageDefault =  objLang.contentful;
@@ -43,12 +41,12 @@ export class ContentProvider {
         {
             this.languageDefault =  "es-CO";
         }
-        
+
     }
 
     getCards(langDefault,contentfulProducto,query?: object): Promise<Entry<any>[]> {
         console.log("LENG DEFECTO" + this.languageDefault);
-       
+
         return this.client.getEntries(Object.assign({
             content_type: "productoOpemindTools",
             locale : this.languageDefault

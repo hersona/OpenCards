@@ -1,8 +1,8 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { ContentcardPage } from '../../pages/contentcard/contentcard';
 import { ContentProvider } from '../../providers/ContentProvider';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { SafeHtml } from "@angular/platform-browser";
 import { TranslateService } from '@ngx-translate/core';
 import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
 import { Network } from '@ionic-native/network';
@@ -31,9 +31,9 @@ export class HomePage {
   contentfulProducto:string;
   contentfulModuloProducto:string;
 
-  constructor(private el: ElementRef, public navCtrl: NavController,
+  constructor(public navCtrl: NavController,
     private menu: MenuController,
-    public contentprovider: ContentProvider, private sanitizer: DomSanitizer,
+    public contentprovider: ContentProvider,
     translate: TranslateService,
     public tasksService: TasksServiceProvider,
     private network: Network,
@@ -194,7 +194,7 @@ export class HomePage {
     window.open('http://openmind-store.com', '_system');
   }
 
-  
+
 
   showMenu() {
     this.menu.toggle();

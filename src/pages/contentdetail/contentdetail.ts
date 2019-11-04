@@ -1,9 +1,6 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
-import { Platform } from 'ionic-angular';
-import { ContentcardPage } from '../../pages/contentcard/contentcard';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -25,8 +22,8 @@ export class ContentdetailPage {
   strTitulo: string;
   strDescripcion: string;
 
-  constructor(public navCtrl: NavController, private menu: MenuController, 
-    public navParams: NavParams,platform: Platform,private domSanitizer: DomSanitizer) {
+  constructor(public navCtrl: NavController, private menu: MenuController,
+    public navParams: NavParams) {
     this.objData = navParams.get("objData");
     this.objCard = navParams.get("objCard");
     this.menu.enable(true, 'menu1');
@@ -62,7 +59,7 @@ export class ContentdetailPage {
   }
 
 
-  mostrarMenu() {    
+  mostrarMenu() {
     this.menu.open();
   }
 

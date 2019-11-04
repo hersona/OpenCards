@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SliderPage } from '../../pages/slider/slider';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { Facebook } from '@ionic-native/facebook';
 import { AlertController } from 'ionic-angular';
 import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
 import { RestProvider } from '../../providers/rest/rest';
@@ -82,7 +82,7 @@ export class LoginPage {
   }
 
   createUser(userData) {
-    //Crea en la base de datos local 
+    //Crea en la base de datos local
     this.tasksService.create(userData)
       .then(response => {
         //Guardar token

@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 
 @Injectable()
@@ -60,7 +60,7 @@ export class RestProvider {
       }, (err) => {
         console.log(err);
       });
-      
+
     });
   }
 
@@ -88,7 +88,7 @@ export class RestProvider {
       }, (err) => {
         console.log(err);
       });
-      
+
     });
   }
 

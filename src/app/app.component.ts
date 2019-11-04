@@ -3,11 +3,9 @@ import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SettingopenPage } from '../pages/settingopen/settingopen';
 import { ContentProvider } from '../providers/ContentProvider';
-import { ContentcardPage } from '../pages/contentcard/contentcard';
 import { OneSignal } from '@ionic-native/onesignal';
 import { SQLite } from '@ionic-native/sqlite';
 import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
@@ -27,21 +25,21 @@ export class MyApp {
   rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any, typeComponent: any }>;
   options: InAppBrowserOptions = {
-    location: 'yes',//Or 'no' 
+    location: 'yes',//Or 'no'
     hidden: 'no', //Or  'yes'
     clearcache: 'yes',
     clearsessioncache: 'yes',
-    zoom: 'yes',//Android only ,shows browser zoom controls 
+    zoom: 'yes',//Android only ,shows browser zoom controls
     hardwareback: 'yes',
     mediaPlaybackRequiresUserAction: 'no',
-    shouldPauseOnSuspend: 'no', //Android only 
+    shouldPauseOnSuspend: 'no', //Android only
     closebuttoncaption: 'Close', //iOS only
-    disallowoverscroll: 'no', //iOS only 
-    toolbar: 'yes', //iOS only 
-    enableViewportScale: 'no', //iOS only 
-    allowInlineMediaPlayback: 'no',//iOS only 
-    presentationstyle: 'pagesheet',//iOS only 
-    fullscreen: 'yes',//Windows only    
+    disallowoverscroll: 'no', //iOS only
+    toolbar: 'yes', //iOS only
+    enableViewportScale: 'no', //iOS only
+    allowInlineMediaPlayback: 'no',//iOS only
+    presentationstyle: 'pagesheet',//iOS only
+    fullscreen: 'yes',//Windows only
   };
   languagueParam: any = {};
 
@@ -131,7 +129,7 @@ export class MyApp {
               this.ContentLocal.getLanguageContentFul(this.translate.getDefaultLang());
             }
 
-            //Inicializar objeto del menu 
+            //Inicializar objeto del menu
             this.translate.get(['BOOKSTORE', 'LANGUAGE', 'BUY', 'ABOUTOPEN', 'ABOUTOPENCARDS', 'HELPOPEN']).subscribe(
               value => {
                 // used for an example of ngFor and navigation
