@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="CCN48SJGFP.com.openmindglobal.opennmindtools" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.openmindglobal.opennmindtools" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Openmind Tools</name>
     <description>App Openmind Tools</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -10,13 +10,14 @@
     <allow-navigation href="http://*/*" />
     <access origin="https://*" />
     <access origin="http://*" />
+    <access origin="*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="*" />
     <preference name="ScrollEnabled" value="false" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
@@ -26,7 +27,12 @@
     <preference name="loadUrlTimeoutValue" value="60000" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="orientation" value="portrait" />
+    <preference name="android-targetSdkVersion" value="28" />
     <platform name="android">
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config>
+        <allow-navigation href="*" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -122,7 +128,6 @@
     <allow-navigation href="http://192.168.0.6:8109" />
     <allow-navigation href="http://192.168.1.51:8100" sessionid="472a654d" />
     <engine name="browser" spec="5.0.3" />
-    <engine name="android" spec="7.0.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
     <plugin name="cordova-plugin-device" spec="^2.0.1" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
@@ -133,4 +138,5 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-sqlite-storage" spec="^3.4.0" />
+    <allow-navigation href="http://localhost:8100" sessionid="2c40c39b" />
 </widget>
