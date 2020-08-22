@@ -48,7 +48,10 @@ export class ContentProvider {
         console.log("LENG DEFECTO" + this.languageDefault);
 
         return this.client.getEntries(Object.assign({
-            content_type: "productoOpemindTools",
+            //Tipo de producto para el APP de openmind
+            //content_type: "productoOpemindTools",
+            //Tipo de producto para el APP de opencards
+            content_type: "producto",
             locale : this.languageDefault
         }, query))
             .then(res => res.items);
@@ -56,7 +59,10 @@ export class ContentProvider {
 
     getCard(langDefault,contentfulModuloProducto,courseId): Promise<Entry<any>[]> {
         return this.client.getEntries(Object.assign({
-            content_type: 'modulosProductoOpenmindTools',
+            //Tipo de producto para el APP de openmind
+            //content_type: 'modulosProductoOpenmindTools',
+            //Tipo de producto para el APP de opencards
+            content_type: 'moduloProducto',
             locale : this.languageDefault
         }, { 'fields.productoRelacionado.sys.id': courseId }))
             .then(res => res.items);

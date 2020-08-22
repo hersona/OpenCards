@@ -6,7 +6,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 @Injectable()
 export class RestProvider {
 
-  urlBase = 'http://52.11.130.203:8089';
+  urlBase = 'http://52.32.104.107:8089';
   tokenAutorization = 'grant_type=password&username=' + encodeURIComponent('hersonEder@gmail.com') + '&password=' + encodeURIComponent('12345%24%24');
 
   constructor(public http: HttpClient, public httpClasic: Http) {
