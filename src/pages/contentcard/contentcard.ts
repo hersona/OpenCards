@@ -42,6 +42,17 @@ export class ContentcardPage {
     fullscreen: 'yes',//Windows only
   };
 
+  userData = {
+    name: '',
+    lastname: '',
+    UserEmail: '',
+    Image: '',
+    Creationchannel: '1',
+    Password: 'AppOpen',
+    Gender: '',
+    UserName: ''
+  };
+
   AppCode: any = {};
   AppValidate: any = {};
 
@@ -126,62 +137,16 @@ export class ContentcardPage {
                 name: 'title',
                 placeholder: valueTranslate.tittle
               },
+              {
+                name: 'userEmail',
+                placeholder: valueTranslate.userEmail
+              }
             ],
             buttons: [
               {
                 text: valueTranslate.download,
                 handler: data => {
-                  //Obtener el usuario creado
-                  this.tasksService.getUser()
-                    .then(dataUser => {
-                      this.AppCode.CodeApp = data.title;
-                      this.AppCode.UserEmail = dataUser[0].email;
-                      this.AppCode.UserName = dataUser[0].name + ' ' + dataUser[0].lastname;
-                      this.AppCode.CodeKit = this.objCard[0].fields.productoRelacionado.fields.tituloInterno;
-
-                      //Crea en el servicio y guarda en base de datos
-                      this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
-                        switch (JSON.parse(result._body).Error) {
-                          //Respuesta del servicio OK
-                          case '0': {
-                            this.ContenidoTarjeta = 'contenido';
-                            //Marcar como cargado el curso
-                            this.cardValidate.name = this.AppCode.CodeKit;
-                            this.cardValidate.valueParam = '1';
-                            this.tasksService.insertParamsOpenValue(this.cardValidate.name, this.cardValidate.valueParam);
-                            break;
-                          }
-                          //Codigo no valido
-                          case '1': {
-                            this.ContenidoTarjeta = 'resumen';
-                            let alert = this.alertCtrl.create({
-                              title: valueTranslate.notValid,
-                              subTitle: valueTranslate.codeVerify,
-                              buttons: [valueTranslate.acceptButton]
-                            });
-                            alert.present();
-                            break;
-                          }
-                          //Codigo ya utilizado
-                          case '2': {
-                            this.ContenidoTarjeta = 'resumen';
-                            let alert = this.alertCtrl.create({
-                              title: valueTranslate.codeUseTittle,
-                              subTitle: valueTranslate.codeUseDescription,
-                              buttons: [valueTranslate.acceptButton]
-                            });
-                            alert.present();
-                            break;
-                          }
-                        }
-
-                      }, (err) => {
-                        console.log(err);
-                      });
-                    })
-                    .catch(error => {
-                      console.error(error);
-                    });
+                      this.guardarCodigo(data,valueTranslate);
                 }
               },
               {
@@ -209,4 +174,55 @@ export class ContentcardPage {
 
     }
   }
+
+
+  guardarCodigo(data,valueTranslate)
+  {
+    this.AppCode.CodeApp = data.title;
+    this.AppCode.UserEmail = data.userEmail;
+    this.AppCode.UserName = data.userEmail;
+    this.AppCode.CodeKit = this.objCard[0].fields.productoRelacionado.fields.tituloInterno;
+
+    //Crea en el servicio y guarda en base de datos
+    this.restProvider.saveTokenAcces(this.AppCode).then((result: any) => {
+      switch (JSON.parse(result._body).Error) {
+        //Respuesta del servicio OK
+        case '0': {
+          this.ContenidoTarjeta = 'contenido';
+          //Marcar como cargado el curso
+          this.cardValidate.name = this.AppCode.CodeKit;
+          this.cardValidate.valueParam = '1';
+          this.tasksService.insertParamsOpenValue(this.cardValidate.name, this.cardValidate.valueParam);
+          break;
+        }
+        //Codigo no valido
+        case '1': {
+          this.ContenidoTarjeta = 'resumen';
+          let alert = this.alertCtrl.create({
+            title: valueTranslate.notValid,
+            subTitle: valueTranslate.codeVerify,
+            buttons: [valueTranslate.acceptButton]
+          });
+          alert.present();
+          break;
+        }
+        //Codigo ya utilizado
+        case '2': {
+          this.ContenidoTarjeta = 'resumen';
+          let alert = this.alertCtrl.create({
+            title: valueTranslate.codeUseTittle,
+            subTitle: valueTranslate.codeUseDescription,
+            buttons: [valueTranslate.acceptButton]
+          });
+          alert.present();
+          break;
+        }
+      }
+
+    }, (err) => {
+      console.log(err);
+    });
+
+  }
+
 }

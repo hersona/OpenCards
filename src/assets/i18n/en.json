@@ -32,6 +32,7 @@
   "CONTENCARDMESSAGEVALIDATE": {
     "message": "Enter the code that is inside the box",
     "tittle": "Download code",
+    "userEmail": "Email",
     "download": "Download",
     "cancel": "Cancel",
     "buy": "Buy",

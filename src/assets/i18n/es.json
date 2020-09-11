@@ -32,6 +32,7 @@
   "CONTENCARDMESSAGEVALIDATE": {
     "message": "Digita el código que se encuentra en el interior de la caja",
     "tittle": "Código de descarga",
+    "userEmail": "Correo electrónico",
     "download": "Descargar",
     "cancel": "Cancelar",
     "buy": "Comprar",

@@ -32,6 +32,7 @@
 	"CONTENCARDMESSAGEVALIDATE": {
 		"message": "Den Code aus der mit dem Set mitgelieferten Brochüre eingeben ",
 		"tittle": "Code herunterladen",
+		"userEmail": "Email",
 		"download": "Herunterladen",
 		"cancel": "Abbrechen",
 		"buy": "Kaufen",

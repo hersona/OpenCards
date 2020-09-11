@@ -32,6 +32,7 @@
 	"CONTENCARDMESSAGEVALIDATE": {
 		"message": ", Digite o código que está folheto dentro do kit",
 		"tittle": "Código de download",
+		"userEmail": "Correio eletrônico",
 		"download": "Baixar",
 		"cancel": "Cancelar",
 		"buy": "Comprar",

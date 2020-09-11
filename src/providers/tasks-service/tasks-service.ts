@@ -51,6 +51,7 @@ export class TasksServiceProvider {
 
   getParam(data: string){
     let sql = 'SELECT * FROM ParamsOpen where name = ?';
+    console.log(data);
     return this.db.executeSql(sql, [data])
     .then(response => {
       let tasks = [];

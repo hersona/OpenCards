@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { SliderPage } from '../pages/slider/slider';
 import { SettingopenPage } from '../pages/settingopen/settingopen';
 import { ContentProvider } from '../providers/ContentProvider';
 import { OneSignal } from '@ionic-native/onesignal';
@@ -42,6 +43,7 @@ export class MyApp {
     fullscreen: 'yes',//Windows only
   };
   languagueParam: any = {};
+  sliderValidate: any = {};
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private oneSignal: OneSignal,
@@ -88,20 +90,24 @@ export class MyApp {
     })
       .then((db) => {
         this.tasksService.setDatabase(db);
-        //this.tasksService.truncate();
+        this.tasksService.truncate();
         this.tasksService.createTable();
 
-        //Revisar si ya esta creado previamente lo debe enviar al home
-        this.tasksService.getUser()
-          .then(data => {
-            if (data.length > 0) {
-              this.rootPage = HomePage;
-            }
-          })
-          .catch(error => {
-            console.error(error);
-          });
-
+        //Revisar si ya cargo el slide previo o no
+        this.tasksService.getParam('viewSlider')
+        .then(data => {
+          if (data.length > 0) {
+            this.nav.push(HomePage);
+          }
+          else
+          {
+            this.tasksService.insertParamsOpenValue('viewSlider', 'true');
+            this.nav.push(SliderPage);
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
 
         //Asignar lenguaje
         let browserLang = this.translate.getBrowserLang();

@@ -4,6 +4,7 @@ import { HomePage } from '../../pages/home/home';
 import { Observable } from "rxjs";
 import { LogicProvider } from '../../providers/logic/logic';
 import { TranslateService } from '@ngx-translate/core';
+import { TasksServiceProvider } from '../../providers/tasks-service/tasks-service';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,7 @@ export class SliderPage {
   constructor(public navCtrl: NavController, public navParams: NavParams
     , private viewCtrl: ViewController,
     translate: TranslateService,
-    public _logic: LogicProvider) {
+    public _logic: LogicProvider,public tasksService: TasksServiceProvider) {
       this.TranslateLocal = translate;
   }
 
