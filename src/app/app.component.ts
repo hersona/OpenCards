@@ -142,9 +142,9 @@ export class MyApp {
                 this.pages = [
                   { title: value.BOOKSTORE, component: HomePage, typeComponent: 'PAGE' },
                   { title: value.LANGUAGE, component: SettingopenPage, typeComponent: 'PAGE' },
-                  { title: value.BUY, component: 'http://openmind-store.com/', typeComponent: 'URL' },
+                  { title: value.BUY, component: 'https://yellowthinker.co', typeComponent: 'URL' },
                   { title: value.ABOUTOPEN, component: 'https://www.openmind-global.com/nosotros', typeComponent: 'URL' },
-                  { title: value.ABOUTOPENCARDS, component: 'http://www.opencards.co/', typeComponent: 'URL' },
+                  { title: value.ABOUTOPENCARDS, component: 'https://opencards.co',typeComponent: 'URL' },
                   { title: value.HELPOPEN, component: 'https://www.openmind-global.com/Contactenos', typeComponent: 'URL' },
                 ];
 
